@@ -16,6 +16,8 @@ let bottomMode = false; // 대시보드 모드에서만 맨 뒤 고정
 let frontMode = false; // "앞으로 보기" 토글
 let quitting = false;
 let pendingLS = null; // 가져오기(복원) 시 주입할 localStorage
+let updater = null; // electron-updater 인스턴스
+let updateReadyVersion = null; // 다운로드 완료된 새 버전
 
 const dashPath = () => path.join(app.getPath('userData'), 'dashboard.html');
 const bakPath = () => path.join(app.getPath('userData'), 'dashboard.backup.html');
@@ -261,6 +263,32 @@ async function importBackup() {
   loadDashboard();
 }
 
+// ─────────────── 자동 업데이트 (GitHub Releases) ───────────────
+function initAutoUpdate() {
+  if (!app.isPackaged || TEST_MODE) return;
+  try {
+    updater = require('electron-updater').autoUpdater;
+  } catch (e) { return; }
+  updater.autoDownload = true;
+  updater.autoInstallOnAppQuit = true; // 앱 종료·재부팅 시 자동 적용
+  updater.on('update-downloaded', (info) => {
+    updateReadyVersion = info.version;
+    refreshTrayMenu();
+    if (tray) {
+      try {
+        tray.displayBalloon({
+          title: 'TeacherDesk 새 버전 준비 완료!',
+          content: 'v' + info.version + ' 업데이트가 다운로드됐어요.\n다음에 컴퓨터를 켜면 자동 적용되고, 트레이 메뉴에서 지금 바로 설치할 수도 있어요.'
+        });
+      } catch (e) { /* ignore */ }
+    }
+  });
+  updater.on('error', () => { /* 오프라인 등 - 조용히 무시 */ });
+  const check = () => { try { updater.checkForUpdates().catch(() => {}); } catch (e) { /* ignore */ } };
+  setTimeout(check, 15000); // 시작 15초 후 첫 확인
+  setInterval(check, 6 * 60 * 60 * 1000); // 이후 6시간마다
+}
+
 // ─────────────── 트레이 ───────────────
 function refreshTrayMenu() {
   if (!tray) return;
@@ -276,7 +304,12 @@ function refreshTrayMenu() {
     click: () => { saveConfig({ displayId: d.id }); fitToScreen(); }
   }));
   const menu = Menu.buildFromTemplate([
-    { label: 'TeacherDesk 선생님 바탕화면', enabled: false },
+    { label: 'TeacherDesk 선생님 바탕화면 v' + app.getVersion(), enabled: false },
+    {
+      label: '🆕 새 버전 v' + updateReadyVersion + ' 설치하고 재시작',
+      visible: !!updateReadyVersion,
+      click: () => { quitting = true; try { updater.quitAndInstall(); } catch (e) { app.quit(); } }
+    },
     { type: 'separator' },
     { label: '🔄 대시보드 새로고침', click: () => { if (win) win.reload(); } },
     {
@@ -331,6 +364,7 @@ app.whenReady().then(() => {
   startPsHelper();
   createWindow();
   createTray();
+  initAutoUpdate();
   globalShortcut.register('CommandOrControl+Alt+D', () => toggleFront());
 
   // 첫 실행 시 자동 시작 기본 켜기 (한 번만)
