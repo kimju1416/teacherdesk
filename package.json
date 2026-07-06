@@ -1,0 +1,50 @@
+{
+  "name": "teacherdesk",
+  "productName": "TeacherDesk",
+  "version": "1.1.0",
+  "description": "선생님 바탕화면 대시보드 - TeacherDesk Pro",
+  "main": "main.js",
+  "author": "kimju.zip",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win"
+  },
+  "devDependencies": {
+    "electron": "^35.0.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "zip.kimju.teacherdesk",
+    "productName": "TeacherDesk",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "setup.html",
+      "assets/**"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "runAfterFinish": true,
+      "deleteAppDataOnUninstall": false,
+      "shortcutName": "TeacherDesk 선생님 바탕화면"
+    }
+  },
+  "allowScripts": {
+    "electron@35.7.5": true
+  }
+}
