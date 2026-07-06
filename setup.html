@@ -488,6 +488,37 @@ body{margin:0;padding:0;overflow:hidden;width:100vw;height:100vh;background:var(
 .todo-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;margin-right:6px;white-space:nowrap;flex-shrink:0;line-height:1.4;} .todo-badge.fire{background:rgba(239,68,68,0.2);color:#ef4444;border:1px solid rgba(239,68,68,0.35);} .todo-badge.tomorrow{background:rgba(251,191,36,0.2);color:#f59e0b;border:1px solid rgba(251,191,36,0.35);} .todo-badge.dday{background:rgba(56,189,248,0.2);color:#38bdf8;border:1px solid rgba(56,189,248,0.35);} .todo-badge.overdue{background:rgba(239,68,68,0.25);color:#ff4444;border:1px solid rgba(239,68,68,0.5);animation:pulse-overdue 2s ease-in-out infinite;} @keyframes pulse-overdue{0%,100%{opacity:1;}50%{opacity:0.6;}}
 /* 📅 미니 달력 확장 */
 .cal-popup{width:320px!important;} .cal-day{position:relative;} .cal-dots{position:absolute;bottom:2px;left:50%;transform:translateX(-50%);display:flex;gap:2px;} .cal-dot{width:4px;height:4px;border-radius:50%;} .cal-dot.ev-dot{background:#38bdf8;} .cal-dot.todo-dot{background:#ef4444;} .cal-tooltip{display:none;position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:var(--card);border:1px solid var(--cb);border-radius:8px;padding:8px 14px;font-size:11px;color:var(--tx);white-space:nowrap;z-index:100001;box-shadow:0 6px 20px rgba(0,0,0,0.5);pointer-events:none;line-height:1.8;} .cal-day:hover .cal-tooltip{display:block;}
+/* 📅 달력 카드 */
+.dashboard .cal-card{position:absolute;left:700px;top:250px;width:420px;height:460px;z-index:5}
+.cal-card-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-shrink:0}
+.calc-nav{display:flex;align-items:center;gap:8px}
+.calc-btn{width:26px;height:26px;border-radius:50%;border:1px solid var(--cb);background:transparent;color:var(--tx3);cursor:pointer;font-size:12px;outline:none;transition:var(--tr);display:flex;align-items:center;justify-content:center}
+.calc-btn:hover{background:var(--ac);color:#fff;border-color:var(--ac)}
+.calc-my{font-size:14px;font-weight:700;color:var(--tx);font-family:var(--fb),sans-serif;min-width:86px;text-align:center}
+.calc-grid{flex:1;min-height:0;display:grid;grid-template-columns:repeat(7,1fr);grid-template-rows:20px repeat(6,1fr);gap:3px}
+.calc-hd{font-size:11px;font-weight:700;color:var(--tx3);text-align:center;align-self:center}
+.calc-hd.sun{color:#ef4444}.calc-hd.sat{color:#3b82f6}
+.calc-day{position:relative;border-radius:8px;background:var(--bg2);border:1px solid transparent;padding:3px 5px;cursor:pointer;overflow:hidden;transition:var(--tr);min-height:0}
+.calc-day:hover{border-color:var(--ac)}
+.calc-day.other{opacity:.25;cursor:default;background:transparent}
+.calc-day.today{border:2px solid var(--ac);background:var(--card)}
+.calc-day.today .calc-num{color:var(--ac);font-weight:800}
+.calc-day.past{opacity:.45}
+.calc-num{font-size:11px;font-weight:700;color:var(--tx);line-height:1.3}
+.calc-day.sun .calc-num{color:#ef4444}.calc-day.sat .calc-num{color:#3b82f6}
+.calc-dots{display:flex;gap:2px;margin:1px 0}
+.calc-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.calc-lb{font-size:9px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--tx2)}
+.calc-lb.mine{font-weight:700}
+/* 🧩 바탕화면 직접 편집 모드 */
+.card-editing{outline:2px dashed var(--ac);outline-offset:-2px;user-select:none}
+.edit-ov{position:absolute;inset:0;z-index:60;cursor:move;background:transparent}
+.edit-grip{position:absolute;top:0;left:0;right:0;height:22px;z-index:61;cursor:move;background:var(--ac);opacity:.22;border-radius:var(--br) var(--br) 0 0}
+.rs-handle{position:absolute;right:0;bottom:0;width:26px;height:26px;z-index:62;cursor:nwse-resize;background:var(--ac);opacity:.9;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;border-radius:10px 0 0 0}
+.edit-toolbar{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:100001;display:flex;align-items:center;gap:12px;background:rgba(0,0,0,0.78);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.25);border-radius:100px;padding:10px 18px;color:#fff;font-size:13px;font-family:'Noto Sans KR',sans-serif;box-shadow:0 10px 30px rgba(0,0,0,0.4);white-space:nowrap}
+.edit-tb-btn{border:1px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.12);color:#fff;border-radius:100px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif;outline:none;transition:all .2s}
+.edit-tb-btn.save{background:#10b981;border-color:#10b981}
+.edit-tb-btn:hover{filter:brightness(1.15)}
 @keyframes ldDot{0%,80%,100%{opacity:.15}40%{opacity:1}}
 .ld-dots{display:inline-flex;gap:2px;margin-left:2px;vertical-align:middle}
 .ld-dots span{display:inline-block;width:4px;height:4px;border-radius:50%;background:currentColor;animation:ldDot 1.4s infinite both}
@@ -505,6 +536,7 @@ body{margin:0;padding:0;overflow:hidden;width:100vw;height:100vh;background:var(
   <div class="cal-wrap" id="roster-wrap" style="display:none;"><button class="cfg-btn" title="명렬표">👥</button><div class="popup-mega" id="roster-list"></div></div>
   <div class="cal-wrap" id="ext-wrap" style="display:none;"><button class="cfg-btn" title="내선번호">📞</button><div class="popup-mega" id="ext-list"></div></div>
   <button class="cfg-btn" id="ai-btn" title="🤖 AI 메신저 비서">🤖</button>
+  <button class="cfg-btn" id="edit-btn" title="🧩 바탕화면 직접 편집 (카드 이동·크기 조절)">🧩</button>
   <button class="cfg-btn" id="cfg-btn" title="대시보드 설정">⚙️</button>
 
 <!-- 🤖 AI 메신저 비서 팝업 -->
@@ -559,6 +591,10 @@ body{margin:0;padding:0;overflow:hidden;width:100vw;height:100vh;background:var(
       <div class="card" id="dday-card"><div class="clbl">⏳ D-Day</div><div class="dday-zone" id="dday-zone"></div></div>
       <div class="card" id="memo-card"><div class="clbl">📝 메모</div><div class="memo-text" id="memo-text"></div></div>
     </div>
+    <div class="card cal-card" id="cal-card">
+      <div class="cal-card-hdr"><div class="clbl" style="margin-bottom:0">📅 달력</div><div class="calc-nav"><button class="calc-btn" id="calc-prev">◀</button><div class="calc-my" id="calc-my"></div><button class="calc-btn" id="calc-next">▶</button></div></div>
+      <div class="calc-grid" id="calc-grid"></div>
+    </div>
   </div>
 </div>
 
@@ -568,7 +604,7 @@ body{margin:0;padding:0;overflow:hidden;width:100vw;height:100vh;background:var(
       <div><h2>⚙️ 대시보드 설정</h2><p>Lively Wallpaper의 '설정 -> 기타 -> 디스크 캐시'를 켜두시면 변경사항이 영구 유지됩니다.</p></div>
       <button class="cfg-close-btn" id="cfg-x-btn" title="닫기 (ESC)">✖</button>
     </div>
-    <div class="mtabs" id="mtabs"><button class="mtab on" data-tab="design">🎨 디자인</button><button class="mtab" data-tab="widgets">🧩 배치</button><button class="mtab" data-tab="signboard">📢 전광판</button><button class="mtab" data-tab="dock">🌟 즐겨찾기</button><button class="mtab" data-tab="todo">✅ 할 일</button><button class="mtab" data-tab="weather">🌤️ 날씨·급식</button><button class="mtab" data-tab="periods">⏰ 일과</button><button class="mtab" data-tab="colors">🎨 색상</button><button class="mtab" data-tab="events">📅 일정</button><button class="mtab" data-tab="folder">📁 폴더</button><button class="mtab" data-tab="memo">📝 메모</button><button class="mtab" data-tab="dday">⏳ 디데이</button><button class="mtab" data-tab="roster">👥 명렬</button><button class="mtab" data-tab="ext">📞 내선번호</button></div>
+    <div class="mtabs" id="mtabs"><button class="mtab on" data-tab="design">🎨 디자인</button><button class="mtab" data-tab="widgets">🧩 배치</button><button class="mtab" data-tab="cal">📅 달력</button><button class="mtab" data-tab="signboard">📢 전광판</button><button class="mtab" data-tab="dock">🌟 즐겨찾기</button><button class="mtab" data-tab="todo">✅ 할 일</button><button class="mtab" data-tab="weather">🌤️ 날씨·급식</button><button class="mtab" data-tab="periods">⏰ 일과</button><button class="mtab" data-tab="colors">🎨 색상</button><button class="mtab" data-tab="events">📅 일정</button><button class="mtab" data-tab="folder">📁 폴더</button><button class="mtab" data-tab="memo">📝 메모</button><button class="mtab" data-tab="dday">⏳ 디데이</button><button class="mtab" data-tab="roster">👥 명렬</button><button class="mtab" data-tab="ext">📞 내선번호</button></div>
     <div class="mbody">
       <div class="msec on" id="tab-design">
         <div class="mf"><label>테마 (12종)</label><div class="theme-picks" id="theme-picks"><button class="tp" data-theme="1"><div class="tp-sw" style="background:linear-gradient(135deg,#ffe8ed,#f9a8c9)">🌸</div><div class="tp-nm">체리블라썸</div></button><button class="tp" data-theme="2"><div class="tp-sw" style="background:linear-gradient(135deg,#0d0f18,#818cf8)">🌌</div><div class="tp-nm">미드나잇</div></button><button class="tp" data-theme="3"><div class="tp-sw" style="background:linear-gradient(135deg,#f0faf4,#34d399)">🌿</div><div class="tp-nm">민트모닝</div></button><button class="tp" data-theme="4"><div class="tp-sw" style="background:linear-gradient(135deg,#18060a,#fb923c)">🌅</div><div class="tp-nm">선셋</div></button><button class="tp" data-theme="5"><div class="tp-sw" style="background:linear-gradient(135deg,#f9fafb,#1e293b)">☁️</div><div class="tp-nm">클라우드</div></button><button class="tp" data-theme="6"><div class="tp-sw" style="background:linear-gradient(135deg,#fefce8,#fbbf24)">✨</div><div class="tp-nm">레트로</div></button><button class="tp" data-theme="7"><div class="tp-sw" style="background:linear-gradient(135deg,#0a0010,#ec4899)">💜</div><div class="tp-nm">사이버핑크</div></button><button class="tp" data-theme="8"><div class="tp-sw" style="background:linear-gradient(135deg,#000d00,#00ff46)">💻</div><div class="tp-nm">매트릭스</div></button><button class="tp" data-theme="9"><div class="tp-sw" style="background:linear-gradient(135deg,#faf6f0,#92400e)">📜</div><div class="tp-nm">크래프트</div></button><button class="tp" data-theme="10"><div class="tp-sw" style="background:linear-gradient(135deg,#071624,#22d3ee)">🌊</div><div class="tp-nm">오션딥</div></button><button class="tp" data-theme="11"><div class="tp-sw" style="background:linear-gradient(135deg,#f5f3ff,#7c3aed)">🪻</div><div class="tp-nm">라벤더밀크</div></button><button class="tp" data-theme="12"><div class="tp-sw" style="background:linear-gradient(135deg,#1a120b,#d4a373)">☕</div><div class="tp-nm">카페모카</div></button></div></div>
@@ -576,6 +612,11 @@ body{margin:0;padding:0;overflow:hidden;width:100vw;height:100vh;background:var(
         <div class="mf"><label>제목 글꼴</label><div class="font-grid" id="font-head-grid"></div></div><div class="mf"><label>본문 글꼴</label><div class="font-grid" id="font-body-grid"></div></div>
       </div>
       <div class="msec" id="tab-widgets">
+        <div class="mf" style="background:rgba(255,255,255,0.03);padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);margin-bottom:12px;">
+          <label style="color:var(--ac2);font-size:13px;margin-bottom:10px;">🧩 바탕화면 직접 편집</label>
+          <button class="btn-save" id="wg-free-edit-btn" style="width:100%;padding:12px;font-size:14px;">🧩 바탕화면에서 직접 편집하기</button>
+          <div style="font-size:11px;color:var(--tx3);margin-top:8px;line-height:1.6;">설정창이 닫히고 편집 모드가 켜집니다. 카드를 드래그해 자유롭게 옮기고 <b>우하단 모서리</b>를 끌어 크기를 조절한 뒤, 화면 상단의 [✅ 완료 저장]을 누르세요. [↺ 원래대로]를 누르면 격자 배치로 복귀합니다.</div>
+        </div>
         <div class="mf" style="background:rgba(255,255,255,0.03);padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);margin-bottom:12px;">
           <label style="color:var(--ac2);font-size:13px;margin-bottom:10px;">👁️ 위젯 표시 / 숨김</label>
           <div id="wg-vis-rows" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;"></div>
@@ -589,7 +630,34 @@ body{margin:0;padding:0;overflow:hidden;width:100vw;height:100vh;background:var(
             <button class="btn-cancel" id="wg-swap-btn" style="margin:0;padding:9px 18px;background:var(--ac);color:#fff;border:none;">↔ 바꾸기</button>
           </div>
           <div id="wg-swap-log" style="font-size:11px;color:var(--tx3);margin-top:10px;line-height:1.7;"></div>
-          <button class="btn-cancel" id="wg-reset-btn" style="margin-top:10px;font-size:12px;padding:8px 14px;">↺ 배치 초기화 (교환·숨김 모두 되돌리기)</button>
+          <button class="btn-cancel" id="wg-reset-btn" style="margin-top:10px;font-size:12px;padding:8px 14px;">↺ 배치 초기화 (교환·숨김·자유배치 모두 되돌리기)</button>
+        </div>
+      </div>
+      <div class="msec" id="tab-cal">
+        <div class="mf" style="background:rgba(255,255,255,0.03);padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);margin-bottom:12px;">
+          <label style="color:var(--ac2);font-size:13px;margin-bottom:10px;">📅 달력 카드 표시</label>
+          <div class="sz-toggle" style="width:fit-content;margin-bottom:14px;">
+            <button class="sz-btn" id="cal-show-on">켜기</button>
+            <button class="sz-btn on" id="cal-show-off">끄기</button>
+          </div>
+          <label style="color:var(--ac2);font-size:13px;margin-bottom:10px;">🗓️ 시작 요일</label>
+          <div class="sz-toggle" style="width:fit-content;margin-bottom:14px;">
+            <button class="sz-btn on" id="cal-ws-sun">일요일</button>
+            <button class="sz-btn" id="cal-ws-mon">월요일</button>
+          </div>
+          <label style="color:var(--ac2);font-size:13px;margin-bottom:10px;">🏫 학사일정 표시</label>
+          <div class="sz-toggle" style="width:fit-content;margin-bottom:14px;">
+            <button class="sz-btn on" id="cal-sch-on">켜기</button>
+            <button class="sz-btn" id="cal-sch-off">끄기</button>
+          </div>
+          <label style="color:var(--ac2);font-size:13px;margin-bottom:10px;">🎨 개인 일정 점 색상</label>
+          <div class="sc-palette" id="cal-color-row" style="margin-bottom:14px;"></div>
+          <label style="color:var(--ac2);font-size:13px;margin-bottom:10px;">🌫️ 지난 날짜 흐리게</label>
+          <div class="sz-toggle" style="width:fit-content;">
+            <button class="sz-btn on" id="cal-fade-on">켜기</button>
+            <button class="sz-btn" id="cal-fade-off">끄기</button>
+          </div>
+          <div style="font-size:11px;color:var(--tx3);margin-top:12px;line-height:1.7;">💡 달력 카드는 기본 숨김입니다. 표시를 켜면 화면 중앙에 나타나고, 🧩 편집 모드에서 원하는 위치·크기로 자유롭게 배치할 수 있어요.<br>💡 달력의 날짜를 클릭하면 그 날의 개인 일정을 추가·수정·삭제할 수 있습니다. (모든 변경은 즉시 저장됩니다)</div>
         </div>
       </div>
       <div class="msec" id="tab-signboard">
@@ -738,7 +806,7 @@ body{margin:0;padding:0;overflow:hidden;width:100vw;height:100vh;background:var(
   };
 })();
 var DID = "/*DASH_ID*/1"; function getDKey(k){return k+"_"+DID;}
-function lsGet(k){try{return localStorage.getItem(k);}catch(e){return null;}} function lsSet(k,v){try{localStorage.setItem(k,v);}catch(e){}} function lsGetJ(k,def){try{var v=localStorage.getItem(k);return v?JSON.parse(v):def;}catch(e){return def;}} function g(id){return document.getElementById(id);} function pad(n){return String(n).padStart(2,"0");} function tToM(t){if(!t)return 0;var p=t.split(":");return parseInt(p[0])*60+parseInt(p[1]);}
+function lsGet(k){try{return localStorage.getItem(k);}catch(e){return null;}} function lsSet(k,v){try{localStorage.setItem(k,v);}catch(e){}} function lsDel(k){try{localStorage.removeItem(k);}catch(e){}} function lsGetJ(k,def){try{var v=localStorage.getItem(k);return v?JSON.parse(v):def;}catch(e){return def;}} function g(id){return document.getElementById(id);} function pad(n){return String(n).padStart(2,"0");} function tToM(t){if(!t)return 0;var p=t.split(":");return parseInt(p[0])*60+parseInt(p[1]);}
 
 var curYear = new Date().getFullYear();
 var TIMETABLE = /*TT*/{"월":[null,"체육1",null,null,null,null,null],"화":[null,null,"체육현","체육현",null,null,null],"수":["체육현","체육현","체육1",null,null,null,null],"목":[null,null,null,null,null,null,null],"금":[null,null,"체육현","체육1","체육현",null,null,null]};
@@ -1250,23 +1318,30 @@ var CARD_DEFS=[
   {k:"meal",sel:".meal-card",nm:"🍱 급식"},
   {k:"todo",sel:".todo-card",nm:"✅ 할 일"},
   {k:"events",sel:".events-card",nm:"📅 학사일정"},
-  {k:"bottom",sel:".bottom-widgets",nm:"⏳ 하단 (D-Day·메모)"}
+  {k:"bottom",sel:".bottom-widgets",nm:"⏳ 하단 (D-Day·메모)"},
+  {k:"cal",sel:".cal-card",nm:"📅 달력"}
 ];
 function findCard(k){for(var i=0;i<CARD_DEFS.length;i++){if(CARD_DEFS[i].k===k)return CARD_DEFS[i];}return null;}
 function applyWidgetLayout(){
-  // 1) 인라인 스타일 초기화 (레이아웃 CSS의 원래 grid-area로 복귀)
-  CARD_DEFS.forEach(function(c){var el=document.querySelector(c.sel);if(el){el.style.gridArea="";el.style.display="";}});
-  // 2) 저장된 교환 이력을 순서대로 재적용 (현재 계산된 grid-area를 서로 맞바꿈)
-  var swaps=lsGetJ(getDKey("wg_swaps"),[]);
-  swaps.forEach(function(p){
-    var a=findCard(p[0]),b=findCard(p[1]); if(!a||!b)return;
-    var ea=document.querySelector(a.sel),eb=document.querySelector(b.sel); if(!ea||!eb)return;
-    var ga=getComputedStyle(ea).gridArea, gb=getComputedStyle(eb).gridArea;
-    ea.style.gridArea=gb; eb.style.gridArea=ga;
-  });
+  // 1) 인라인 스타일 초기화 (레이아웃 CSS의 원래 grid-area로 복귀 + 자유배치 흔적 제거)
+  CARD_DEFS.forEach(function(c){var el=document.querySelector(c.sel);if(el){el.style.gridArea="";el.style.display="";el.style.position="";el.style.left="";el.style.top="";el.style.width="";el.style.height="";el.style.margin="";el.style.zIndex="";}});
+  var free=lsGetJ(getDKey("free_layout"),null);
+  // 2) 자유배치(free_layout)가 없을 때만 교환 이력 재적용 (자유배치가 있으면 좌표가 우선)
+  if(!free){
+    var swaps=lsGetJ(getDKey("wg_swaps"),[]);
+    swaps.forEach(function(p){
+      if(p[0]==="cal"||p[1]==="cal")return; // 달력 카드는 절대배치라 교환 대상에서 제외
+      var a=findCard(p[0]),b=findCard(p[1]); if(!a||!b)return;
+      var ea=document.querySelector(a.sel),eb=document.querySelector(b.sel); if(!ea||!eb)return;
+      var ga=getComputedStyle(ea).gridArea, gb=getComputedStyle(eb).gridArea;
+      ea.style.gridArea=gb; eb.style.gridArea=ga;
+    });
+  }
   // 3) 숨김 처리 (자리는 비워둠)
   var hidden=lsGetJ(getDKey("wg_hidden"),[]);
   hidden.forEach(function(k){var c=findCard(k);if(!c)return;var el=document.querySelector(c.sel);if(el)el.style.display="none";});
+  // 4) 저장된 자유배치 좌표 적용
+  if(free)applyFreeLayout();
 }
 function renderSwapLog(){
   var log=g("wg-swap-log"); if(!log)return;
@@ -1285,17 +1360,234 @@ function renderWidgetTab(){
     cb.addEventListener("change",function(){
       var h=lsGetJ(getDKey("wg_hidden"),[]),idx=h.indexOf(c.k);
       if(cb.checked){if(idx>-1)h.splice(idx,1);}else{if(idx===-1)h.push(c.k);}
-      lsSet(getDKey("wg_hidden"),JSON.stringify(h)); applyWidgetLayout();
+      lsSet(getDKey("wg_hidden"),JSON.stringify(h)); applyWidgetLayout(); renderCalCfgTab(); renderCalCard();
     });
     lb.appendChild(cb); lb.appendChild(document.createTextNode(" "+c.nm));
     rows.appendChild(lb);
   });
   var sa=g("wg-swap-a"),sb=g("wg-swap-b");
   if(sa&&sb){
-    var opts=CARD_DEFS.map(function(c){return "<option value='"+c.k+"'>"+c.nm+"</option>";}).join("");
+    var opts=CARD_DEFS.filter(function(c){return c.k!=="cal";}).map(function(c){return "<option value='"+c.k+"'>"+c.nm+"</option>";}).join("");
     sa.innerHTML=opts; sb.innerHTML=opts; sb.selectedIndex=1;
   }
   renderSwapLog();
+}
+
+// 🧩 바탕화면 직접 편집 모드 (드래그 이동 + 크기 조절) ----------------------
+var editMode=false;
+function getZoom(){var z=parseFloat(g("app-container").style.zoom);return (z&&z>0)?z:1;}
+function snap10(v){return Math.round(v/10)*10;}
+function setCardBox(el,b){el.style.position="absolute";el.style.left=b.l+"px";el.style.top=b.t+"px";el.style.width=b.w+"px";el.style.height=b.h+"px";el.style.gridArea="auto";el.style.margin="0";el.style.zIndex="6";}
+function applyFreeLayout(){
+  var fl=lsGetJ(getDKey("free_layout"),null); if(!fl)return false;
+  var dash=document.querySelector(".dashboard"); if(dash)dash.style.position="relative";
+  CARD_DEFS.forEach(function(c){var b=fl[c.k];if(!b)return;var el=document.querySelector(c.sel);if(!el)return;setCardBox(el,b);});
+  return true;
+}
+function enterEditMode(){
+  if(editMode)return; editMode=true;
+  var dash=document.querySelector(".dashboard"), zoom=getZoom(), dr=dash.getBoundingClientRect();
+  // 1) 표시 중인 카드들의 현재 위치·크기를 zoom 환산(1920x1080 기준)으로 먼저 모두 캡처
+  var caps=[];
+  CARD_DEFS.forEach(function(c){
+    var el=document.querySelector(c.sel); if(!el)return;
+    if(getComputedStyle(el).display==="none")return;
+    var r=el.getBoundingClientRect();
+    caps.push({el:el,l:Math.round((r.left-dr.left)/zoom),t:Math.round((r.top-dr.top)/zoom),w:Math.round(r.width/zoom),h:Math.round(r.height/zoom)});
+  });
+  // 2) 캡처가 끝난 뒤 한꺼번에 절대배치로 전환 (중간 전환에 따른 레이아웃 밀림 방지)
+  dash.style.position="relative";
+  caps.forEach(function(cp){setCardBox(cp.el,cp);attachEditUI(cp.el);});
+  buildEditToolbar();
+}
+function attachEditUI(el){
+  el.classList.add("card-editing");
+  var ov=document.createElement("div"); ov.className="edit-ov"; el.appendChild(ov); // 카드 내부 버튼과의 이벤트 충돌 차단용 오버레이
+  var grip=document.createElement("div"); grip.className="edit-grip"; grip.title="드래그해서 이동"; el.appendChild(grip);
+  var hd=document.createElement("div"); hd.className="rs-handle"; hd.textContent="↘"; hd.title="드래그해서 크기 조절"; el.appendChild(hd);
+  ov.addEventListener("mousedown",function(e){startCardDrag(e,el,false);});
+  grip.addEventListener("mousedown",function(e){e.stopPropagation();startCardDrag(e,el,false);});
+  hd.addEventListener("mousedown",function(e){e.stopPropagation();startCardDrag(e,el,true);});
+}
+function startCardDrag(e,el,isResize){
+  e.preventDefault();
+  var zoom=getZoom(), sx=e.clientX, sy=e.clientY;
+  var sl=parseInt(el.style.left)||0, st=parseInt(el.style.top)||0, sw=parseInt(el.style.width)||160, sh=parseInt(el.style.height)||100;
+  function mv(ev){
+    var dx=(ev.clientX-sx)/zoom, dy=(ev.clientY-sy)/zoom; // ⚠️ zoom 배율 환산 필수
+    if(isResize){
+      var nw=snap10(Math.max(160,sw+dx)), nh=snap10(Math.max(100,sh+dy));
+      if(nw>1920)nw=1920; if(nh>1080)nh=1080;
+      el.style.width=nw+"px"; el.style.height=nh+"px";
+    }else{
+      var nl=snap10(sl+dx), nt=snap10(st+dy);
+      if(nl<0)nl=0; if(nt<0)nt=0;
+      if(nl>1920-100)nl=1920-100; if(nt>1080-80)nt=1080-80;
+      el.style.left=nl+"px"; el.style.top=nt+"px";
+    }
+  }
+  function up(){document.removeEventListener("mousemove",mv);document.removeEventListener("mouseup",up);}
+  document.addEventListener("mousemove",mv); document.addEventListener("mouseup",up);
+}
+function buildEditToolbar(){
+  if(g("edit-toolbar"))return;
+  var tb=document.createElement("div"); tb.id="edit-toolbar"; tb.className="edit-toolbar";
+  tb.innerHTML="<span>🧩 편집 모드 — 카드를 드래그해 옮기고 우하단 모서리로 크기 조절</span><button class='edit-tb-btn save' id='edit-save-btn'>✅ 완료 저장</button><button class='edit-tb-btn' id='edit-reset-btn'>↺ 원래대로</button>";
+  document.body.appendChild(tb);
+  g("edit-save-btn").addEventListener("click",saveFreeLayout);
+  g("edit-reset-btn").addEventListener("click",function(){
+    customConfirm("자유 배치를 삭제하고 원래 격자 배치로 되돌릴까요?",function(){lsDel(getDKey("free_layout"));location.reload();});
+  });
+}
+function removeEditUI(){
+  var tb=g("edit-toolbar"); if(tb&&tb.parentNode)tb.parentNode.removeChild(tb);
+  document.querySelectorAll(".card-editing").forEach(function(el){
+    el.classList.remove("card-editing");
+    ["edit-ov","edit-grip","rs-handle"].forEach(function(cls){var x=el.querySelector("."+cls);if(x&&x.parentNode)x.parentNode.removeChild(x);});
+  });
+  editMode=false;
+}
+function saveFreeLayout(){
+  var out={};
+  CARD_DEFS.forEach(function(c){
+    var el=document.querySelector(c.sel); if(!el||!el.classList.contains("card-editing"))return;
+    out[c.k]={l:parseInt(el.style.left)||0,t:parseInt(el.style.top)||0,w:parseInt(el.style.width)||160,h:parseInt(el.style.height)||100};
+  });
+  lsSet(getDKey("free_layout"),JSON.stringify(out));
+  removeEditUI(); // 편집 UI만 제거하고 절대배치는 그대로 유지
+}
+
+// 📅 달력 카드 (월간 달력 + 개인 일정) --------------------------------------
+var calCardD=new Date();
+var CAL_COLORS=["#f472b6","#38bdf8","#34d399","#fbbf24","#a78bfa"];
+function escH(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
+function calCfg(){var c=lsGetJ(getDKey("cal_cfg"),null)||{};return {weekStart:(c.weekStart===1?1:0),showSchool:c.showSchool!==false,dotColor:c.dotColor||CAL_COLORS[0],fadePast:c.fadePast!==false};}
+function saveCalCfg(patch){var c=calCfg();for(var k in patch){if(Object.prototype.hasOwnProperty.call(patch,k))c[k]=patch[k];}lsSet(getDKey("cal_cfg"),JSON.stringify(c));renderCalCard();}
+function getCalEvents(){var v=lsGetJ(getDKey("cal_events"),[]);return Object.prototype.toString.call(v)==="[object Array]"?v:[];}
+function setCalEvents(v){lsSet(getDKey("cal_events"),JSON.stringify(v));}
+function fmtYMD(y,m,d){return y+"-"+pad(m+1)+"-"+pad(d);}
+function renderCalCard(){
+  var grid=g("calc-grid"); if(!grid)return;
+  var cfg=calCfg(), y=calCardD.getFullYear(), m=calCardD.getMonth();
+  if(g("calc-my"))g("calc-my").textContent=y+"년 "+(m+1)+"월";
+  var ws=cfg.weekStart;
+  var names=ws===1?["월","화","수","목","금","토","일"]:["일","월","화","수","목","금","토"];
+  var lead=(new Date(y,m,1).getDay()-ws+7)%7, lastDate=new Date(y,m+1,0).getDate(), prevLast=new Date(y,m,0).getDate();
+  var evMap={}, myMap={};
+  if(cfg.showSchool){
+    lsGetJ(getDKey("events"),DEFAULT_EVENTS).forEach(function(e2){
+      if(!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(e2.date))return;
+      var p=e2.date.split("-"); if(parseInt(p[0])!==y||parseInt(p[1])-1!==m)return;
+      var d=parseInt(p[2]); (evMap[d]=evMap[d]||[]).push(e2.title);
+    });
+  }
+  getCalEvents().forEach(function(e2){
+    if(!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(e2.date))return;
+    var p=e2.date.split("-"); if(parseInt(p[0])!==y||parseInt(p[1])-1!==m)return;
+    var d=parseInt(p[2]); (myMap[d]=myMap[d]||[]).push(e2);
+  });
+  var today=new Date(); today.setHours(0,0,0,0);
+  var h="";
+  names.forEach(function(nm){h+="<div class='calc-hd"+(nm==="일"?" sun":nm==="토"?" sat":"")+"'>"+nm+"</div>";});
+  var cells=0;
+  for(var i=0;i<lead;i++){h+="<div class='calc-day other'><div class='calc-num'>"+(prevLast-lead+1+i)+"</div></div>";cells++;}
+  for(var d=1;d<=lastDate;d++){
+    var dt=new Date(y,m,d); dt.setHours(0,0,0,0);
+    var dw=dt.getDay(), isToday=dt.getTime()===today.getTime();
+    var cls="calc-day"+(dw===0?" sun":dw===6?" sat":"")+(isToday?" today":"")+((cfg.fadePast&&dt<today)?" past":"");
+    var evs=evMap[d]||[], mine=myMap[d]||[], dots="", lbs="";
+    if(evs.length||mine.length){
+      dots="<div class='calc-dots'>";
+      if(evs.length)dots+="<span class='calc-dot' style='background:var(--ac)'></span>";
+      mine.slice(0,3).forEach(function(me){dots+="<span class='calc-dot' style='background:"+(me.color||cfg.dotColor)+"'></span>";});
+      dots+="</div>";
+      if(evs.length)lbs+="<div class='calc-lb'>"+escH(evs[0])+"</div>";
+      if(mine.length)lbs+="<div class='calc-lb mine' style='color:"+(mine[0].color||cfg.dotColor)+"'>"+escH(mine[0].title)+"</div>";
+    }
+    h+="<div class='"+cls+"' data-d='"+fmtYMD(y,m,d)+"'><div class='calc-num'>"+d+"</div>"+dots+lbs+"</div>";
+    cells++;
+  }
+  for(var j=1;cells<42;j++,cells++){h+="<div class='calc-day other'><div class='calc-num'>"+j+"</div></div>";}
+  grid.innerHTML=h;
+}
+// 📅 날짜 클릭 → 개인 일정 추가/수정/삭제 팝업 (기존 커스텀 팝업 스타일)
+function openCalDayPopup(dateStr){
+  var ov=document.createElement("div");
+  ov.style.cssText="position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:999999;display:flex;align-items:center;justify-content:center;";
+  var box=document.createElement("div");
+  box.style.cssText="background:var(--card);color:var(--tx);border:1px solid var(--cb);border-radius:14px;padding:20px 22px;width:360px;max-width:92%;max-height:70vh;overflow-y:auto;font-family:var(--fb),sans-serif;box-shadow:0 20px 60px rgba(0,0,0,0.55);backdrop-filter:blur(20px);";
+  ov.appendChild(box); document.body.appendChild(ov);
+  function close(){if(ov.parentNode)ov.parentNode.removeChild(ov);}
+  ov.addEventListener("click",function(e){if(e.target===ov)close();});
+  var editIdx=-1;
+  function rebuild(){
+    var cfg=calCfg(), all=getCalEvents(), mine=[];
+    all.forEach(function(e2,i){if(e2.date===dateStr)mine.push({ev:e2,gi:i});});
+    var schools=[];
+    if(cfg.showSchool)lsGetJ(getDKey("events"),DEFAULT_EVENTS).forEach(function(e2){if(e2.date===dateStr)schools.push(e2.title);});
+    var p=dateStr.split("-");
+    var h="<div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;'><div style='font-size:15px;font-weight:800;'>📅 "+parseInt(p[1])+"월 "+parseInt(p[2])+"일 일정</div><button class='cdp-x' style='background:transparent;border:none;color:var(--tx3);font-size:16px;cursor:pointer;outline:none;'>✖</button></div>";
+    if(schools.length){
+      h+="<div style='font-size:11px;font-weight:700;color:var(--tx3);margin-bottom:4px;'>학사일정</div>";
+      schools.forEach(function(t){h+="<div style='display:flex;align-items:center;gap:8px;font-size:13px;padding:5px 0;border-bottom:1px solid var(--cb);'><span style='width:8px;height:8px;border-radius:50%;background:var(--ac);flex-shrink:0;'></span><span>"+escH(t)+"</span></div>";});
+      h+="<div style='height:10px'></div>";
+    }
+    h+="<div style='font-size:11px;font-weight:700;color:var(--tx3);margin-bottom:4px;'>개인 일정</div>";
+    if(!mine.length)h+="<div style='font-size:12px;color:var(--tx3);padding:6px 0;'>등록된 개인 일정이 없습니다.</div>";
+    mine.forEach(function(o,i){
+      if(i===editIdx){
+        h+="<div style='display:flex;gap:6px;align-items:center;padding:5px 0;'><input type='text' class='cdp-edit-inp' value='"+escH(o.ev.title)+"' style='flex:1;background:rgba(255,255,255,0.07);border:1px solid var(--ac);border-radius:6px;padding:7px 10px;color:var(--tx);font-size:13px;outline:none;font-family:var(--fb),sans-serif;'><button class='cdp-edit-save' data-gi='"+o.gi+"' style='padding:7px 12px;background:var(--ac);border:none;border-radius:6px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;'>저장</button></div>";
+      }else{
+        h+="<div style='display:flex;align-items:center;gap:8px;font-size:13px;padding:5px 0;border-bottom:1px solid var(--cb);'><span style='width:8px;height:8px;border-radius:50%;background:"+(o.ev.color||cfg.dotColor)+";flex-shrink:0;'></span><span style='flex:1;word-break:break-all;'>"+escH(o.ev.title)+"</span><button class='cdp-edit' data-i='"+i+"' title='수정' style='background:transparent;border:none;cursor:pointer;font-size:13px;outline:none;'>✏️</button><button class='cdp-del' data-gi='"+o.gi+"' title='삭제' style='background:transparent;border:none;cursor:pointer;font-size:13px;outline:none;'>🗑</button></div>";
+      }
+    });
+    h+="<div style='display:flex;gap:6px;margin-top:12px;'><input type='text' class='cdp-add-inp' placeholder='새 일정 제목 입력' style='flex:1;background:rgba(255,255,255,0.07);border:1px solid var(--cb);border-radius:6px;padding:8px 10px;color:var(--tx);font-size:13px;outline:none;font-family:var(--fb),sans-serif;'><button class='cdp-add' style='padding:8px 14px;background:var(--ac);border:none;border-radius:6px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;'>＋ 일정 추가</button></div>";
+    box.innerHTML=h;
+    box.querySelector(".cdp-x").addEventListener("click",close);
+    var addBtn=box.querySelector(".cdp-add"), addInp=box.querySelector(".cdp-add-inp");
+    function doAdd(){var v=addInp.value.trim();if(!v)return;var arr=getCalEvents();arr.push({date:dateStr,title:v,color:calCfg().dotColor});setCalEvents(arr);editIdx=-1;rebuild();renderCalCard();}
+    addBtn.addEventListener("click",doAdd);
+    addInp.addEventListener("keydown",function(e){if(e.key==="Enter")doAdd();});
+    box.querySelectorAll(".cdp-edit").forEach(function(b){b.addEventListener("click",function(){editIdx=parseInt(b.getAttribute("data-i"));rebuild();});});
+    box.querySelectorAll(".cdp-del").forEach(function(b){b.addEventListener("click",function(){var gi=parseInt(b.getAttribute("data-gi"));var arr=getCalEvents();arr.splice(gi,1);setCalEvents(arr);editIdx=-1;rebuild();renderCalCard();});});
+    var esBtn=box.querySelector(".cdp-edit-save");
+    if(esBtn){
+      var esInp=box.querySelector(".cdp-edit-inp");
+      var doSaveEdit=function(){var gi=parseInt(esBtn.getAttribute("data-gi"));var v=esInp.value.trim();var arr=getCalEvents();if(arr[gi]&&v){arr[gi].title=v;setCalEvents(arr);}editIdx=-1;rebuild();renderCalCard();};
+      esBtn.addEventListener("click",doSaveEdit);
+      esInp.addEventListener("keydown",function(e){if(e.key==="Enter")doSaveEdit();});
+      setTimeout(function(){esInp.focus();},30);
+    }
+  }
+  rebuild();
+}
+// 📅 달력 설정 탭 (표시 여부는 배치 탭 wg_hidden과 연동)
+function setCalShown(show){
+  var h=lsGetJ(getDKey("wg_hidden"),[]), i=h.indexOf("cal");
+  if(show&&i>-1)h.splice(i,1);
+  if(!show&&i===-1)h.push("cal");
+  lsSet(getDKey("wg_hidden"),JSON.stringify(h));
+  applyWidgetLayout(); renderWidgetTab(); renderCalCfgTab(); renderCalCard();
+}
+function renderCalCfgTab(){
+  if(!g("cal-show-on"))return;
+  var cfg=calCfg(), hidden=lsGetJ(getDKey("wg_hidden"),[]), shown=hidden.indexOf("cal")===-1;
+  function onoff(a,b,cond){var ea=g(a),eb=g(b);if(ea)ea.classList.toggle("on",!!cond);if(eb)eb.classList.toggle("on",!cond);}
+  onoff("cal-show-on","cal-show-off",shown);
+  onoff("cal-ws-mon","cal-ws-sun",cfg.weekStart===1);
+  onoff("cal-sch-on","cal-sch-off",cfg.showSchool);
+  onoff("cal-fade-on","cal-fade-off",cfg.fadePast);
+  var row=g("cal-color-row");
+  if(row){
+    row.innerHTML="";
+    CAL_COLORS.forEach(function(c){
+      var b=document.createElement("div");
+      b.className="sc-color-btn"+(c.toLowerCase()===cfg.dotColor.toLowerCase()?" on":"");
+      b.style.backgroundColor=c;
+      b.addEventListener("click",function(){saveCalCfg({dotColor:c});renderCalCfgTab();});
+      row.appendChild(b);
+    });
+  }
 }
 // --------------------------------------------------------------------------
 
@@ -1323,7 +1615,7 @@ function openCfg(){
   cfgEvts=lsGetJ(getDKey("events"),DEFAULT_EVENTS);evPage=1;cfgDdays=lsGetJ(getDKey("ddays"),[]);ddPage=1;
   var w=lsGetJ("weatherLoc",null);
   if(w&&w.lat){tempWLoc=w;g("w-loc-q").value=w.name;g("w-loc-sel").textContent="현재 고정된 위치: "+w.name;}else{tempWLoc=null;g("w-loc-q").value="";g("w-loc-sel").textContent="현재 고정된 위치: 없음 (자동 모드)";}g("w-loc-res").innerHTML=""; 
-  renderPeriodRows();renderScGrid();renderDdayRowsPaging();renderFolderRows();renderEventRowsPaging();renderFontGrids();renderDockRows();renderWidgetTab();
+  renderPeriodRows();renderScGrid();renderDdayRowsPaging();renderFolderRows();renderEventRowsPaging();renderFontGrids();renderDockRows();renderWidgetTab();renderCalCfgTab();
   // 🍱 급식 끼니 체크박스 상태 로딩
   var mts=getMealTypes();
   ["1","2","3"].forEach(function(c){var el=g("meal-t-"+c);if(el)el.checked=mts.indexOf(c)>-1;});
@@ -1543,8 +1835,32 @@ function bindEvents(){
   });
   if(g("wg-reset-btn"))g("wg-reset-btn").addEventListener("click",function(){
     lsSet(getDKey("wg_swaps"),"[]"); lsSet(getDKey("wg_hidden"),"[]");
-    applyWidgetLayout(); renderWidgetTab();
+    lsDel(getDKey("free_layout")); // 🧩 자유배치도 함께 초기화
+    applyWidgetLayout(); renderWidgetTab(); renderCalCfgTab(); renderCalCard();
   });
+
+  // 🧩 바탕화면 직접 편집 모드 진입 버튼
+  if(g("edit-btn"))g("edit-btn").addEventListener("click",function(){if(!editMode)enterEditMode();});
+  if(g("wg-free-edit-btn"))g("wg-free-edit-btn").addEventListener("click",function(){closeCfg();if(!editMode)enterEditMode();});
+
+  // 📅 달력 카드 내비게이션 + 날짜 클릭(위임)
+  if(g("calc-prev"))g("calc-prev").addEventListener("click",function(){calCardD.setMonth(calCardD.getMonth()-1);renderCalCard();});
+  if(g("calc-next"))g("calc-next").addEventListener("click",function(){calCardD.setMonth(calCardD.getMonth()+1);renderCalCard();});
+  if(g("calc-grid"))g("calc-grid").addEventListener("click",function(e){
+    var el=e.target, grid=this;
+    while(el&&el!==grid&&!(el.getAttribute&&el.getAttribute("data-d")))el=el.parentNode;
+    if(el&&el!==grid&&el.getAttribute&&el.getAttribute("data-d"))openCalDayPopup(el.getAttribute("data-d"));
+  });
+
+  // 📅 달력 설정 탭 — 변경 즉시 저장·리렌더
+  if(g("cal-show-on"))g("cal-show-on").addEventListener("click",function(){setCalShown(true);});
+  if(g("cal-show-off"))g("cal-show-off").addEventListener("click",function(){setCalShown(false);});
+  if(g("cal-ws-sun"))g("cal-ws-sun").addEventListener("click",function(){saveCalCfg({weekStart:0});renderCalCfgTab();});
+  if(g("cal-ws-mon"))g("cal-ws-mon").addEventListener("click",function(){saveCalCfg({weekStart:1});renderCalCfgTab();});
+  if(g("cal-sch-on"))g("cal-sch-on").addEventListener("click",function(){saveCalCfg({showSchool:true});renderCalCfgTab();});
+  if(g("cal-sch-off"))g("cal-sch-off").addEventListener("click",function(){saveCalCfg({showSchool:false});renderCalCfgTab();});
+  if(g("cal-fade-on"))g("cal-fade-on").addEventListener("click",function(){saveCalCfg({fadePast:true});renderCalCfgTab();});
+  if(g("cal-fade-off"))g("cal-fade-off").addEventListener("click",function(){saveCalCfg({fadePast:false});renderCalCfgTab();});
 
   g("btn-auto-period").addEventListener("click",function(){
      var sS=g("auto-p-start").value.trim()||"08:50",dur=parseInt(g("auto-p-dur").value)||45,brk=parseInt(g("auto-p-break").value)||10,lun=parseInt(g("auto-p-lunch").value)||60;
@@ -1676,8 +1992,14 @@ function bindEvents(){
   });
 }
 
-function renderAll(){renderTT();renderEvents();renderDday();renderMemo();renderFolders();renderTodos();renderPopups();renderDock();renderCal();}
+function renderAll(){renderTT();renderEvents();renderDday();renderMemo();renderFolders();renderTodos();renderPopups();renderDock();renderCal();renderCalCard();}
 function init(){
+  // 📅 달력 카드는 최초 1회 기본 숨김으로 시드 (기존 사용자 wg_hidden에도 안전하게 추가)
+  if(!lsGet(getDKey("cal_seeded"))){
+    var _h=lsGetJ(getDKey("wg_hidden"),[]);
+    if(_h.indexOf("cal")===-1){_h.push("cal");lsSet(getDKey("wg_hidden"),JSON.stringify(_h));}
+    lsSet(getDKey("cal_seeded"),"1");
+  }
   applyTheme(theme);applyLayout(layout);applyFonts(theme);
   bindEvents();
   tick();renderAll();
