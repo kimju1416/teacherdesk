@@ -270,7 +270,7 @@ body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellips
 
 <script>
 var GEMINI_MODEL = "gemini-2.5-flash";
-var TEMPLATE_VERSION = "1.5.0"; // 🔁 dash-data 임베드·템플릿 버전 (템플릿 내부 TEMPLATE_VERSION과 doGen에서 자동 동기화)
+var TEMPLATE_VERSION = "1.6.0"; // 🔁 dash-data 임베드·템플릿 버전 (템플릿 내부 TEMPLATE_VERSION과 doGen에서 자동 동기화)
 var S = { off:"",sch:"",neis:"",gem:"", ttB64:null,ttMime:"",ttData:null, evB64:null,evMime:"",evData:null, rosterB64:null,rosterMime:"",rosterData:null, extB64:null,extMime:"",extData:null, theme:1,layout:1,skin:"classic",html:"", schoolLat:null,schoolLon:null,schoolName:"" };
 function g(id){return document.getElementById(id);}
 function toggleGuide(t){var b=t.nextElementSibling,a=t.querySelector(".guide-arrow"),o=b.classList.contains("open");b.classList.toggle("open",!o);a.style.transform=o?"":"rotate(180deg)";}
@@ -367,7 +367,7 @@ var DASH_TEMPLATE = `<!DOCTYPE html>
 [data-theme="10"]{--bg:#071624;--bg2:#0b2233;--bg3:#0f2e42;--card:rgba(10,30,45,0.9);--cb:rgba(34,211,238,0.2);--ac:#22d3ee;--ac2:#67e8f9;--tx:#e0f2fe;--tx2:#7dd3fc;--tx3:#38678a;--sh:0 8px 32px rgba(34,211,238,0.15);--br:20px;}
 [data-theme="11"]{--bg:#f5f3ff;--bg2:#ede9fe;--bg3:#ddd6fe;--card:rgba(255,255,255,0.9);--cb:rgba(124,58,237,0.16);--ac:#7c3aed;--ac2:#a78bfa;--tx:#2e1065;--tx2:#6d28d9;--tx3:#a78bfa;--sh:0 8px 28px rgba(124,58,237,0.1);--br:22px;}
 [data-theme="12"]{--bg:#1a120b;--bg2:#26190f;--bg3:#332114;--card:rgba(36,24,14,0.9);--cb:rgba(212,163,115,0.22);--ac:#d4a373;--ac2:#e6ccb2;--tx:#fdf6ec;--tx2:#d4a373;--tx3:#8a6d52;--sh:0 8px 32px rgba(212,163,115,0.15);--br:18px;}
-body{margin:0;padding:0;overflow:hidden;width:100vw;height:100vh;background:var(--bg);color:var(--tx);transition:background .4s,color .4s;font-family:var(--fb),sans-serif;display:flex;align-items:center;justify-content:center}
+body{margin:0;padding:0;overflow:hidden;width:100vw;height:100vh;background:var(--bg);color:var(--tx);transition:background .4s,color .4s;font-family:var(--fb),sans-serif;display:block} /* 🖥️ 좌상단 기준 배치 — zoom(가로 기준)+동적 height로 레터박스 제거 */
 .bg-deco{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}
 [data-theme="1"] .bg-deco::before{content:"";position:absolute;width:700px;height:700px;background:radial-gradient(circle,rgba(249,168,201,0.32),transparent 70%);top:-200px;right:100px;border-radius:50%}
 [data-theme="2"] .bg-deco::before{content:"";position:absolute;width:800px;height:800px;background:radial-gradient(circle,rgba(79,70,229,0.07),transparent 70%);top:-300px;right:-100px;border-radius:50%}
@@ -677,6 +677,43 @@ body[data-skin="focus"] .dashboard .tt-period-lbl{font-size:11px}
 body[data-skin="focus"] .dashboard .tt-cell.today{color:#0d1f1b}
 body[data-skin="focus"] .dashboard .day-badge{color:#0d1f1b}
 body[data-skin="focus"] .dashboard .bottom-widgets .card{padding:16px 20px}
+
+/* ---------- ✨ 마이크로 애니메이션 (v1.6.0) — GPU 친화: transform/opacity만 사용, body.no-fx면 전부 꺼짐 ---------- */
+/* 1) 페이지 로드 시 카드 스태거 등장 (1회성, 0.5초 내 완료 — init에서 body.fx-in을 잠깐 붙였다 뗀다) */
+@keyframes cardIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+body.fx-in .dashboard>.card,body.fx-in .dashboard>.bottom-widgets{animation:cardIn .3s cubic-bezier(.22,1,.36,1) backwards}
+body.fx-in .dashboard>*:nth-child(2){animation-delay:.02s}
+body.fx-in .dashboard>*:nth-child(3){animation-delay:.04s}
+body.fx-in .dashboard>*:nth-child(4){animation-delay:.06s}
+body.fx-in .dashboard>*:nth-child(5){animation-delay:.08s}
+body.fx-in .dashboard>*:nth-child(6){animation-delay:.10s}
+body.fx-in .dashboard>*:nth-child(7){animation-delay:.12s}
+body.fx-in .dashboard>*:nth-child(8){animation-delay:.14s}
+body.fx-in .dashboard>*:nth-child(9){animation-delay:.16s}
+body.fx-in .dashboard>*:nth-child(10){animation-delay:.18s}
+/* 2) 카드 hover 미세 lift (편집모드 제외 — 드래그 좌표 캡처와 충돌 방지) */
+body:not(.no-fx):not(.editing) .dashboard .card{transition:var(--tr),transform .2s ease}
+body:not(.no-fx):not(.editing) .dashboard .card:hover{transform:translateY(-3px) scale(1.005)}
+/* 3) 현재 교시 진행바 shine (상시 애니메이션 허용 1/2) */
+body:not(.no-fx) .prog-fill{position:relative;overflow:hidden}
+body:not(.no-fx) .prog-fill::after{content:"";position:absolute;top:0;left:0;height:100%;width:45%;background:linear-gradient(105deg,transparent,rgba(255,255,255,.45),transparent);transform:translateX(-160%);animation:progShine 3.2s ease-in-out infinite}
+@keyframes progShine{0%{transform:translateX(-160%)}55%,100%{transform:translateX(340%)}}
+/* 4) aqua 스킨: 오로라 blob 2개가 아주 천천히 떠다님 (상시 애니메이션 허용 2/2 — transform만, blur는 정적) */
+@keyframes aqFloat1{from{transform:translate(0,0) scale(1)}to{transform:translate(3%,-2%) scale(1.06)}}
+@keyframes aqFloat2{from{transform:translate(0,0) scale(1.05)}to{transform:translate(-3%,3%) scale(1)}}
+body[data-skin="aqua"]:not(.no-fx) .bg-deco::before{animation:aqFloat1 72s ease-in-out infinite alternate}
+body[data-skin="aqua"]:not(.no-fx) .bg-deco::after{content:"";position:absolute;inset:-15%;filter:blur(70px);background:radial-gradient(480px 480px at 72% 72%,rgba(94,242,196,.28),transparent 65%),radial-gradient(420px 420px at 24% 42%,rgba(106,63,245,.22),transparent 65%);animation:aqFloat2 90s ease-in-out infinite alternate}
+/* 5) water 스킨: 인사 헤더 ☀️ 부드러운 흔들림 */
+@keyframes sunSway{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(8deg)}}
+body[data-skin="water"]:not(.no-fx) .greet-sun{display:inline-block;animation:sunSway 5s ease-in-out infinite;transform-origin:50% 60%}
+/* 6) OS '동작 줄이기' 존중 — 모든 장식 모션 비활성 */
+@media (prefers-reduced-motion:reduce){
+  body.fx-in .dashboard>.card,body.fx-in .dashboard>.bottom-widgets{animation:none}
+  body:not(.no-fx) .prog-fill::after{animation:none;content:none}
+  body[data-skin="aqua"]:not(.no-fx) .bg-deco::before,body[data-skin="aqua"]:not(.no-fx) .bg-deco::after{animation:none}
+  body[data-skin="water"]:not(.no-fx) .greet-sun{animation:none}
+  body:not(.no-fx):not(.editing) .dashboard .card:hover{transform:none}
+}
 </style>
 </head>
 <body data-theme="/*TN*/1" data-layout="/*LN*/1" data-skin="/*SKN*/classic">
@@ -752,7 +789,7 @@ body[data-skin="focus"] .dashboard .bottom-widgets .card{padding:16px 20px}
       <div style="font-size:11px;color:#f59e0b;margin-top:4px;line-height:1.6;">⚠️ 학생 실명·연락처 등 개인정보는 넣지 마세요. 이름 대신 <b>'해당 학생'</b>으로 쓰세요.</div></div>
       <div class="mf" style="margin-bottom:12px;"><label>④ 서술 톤</label><div class="sz-toggle" style="width:fit-content;"><button class="sz-btn on" data-tone="구체적 서술형">구체적 서술형</button><button class="sz-btn" data-tone="간결형">간결형</button><button class="sz-btn" data-tone="성장 서사형">성장 서사형</button></div></div>
       <button class="btn-save" id="sgb-gen" style="width:100%;padding:12px;font-size:14px;">✨ AI 초안 3개 생성</button>
-      <div id="sgb-nokey" style="display:none;font-size:12px;color:#f59e0b;margin-top:8px;line-height:1.7;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:8px;padding:10px 12px;">🔑 Gemini API 키가 없어 AI 초안 생성은 사용할 수 없어요.<br>아래 <b>글자수 게이지 · ~함/~임 변환 · 금지어 검사 · 복사</b>는 그대로 사용할 수 있습니다.</div>
+      <div id="sgb-nokey" style="display:none;font-size:12px;color:#f59e0b;margin-top:8px;line-height:1.7;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:8px;padding:10px 12px;">🔑 Gemini API 키가 없어 AI 초안 생성은 사용할 수 없어요.<br><b>설정(⚙️) → 🔑 API 키</b>에서 키를 입력하면 바로 켜집니다. 아래 <b>글자수 게이지 · ~함/~임 변환 · 금지어 검사 · 복사</b>는 그대로 사용할 수 있습니다.<br><button id="sgb-goto-key" style="margin-top:8px;padding:7px 16px;font-size:12px;font-weight:700;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;">⚙️ API 키 입력하러 가기</button></div>
       <div class="pst" id="sgb-status" style="display:none;margin-top:12px;"><div class="spin"></div><span id="sgb-status-msg"></span></div>
       <div id="sgb-drafts" style="display:none;flex-direction:column;gap:10px;margin-top:14px;"></div>
       <div class="mf" style="margin-top:16px;margin-bottom:8px;"><label>✍️ 다듬기 편집칸</label><textarea id="sgb-editor" rows="7" placeholder="초안을 내려받거나 직접 작성해서 다듬으세요. (글자수·바이트·금지어가 실시간 검사됩니다)" style="line-height:1.8;font-size:13px;"></textarea>
@@ -777,7 +814,7 @@ body[data-skin="focus"] .dashboard .bottom-widgets .card{padding:16px 20px}
 
 <div id="app-container">
   <div id="signboard-wrap" class="signboard-wrap"><div id="signboard-text" class="signboard-inner"></div></div>
-  <div class="skin-greet" id="skin-greet"><span id="skin-greet-date"></span><b>좋은 하루 되세요, 선생님 ☀️</b></div>
+  <div class="skin-greet" id="skin-greet"><span id="skin-greet-date"></span><b>좋은 하루 되세요, 선생님 <span class="greet-sun">☀️</span></b></div>
   <div class="dashboard">
     <div class="card folder-card" id="folder-card"><div class="clbl">📁 바탕화면 빠른 폴더</div><div class="folder-zone" id="folder-zone"></div></div>
     <div class="card clock-card"><div class="clock-card-inner"><div><div class="clbl">현재 시각</div><div class="ctime" id="clock">--:--</div><div class="cdate" id="cdate"></div></div><div class="timer-box"><div class="timer-disp" id="timer-disp">00:00</div><div class="timer-ctrls"><button class="timer-btn" id="timer-add-5">+5분</button><button class="timer-btn" id="timer-reset">↻</button><button class="timer-btn" id="timer-toggle" style="width:30px;padding:4px 0;">▶</button></div></div></div></div>
@@ -804,13 +841,29 @@ body[data-skin="focus"] .dashboard .bottom-widgets .card{padding:16px 20px}
       <div><h2>⚙️ 대시보드 설정</h2><p>Lively Wallpaper의 '설정 -> 기타 -> 디스크 캐시'를 켜두시면 변경사항이 영구 유지됩니다.</p></div>
       <button class="cfg-close-btn" id="cfg-x-btn" title="닫기 (ESC)">✖</button>
     </div>
-    <div class="mtabs" id="mtabs"><button class="mtab on" data-tab="design">🎨 디자인</button><button class="mtab" data-tab="widgets">🧩 배치</button><button class="mtab" data-tab="cal">📅 달력</button><button class="mtab" data-tab="signboard">📢 전광판</button><button class="mtab" data-tab="dock">🌟 즐겨찾기</button><button class="mtab" data-tab="todo">✅ 할 일</button><button class="mtab" data-tab="weather">🌤️ 날씨·급식</button><button class="mtab" data-tab="periods">⏰ 일과</button><button class="mtab" data-tab="colors">🎨 색상</button><button class="mtab" data-tab="events">📅 일정</button><button class="mtab" data-tab="folder">📁 폴더</button><button class="mtab" data-tab="memo">📝 메모</button><button class="mtab" data-tab="dday">⏳ 디데이</button><button class="mtab" data-tab="roster">👥 명렬</button><button class="mtab" data-tab="ext">📞 내선번호</button></div>
+    <div class="mtabs" id="mtabs"><button class="mtab on" data-tab="design">🎨 디자인</button><button class="mtab" data-tab="apikey">🔑 API 키</button><button class="mtab" data-tab="widgets">🧩 배치</button><button class="mtab" data-tab="cal">📅 달력</button><button class="mtab" data-tab="signboard">📢 전광판</button><button class="mtab" data-tab="dock">🌟 즐겨찾기</button><button class="mtab" data-tab="todo">✅ 할 일</button><button class="mtab" data-tab="weather">🌤️ 날씨·급식</button><button class="mtab" data-tab="periods">⏰ 일과</button><button class="mtab" data-tab="colors">🎨 색상</button><button class="mtab" data-tab="events">📅 일정</button><button class="mtab" data-tab="folder">📁 폴더</button><button class="mtab" data-tab="memo">📝 메모</button><button class="mtab" data-tab="dday">⏳ 디데이</button><button class="mtab" data-tab="roster">👥 명렬</button><button class="mtab" data-tab="ext">📞 내선번호</button></div>
     <div class="mbody">
       <div class="msec on" id="tab-design">
         <div class="mf"><label>디자인 스킨 (5종)</label><div class="theme-picks" id="skin-picks"><button class="tp sp" data-skin="classic"><div class="tp-sw" style="background:linear-gradient(135deg,#1a1d2a,#8b5cf6)">🎛️</div><div class="tp-nm">클래식</div></button><button class="tp sp" data-skin="bento"><div class="tp-sw" style="background:linear-gradient(135deg,#f1efe9,#ff6b35)">🍱</div><div class="tp-nm">벤토</div></button><button class="tp sp" data-skin="aqua"><div class="tp-sw" style="background:linear-gradient(135deg,#0a0d2e,#00c2ff)">🫧</div><div class="tp-nm">아쿠아</div></button><button class="tp sp" data-skin="water"><div class="tp-sw" style="background:linear-gradient(135deg,#fffdf9,#ffd9e2)">🎨</div><div class="tp-nm">수채</div></button><button class="tp sp" data-skin="focus"><div class="tp-sw" style="background:linear-gradient(135deg,#1b3a33,#ffb454)">🎯</div><div class="tp-nm">포커스</div></button></div><div style="font-size:11px;color:var(--tx3);margin-top:6px;line-height:1.6;">💡 아래 테마 12종 색상은 <b>클래식 스킨</b>에서 온전히 적용됩니다. 벤토·아쿠아·수채·포커스는 스킨 고유 색상이 우선돼요. (🎯 포커스는 자체 고정 배치를 써서 자유배치를 무시합니다)</div></div>
         <div class="mf"><label>테마 (12종)</label><div class="theme-picks" id="theme-picks"><button class="tp" data-theme="1"><div class="tp-sw" style="background:linear-gradient(135deg,#ffe8ed,#f9a8c9)">🌸</div><div class="tp-nm">체리블라썸</div></button><button class="tp" data-theme="2"><div class="tp-sw" style="background:linear-gradient(135deg,#0d0f18,#818cf8)">🌌</div><div class="tp-nm">미드나잇</div></button><button class="tp" data-theme="3"><div class="tp-sw" style="background:linear-gradient(135deg,#f0faf4,#34d399)">🌿</div><div class="tp-nm">민트모닝</div></button><button class="tp" data-theme="4"><div class="tp-sw" style="background:linear-gradient(135deg,#18060a,#fb923c)">🌅</div><div class="tp-nm">선셋</div></button><button class="tp" data-theme="5"><div class="tp-sw" style="background:linear-gradient(135deg,#f9fafb,#1e293b)">☁️</div><div class="tp-nm">클라우드</div></button><button class="tp" data-theme="6"><div class="tp-sw" style="background:linear-gradient(135deg,#fefce8,#fbbf24)">✨</div><div class="tp-nm">레트로</div></button><button class="tp" data-theme="7"><div class="tp-sw" style="background:linear-gradient(135deg,#0a0010,#ec4899)">💜</div><div class="tp-nm">사이버핑크</div></button><button class="tp" data-theme="8"><div class="tp-sw" style="background:linear-gradient(135deg,#000d00,#00ff46)">💻</div><div class="tp-nm">매트릭스</div></button><button class="tp" data-theme="9"><div class="tp-sw" style="background:linear-gradient(135deg,#faf6f0,#92400e)">📜</div><div class="tp-nm">크래프트</div></button><button class="tp" data-theme="10"><div class="tp-sw" style="background:linear-gradient(135deg,#071624,#22d3ee)">🌊</div><div class="tp-nm">오션딥</div></button><button class="tp" data-theme="11"><div class="tp-sw" style="background:linear-gradient(135deg,#f5f3ff,#7c3aed)">🪻</div><div class="tp-nm">라벤더밀크</div></button><button class="tp" data-theme="12"><div class="tp-sw" style="background:linear-gradient(135deg,#1a120b,#d4a373)">☕</div><div class="tp-nm">카페모카</div></button></div></div>
         <div class="mf"><label>화면 배치 (레이아웃)</label><div class="layout-picks" id="layout-picks-dash"><button class="lo on" data-layout="1"><div class="lo-prev"><div style="width:25%;background:rgba(129,140,248,.3);border-radius:4px"></div><div style="flex:1;display:flex;flex-direction:column;gap:4px"><div style="height:30%;background:rgba(255,255,255,.08);border-radius:4px"></div><div style="flex:1;background:rgba(255,255,255,.05);border-radius:4px"></div></div></div><div class="lo-nm">기본형</div></button><button class="lo" data-layout="2"><div class="lo-prev"><div style="flex:1;display:flex;flex-direction:column;gap:4px"><div style="height:30%;background:rgba(255,255,255,.08);border-radius:4px"></div><div style="flex:1;background:rgba(255,255,255,.05);border-radius:4px"></div></div><div style="width:25%;background:rgba(129,140,248,.3);border-radius:4px"></div></div><div class="lo-nm">와이드형</div></button><button class="lo" data-layout="3"><div class="lo-prev"><div style="width:25%;background:rgba(129,140,248,.3);border-radius:4px"></div><div style="flex:1;background:rgba(255,255,255,.08);border-radius:4px"></div><div style="width:25%;background:rgba(255,255,255,.05);border-radius:4px"></div></div><div class="lo-nm">콤팩트형</div></button><button class="lo" data-layout="4"><div class="lo-prev"><div style="width:55%;background:rgba(52,211,153,.35);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px">📅</div><div style="flex:1;display:flex;flex-direction:column;gap:4px"><div style="height:30%;background:rgba(255,255,255,.08);border-radius:4px"></div><div style="flex:1;background:rgba(255,255,255,.05);border-radius:4px"></div></div></div><div class="lo-nm">달력 중심형</div></button></div><div style="font-size:11px;color:var(--tx3);margin-top:6px;">💡 달력 중심형은 월간 달력이 화면 주인공이 됩니다. 달력이 숨김 상태면 자동으로 표시가 켜져요.</div></div>
+        <div class="mf"><label>✨ 애니메이션 효과</label><div class="sz-toggle" style="width:fit-content;"><button class="sz-btn on" id="fx-on">켜기</button><button class="sz-btn" id="fx-off">끄기</button></div><div style="font-size:11px;color:var(--tx3);margin-top:6px;line-height:1.6;">카드 등장·호버 등 은은한 모션 효과를 켜고 끕니다. 저사양 PC라면 끄기를 추천해요. (시스템의 '동작 줄이기' 설정도 자동 존중)</div></div>
         <div class="mf"><label>제목 글꼴</label><div class="font-grid" id="font-head-grid"></div></div><div class="mf"><label>본문 글꼴</label><div class="font-grid" id="font-body-grid"></div></div>
+      </div>
+      <div class="msec" id="tab-apikey">
+        <div class="mf" style="background:rgba(255,255,255,0.03);padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);margin-bottom:12px;">
+          <label style="color:var(--ac2);font-size:13px;margin-bottom:10px;">🤖 Gemini API 키 — AI 비서·생기부 도우미</label>
+          <input type="text" id="api-gem-inp" placeholder="AIza... 형식의 Gemini API 키" autocomplete="off" style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:8px;padding:10px 12px;color:var(--tx);font-size:13px;outline:none;font-family:'Space Mono',monospace;">
+          <div style="font-size:11px;color:var(--tx3);margin-top:8px;line-height:1.7;">발급: <a href="https://aistudio.google.com" target="_blank" style="color:var(--ac);font-weight:700;">aistudio.google.com</a> 접속 → 구글 로그인 → <b>[Get API key]</b> → 키 복사 (무료)</div>
+        </div>
+        <div class="mf" style="background:rgba(255,255,255,0.03);padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);margin-bottom:12px;">
+          <label style="color:var(--ac2);font-size:13px;margin-bottom:10px;">🍱 NEIS API 키 — 급식·학교 정보</label>
+          <input type="text" id="api-neis-inp" placeholder="NEIS 개방포털에서 발급받은 인증키" autocomplete="off" style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:8px;padding:10px 12px;color:var(--tx);font-size:13px;outline:none;font-family:'Space Mono',monospace;">
+          <div style="font-size:11px;color:var(--tx3);margin-top:8px;line-height:1.7;">발급: <a href="https://open.neis.go.kr" target="_blank" style="color:var(--ac);font-weight:700;">open.neis.go.kr</a> 접속 → 인증키 신청 → 이메일로 받은 키 입력 (무료)</div>
+        </div>
+        <button class="btn-save" id="api-save-btn" style="width:100%;padding:12px;font-size:14px;">💾 API 키 저장</button>
+        <div id="api-save-msg" style="font-size:12px;color:var(--green,#10b981);font-weight:700;margin-top:8px;min-height:18px;"></div>
+        <div style="font-size:11px;color:var(--tx3);margin-top:6px;line-height:1.7;">💡 여기에 저장한 키가 <b>가장 우선</b> 사용됩니다. (비워두면 대시보드 생성 시 입력했던 키를 사용) 키는 이 컴퓨터에만 저장돼요.</div>
       </div>
       <div class="msec" id="tab-widgets">
         <div class="mf" style="background:rgba(255,255,255,0.03);padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);margin-bottom:12px;">
@@ -1022,7 +1075,11 @@ var THEME_FONTS={1:{head:"Gmarket Sans",body:"Noto Sans KR"},2:{head:"Do Hyeon",
 var theme=parseInt(lsGet("theme")||"/*TN*/1"), layout=parseInt(lsGet("layout")||"/*LN*/1"), skin=lsGet(getDKey("skin"))||"/*SKN*/classic", evRange="week",evOff=0,ttEditDay="월",ttEditing={}, mealOff=0;
 var ROSTER_DATA = /*ROSTER*/null, EXT_DATA = /*EXT*/null, tTotal=0, tRun=false, tTarget=0, cfgEvts=[], evPage=1, evLimit=5, cfgDdays=[], ddPage=1, ddLimit=5, tempWLoc=null;
 
-function resizeScale(){var app=g('app-container'),scale=Math.min(window.innerWidth/1920,window.innerHeight/1080); app.style.zoom=scale; app.style.transform="none";} window.addEventListener('resize',resizeScale);
+// 🖥️ 화면 꽉 채움: zoom은 가로 기준(w/1920)으로 잡고, 세로는 zoom 환산 실제 높이를 동적 반영
+//    → 16:9가 아닌 화면에서도 상하 빈 띠(레터박스) 없이 카드 grid의 1fr 행이 남는 세로를 흡수한다.
+function resizeScale(){var app=g('app-container'),zoom=window.innerWidth/1920; app.style.zoom=zoom; app.style.transform="none"; app.style.height=Math.max(600,Math.round(window.innerHeight/zoom))+"px";} window.addEventListener('resize',resizeScale);
+// 편집모드·드래그 클램프용 현재 무대 높이(1920 기준 좌표계의 세로값)
+function getStageH(){var app=g('app-container'),h=parseInt(app.style.height);return (h&&h>0)?h:1080;}
 function applyFonts(themeN,fH,fB){var s=lsGetJ("customFonts",null),d=THEME_FONTS[themeN]||THEME_FONTS[1],h=fH||(s&&s.head)||d.head,b=fB||(s&&s.body)||d.body;document.documentElement.style.setProperty("--fh","'"+h+"'");document.documentElement.style.setProperty("--fb","'"+b+"'");document.body.style.fontFamily="'"+b+"',sans-serif";}
 
 // 📢 스마트 전광판 초고속 실시간 로직 (v9.4)
@@ -1120,7 +1177,9 @@ function fetchSignboard() {
 
 function tick(){
   var n=new Date(),h=pad(n.getHours()),m=pad(n.getMinutes()),ds=n.getFullYear()+"년 "+(n.getMonth()+1)+"월 "+n.getDate()+"일";
-  g("clock").textContent=h+":"+m; g("cdate").innerHTML=ds+'<span class="day-badge">'+DAYS[n.getDay()]+'요일</span>';
+  // ✨ 값이 바뀔 때만 DOM 갱신 — 초마다 같은 텍스트를 다시 써서 생기는 리페인트·깜빡임 제거
+  var ct=h+":"+m;
+  if(g("clock").textContent!==ct){g("clock").textContent=ct; g("cdate").innerHTML=ds+'<span class="day-badge">'+DAYS[n.getDay()]+'요일</span>';}
   // 🎨 수채 스킨 인사 헤더 날짜 갱신
   var gd=g("skin-greet-date");
   if(gd){var gs=(n.getMonth()+1)+"월 "+n.getDate()+"일 "+DAYS[n.getDay()]+"요일,";if(gd.textContent!==gs)gd.textContent=gs;}
@@ -1203,8 +1262,8 @@ function wCode(c){if(c===0)return{e:"☀️",d:"맑음"};if(c<=3)return{e:"⛅",
 function airGrade(v,t){var a=t==="pm10"?[30,80,150]:[15,35,75];if(v<=a[0])return{cls:"air-good",lbl:"좋음"};if(v<=a[1])return{cls:"air-normal",lbl:"보통"};if(v<=a[2])return{cls:"air-bad",lbl:"나쁨"};return{cls:"air-worse",lbl:"매우나쁨"};}
 
 function fetchMeal(){
-  var off=(typeof window!=='undefined'&&window.SCHOOL_CONFIG&&window.SCHOOL_CONFIG.off)?window.SCHOOL_CONFIG.off:lsGet("officeCode"), sch=(typeof window!=='undefined'&&window.SCHOOL_CONFIG&&window.SCHOOL_CONFIG.sch)?window.SCHOOL_CONFIG.sch:lsGet("schoolCode"), key=(typeof window!=='undefined'&&window.SCHOOL_CONFIG&&window.SCHOOL_CONFIG.neis)?window.SCHOOL_CONFIG.neis:lsGet("neisKey");
-  if(!key){g("meal-list").innerHTML="<li class='meal-item'><span class='meal-dot'></span>NEIS API 키를 설정해주세요.</li>";g("meal-kcal").textContent="";return;}
+  var off=(typeof window!=='undefined'&&window.SCHOOL_CONFIG&&window.SCHOOL_CONFIG.off)?window.SCHOOL_CONFIG.off:lsGet("officeCode"), sch=(typeof window!=='undefined'&&window.SCHOOL_CONFIG&&window.SCHOOL_CONFIG.sch)?window.SCHOOL_CONFIG.sch:lsGet("schoolCode"), key=getNeisKey(); // 🔑 API 키 헬퍼로 일원화
+  if(!key){g("meal-list").innerHTML="<li class='meal-item'><span class='meal-dot'></span>설정(⚙️) → 🔑 API 키 탭에서 NEIS 키를 입력하세요.</li>";g("meal-kcal").textContent="";return;}
   if(!off||!sch){g("meal-list").innerHTML="<li class='meal-item'><span class='meal-dot'></span>학교를 설정하세요.</li>";g("meal-kcal").textContent="";return;}
   var n=new Date();n.setDate(n.getDate()+mealOff); var ymd=n.getFullYear()+pad(n.getMonth()+1)+pad(n.getDate()),dow=n.getDay(),lbl="오늘";if(mealOff===1)lbl="내일";else if(mealOff===-1)lbl="어제";else if(mealOff!==0)lbl=(n.getMonth()+1)+"/"+n.getDate(); g("meal-date-lbl").textContent=lbl;
   if(dow===0||dow===6){g("meal-list").innerHTML="<li class='meal-item'><span class='meal-dot'></span>해당일은 주말입니다 🏠</li>";g("meal-kcal").textContent="";return;}
@@ -1292,14 +1351,16 @@ function addTodoCfg(){
 var aiResultData=[];
 function openAI(){g("ai-page").classList.add("open");g("ai-msg-inp").value="";g("ai-results").style.display="none";g("ai-doc-results").style.display="none";g("ai-status").style.display="none";aiResultData=[];setTimeout(function(){g("ai-msg-inp").focus();},100);}
 function closeAI(){g("ai-page").classList.remove("open");resizeScale();}
-function getGemKey(){return lsGet(getDKey("gem_key"))||((typeof window!=="undefined"&&window.SCHOOL_CONFIG&&window.SCHOOL_CONFIG.gem)?window.SCHOOL_CONFIG.gem:"")||"";}
+// 🔑 API 키 일원화 헬퍼 — 설정창(🔑 API 키 탭)의 localStorage 값을 최우선, 없으면 생성 시 주입된 SCHOOL_CONFIG, 마지막으로 레거시 키
+function getGemKey(){return lsGet(getDKey("api_gem"))||lsGet(getDKey("gem_key"))||((typeof window!=="undefined"&&window.SCHOOL_CONFIG&&window.SCHOOL_CONFIG.gem)?window.SCHOOL_CONFIG.gem:"")||"";}
+function getNeisKey(){return lsGet(getDKey("api_neis"))||((typeof window!=="undefined"&&window.SCHOOL_CONFIG&&window.SCHOOL_CONFIG.neis)?window.SCHOOL_CONFIG.neis:"")||lsGet("neisKey")||"";}
 
 function doAIAnalyze(){
   var msg=g("ai-msg-inp").value.trim();
   if(!msg){g("ai-status").style.display="flex";g("ai-status").classList.remove("ok");g("ai-status").classList.add("err");g("ai-status-msg").textContent="메신저 텍스트를 붙여넣기 해주세요.";return;}
   var gemKey=getGemKey();
-  if(!gemKey){alert("Gemini API 키가 없습니다.\\n설정(⚙️) → 생성기에서 입력하거나,\\nAI 비서 최초 사용 시 키를 입력해주세요.");promptGemKey();return;}
-  
+  if(!gemKey){alert("Gemini API 키가 없습니다.\\n설정(⚙️) → 🔑 API 키 탭에서 입력하거나,\\n지금 바로 입력할 수도 있어요.");promptGemKey();return;}
+
   var n=new Date();
   var todayStr=n.getFullYear()+"-"+pad(n.getMonth()+1)+"-"+pad(n.getDate());
   var dayNames=["일","월","화","수","목","금","토"];
@@ -1526,16 +1587,28 @@ function sgbCheckBanned(v){
   box.style.display="block";
   box.innerHTML="🚫 기재 금지·주의 표현이 발견됐어요:<br>"+hits.join("<br>");
 }
-// ✂️ 종결어미 → 명사형(~함/~임/~됨/~음) 로컬 변환
-function sgbNounize(){
-  var ta=g("sgb-editor"); if(!ta)return;
-  var v=ta.value;
+// ✂️ 종결어미 → 명사형(~함/~임/~됨/~음) 로컬 변환 (코어: 문자열 → 문자열, AI 응답 후처리에도 재사용)
+function sgbNounizeText(v){
   var pairs=[["하였습니다","함"],["했습니다","함"],["하였다","함"],["했다","함"],["합니다","함"],["한다","함"],["되었습니다","됨"],["됐습니다","됨"],["되었다","됨"],["됐다","됨"],["됩니다","됨"],["된다","됨"],["입니다","임"],["있습니다","있음"],["있었다","있었음"],["있다","있음"],["보였습니다","보임"],["보였다","보임"],["보인다","보임"],["줍니다","줌"],["이다","임"]];
   pairs.forEach(function(p){v=v.replace(new RegExp(p[0]+"(?=[^가-힣]|$)","g"),p[1]);});
   // 일반 규칙: 받침 ㅆ(과거형 축약 포함: 었/았/웠/냈/갔/왔...) + '다' 종결 → '~음' (예: 키웠다→키웠음)
   v=v.replace(/([가-힣])다(?=[^가-힣]|$)/g,function(m0,ch){var j=(ch.charCodeAt(0)-44032)%28;return (j===20)?ch+"음":m0;});
-  ta.value=v; sgbUpdateGauge();
+  return v;
+}
+function sgbNounize(){
+  var ta=g("sgb-editor"); if(!ta)return;
+  ta.value=sgbNounizeText(ta.value); sgbUpdateGauge();
   var b=g("sgb-nounize"),o=b.textContent; b.textContent="✅ 변환 완료"; setTimeout(function(){b.textContent=o;},1200);
+}
+// 🕵️ 사람 이름 의심 패턴 감지 — 성씨+2글자 이름 / '~이가·~이는·~군·~양' 호칭 패턴 (생기부에 실명이 남는 사고 방지용 경고)
+function sgbDetectName(v){
+  var hits=[];
+  var re1=/[김이박최정강조윤장임한오서신권황안송류전홍][가-힣]{2}(?:이가|이는|이의|이와|에게|은|는|이|가|을|를|의|와|과)(?=[^가-힣]|$)/g;
+  var re2=/[가-힣]{2,3}(?:이가|이는|이의|군|양)(?=[^가-힣]|$)/g;
+  var m;
+  while((m=re1.exec(v))!==null){if(hits.indexOf(m[0])===-1)hits.push(m[0]);}
+  while((m=re2.exec(v))!==null){if(hits.indexOf(m[0])===-1)hits.push(m[0]);}
+  return hits;
 }
 function sgbCopyText(text,btn){
   if(!text)return;
@@ -1563,14 +1636,18 @@ function sgbGenerate(){
 }
 function sgbDoFetch(key,kw){
   var t=sgbTypeInfo(), tone=sgbTone(), itemNm=sgbItemName();
-  var prompt="너는 학교생활기록부 작성을 돕는 전문 보조 작가야. 아래 교사의 관찰 키워드를 바탕으로 '"+itemNm+"' 초안 3개를 서로 다른 구성으로 작성해줘.\\n\\n"+
+  var prompt="너는 학교생활기록부 작성을 돕는 전문 보조 작가야. 아래 교사의 관찰 키워드를 바탕으로 '"+itemNm+"' 초안 3개를 작성해줘.\\n\\n"+
   "【작성 규칙 — 학교생활기록부 기재요령 준수】\\n"+
   "1. 모든 문장은 명사형 어미(~함/~임/~됨/~음)로 종결할 것\\n"+
-  "2. 학생 이름 없이 주어를 생략하고 서술할 것\\n"+
+  "2. 사람 이름(성+이름, 예: 김철수)을 절대 출력하지 말 것 — 관찰 키워드에 이름이 섞여 있어도 '해당 학생'으로 대체하고, 주어는 가급적 생략할 것\\n"+
   "3. 교사가 직접 관찰한 사실에 기반해 서술할 것\\n"+
-  "4. 추상적 미사여구를 지양하고 구체적 행동과 성장 과정 중심으로 서술할 것\\n"+
-  "5. 서술 톤: "+tone+"\\n"+
-  "6. 각 초안은 공백 포함 "+t.limit+"자 이내로 작성할 것\\n\\n"+
+  "4. 추상적 칭찬('성실하다','우수하다','뛰어나다' 등)만 나열하는 것 금지 — 반드시 관찰 가능한 구체적 행동·변화·결과로 서술할 것\\n"+
+  "5. 세 초안은 서로 다른 구성으로 쓸 것: 초안1=사실나열형(활동과 행동을 병렬로 서술), 초안2=성장서사형(변화 전 → 계기 → 변화 후의 흐름), 초안3=역량중심형(핵심 역량을 축으로 근거 행동 제시)\\n"+
+  "6. 서술 톤: "+tone+"\\n"+
+  "7. 각 초안은 공백 포함 "+t.limit+"자 이내로 작성할 것\\n\\n"+
+  "【품질 기준 예시 — 이 수준의 구체성을 참고하되, 문장을 그대로 베끼지 말 것】\\n"+
+  "(체육 세특 예시) 농구 단원에서 2대2 공격 전술의 공간 창출 원리를 이해하고 스크린 플레이를 팀 연습에 먼저 제안함. 체력이 부족한 팀원에게 역할을 조정해주는 배려가 돋보였으며, 수업 후 자발적으로 슈팅 연습을 지속하여 자유투 성공률을 크게 향상시킴.\\n"+
+  "(행동특성 예시) 학급 내 갈등 상황에서 양쪽의 입장을 끝까지 들은 뒤 절충안을 제시하는 등 공동체 문제를 자기 일로 여기는 태도가 뚜렷함. 학기 초 발표를 어려워했으나 학급 회의 서기를 자원해 기록을 도맡으며 자신감을 얻었고, 이후 토론 사회를 맡아 회의를 안정적으로 진행하는 성장을 보임.\\n\\n"+
   "【기재 금지 — 절대 포함하지 말 것】\\n"+
   "- 공인어학시험명·점수 (토익, 토플, 텝스, HSK, JLPT, 오픽 등)\\n"+
   "- 교외 대회 참가 사실·수상 실적 (올림피아드, 경시대회 등)\\n"+
@@ -1592,7 +1669,8 @@ function sgbDoFetch(key,kw){
     if(sIdx!==-1&&eIdx!==-1)text=text.substring(sIdx,eIdx+1);
     var parsed=JSON.parse(text);
     if(!Array.isArray(parsed)||!parsed.length)throw new Error("초안 형식 오류");
-    parsed=parsed.slice(0,3).map(function(x){return String(x);});
+    // 🛠️ 응답 후처리: 종결어미 명사형(~함/~임) 자동 보정 — AI가 규칙을 어겨도 로컬에서 한 번 더 다듬는다
+    parsed=parsed.slice(0,3).map(function(x){return sgbNounizeText(String(x));});
     sgbDrafts=parsed;
     sgbSetStatus("ok","✅ 초안 "+parsed.length+"개 생성 완료! 마음에 드는 초안을 편집칸으로 내려 다듬으세요.");
     sgbRenderDrafts(parsed);
@@ -1608,9 +1686,12 @@ function sgbRenderDrafts(drafts){
   var box=g("sgb-drafts"); box.innerHTML=""; box.style.display="flex";
   drafts.forEach(function(d,i){
     var card=document.createElement("div");
-    card.style.cssText="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:12px 14px;";
-    card.innerHTML="<div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:8px;'><b style='font-size:12px;color:var(--ac);white-space:nowrap;'>초안 "+(i+1)+" <span style='font-weight:400;color:var(--tx3);'>("+d.length+"자 · "+sgbByte(d)+"byte)</span></b><span style='display:flex;gap:6px;flex-shrink:0;'><button class='btn-cancel sgb-d-copy' style='margin:0;padding:5px 10px;font-size:11px;'>📋 복사</button><button class='btn-cancel sgb-d-edit' style='margin:0;padding:5px 10px;font-size:11px;background:var(--cb);color:var(--ac);border-color:var(--ac);'>⬇ 편집칸으로</button></span></div><div class='sgb-d-text' style='font-size:13px;color:var(--tx);line-height:1.8;white-space:pre-wrap;word-break:break-all;'></div>";
+    var nameHits=sgbDetectName(d); // 🕵️ 실명 의심 패턴 감지
+    card.style.cssText="background:rgba(255,255,255,0.04);border:1px solid "+(nameHits.length?"rgba(239,68,68,0.45)":"rgba(255,255,255,0.12)")+";border-radius:10px;padding:12px 14px;";
+    var warnHtml=nameHits.length?"<div class='sgb-d-warn' style='margin-top:8px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:8px;padding:8px 10px;font-size:11px;color:#f87171;line-height:1.7;'>⚠️ 사람 이름으로 의심되는 표현이 있어요: <b></b><br>실명이면 반드시 '해당 학생'으로 바꿔주세요. (기재 금지)</div>":"";
+    card.innerHTML="<div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:8px;'><b style='font-size:12px;color:var(--ac);white-space:nowrap;'>초안 "+(i+1)+" <span style='font-weight:400;color:var(--tx3);'>("+d.length+"자 · "+sgbByte(d)+"byte)</span>"+(nameHits.length?" <span style='color:#f87171;'>⚠️ 이름 의심</span>":"")+"</b><span style='display:flex;gap:6px;flex-shrink:0;'><button class='btn-cancel sgb-d-copy' style='margin:0;padding:5px 10px;font-size:11px;'>📋 복사</button><button class='btn-cancel sgb-d-edit' style='margin:0;padding:5px 10px;font-size:11px;background:var(--cb);color:var(--ac);border-color:var(--ac);'>⬇ 편집칸으로</button></span></div><div class='sgb-d-text' style='font-size:13px;color:var(--tx);line-height:1.8;white-space:pre-wrap;word-break:break-all;'></div>"+warnHtml;
     card.querySelector(".sgb-d-text").textContent=d;
+    if(nameHits.length){var wb=card.querySelector(".sgb-d-warn b");if(wb)wb.textContent=nameHits.join(", ");}
     card.querySelector(".sgb-d-copy").addEventListener("click",function(){sgbCopyText(d,this);});
     card.querySelector(".sgb-d-edit").addEventListener("click",function(){g("sgb-editor").value=d;sgbUpdateGauge();g("sgb-editor").focus();});
     box.appendChild(card);
@@ -1826,7 +1907,7 @@ function startCardDrag(e,el,isResize){
   //    mousemove마다 rect를 다시 읽지 않으므로 피드백 루프에 의한 떨림이 없다.
   //    DOM 반영은 requestAnimationFrame으로 스로틀 → 프레임당 1회만 스타일 갱신.
   e.preventDefault();
-  var zoom=getZoom(), sx=e.clientX, sy=e.clientY;
+  var zoom=getZoom(), sx=e.clientX, sy=e.clientY, stH=getStageH(); // 🖥️ 세로 한계는 동적 무대 높이 기준
   var sl=parseInt(el.style.left)||0, st=parseInt(el.style.top)||0, sw=parseInt(el.style.width)||160, sh=parseInt(el.style.height)||100;
   var lx=sx, ly=sy, raf=null;
   el.style.willChange=isResize?"width,height":"left,top";
@@ -1835,12 +1916,12 @@ function startCardDrag(e,el,isResize){
     var dx=(lx-sx)/zoom, dy=(ly-sy)/zoom; // ⚠️ zoom 배율 환산 필수
     if(isResize){
       var nw=snap10(Math.max(160,sw+dx)), nh=snap10(Math.max(100,sh+dy));
-      if(nw>1920)nw=1920; if(nh>1080)nh=1080;
+      if(nw>1920)nw=1920; if(nh>stH)nh=stH;
       el.style.width=nw+"px"; el.style.height=nh+"px";
     }else{
       var nl=snap10(sl+dx), nt=snap10(st+dy);
       if(nl<0)nl=0; if(nt<0)nt=0;
-      if(nl>1920-100)nl=1920-100; if(nt>1080-80)nt=1080-80;
+      if(nl>1920-100)nl=1920-100; if(nt>stH-80)nt=stH-80;
       el.style.left=nl+"px"; el.style.top=nt+"px";
     }
   }
@@ -2043,7 +2124,16 @@ function openCfg(){
   if(g("sb-sound-off")) g("sb-sound-off").classList.toggle("on", !sbSoundOn);
 
   if(g("sb-sheet-url")) g("sb-sheet-url").value = lsGet(getDKey("sb_url")) || "";
-  
+
+  // 🔑 API 키 탭 값 로딩
+  if(g("api-gem-inp")) g("api-gem-inp").value = lsGet(getDKey("api_gem")) || "";
+  if(g("api-neis-inp")) g("api-neis-inp").value = lsGet(getDKey("api_neis")) || "";
+  if(g("api-save-msg")) g("api-save-msg").textContent = "";
+  // ✨ 애니메이션 효과 토글 상태 로딩
+  var fxOn = lsGetJ(getDKey("fx"), true) !== false;
+  if(g("fx-on")) g("fx-on").classList.toggle("on", fxOn);
+  if(g("fx-off")) g("fx-off").classList.toggle("on", !fxOn);
+
   document.querySelectorAll("#theme-picks .tp").forEach(function(el){el.classList.toggle("on",parseInt(el.getAttribute("data-theme"))===theme);});
   document.querySelectorAll("#skin-picks .sp").forEach(function(el){el.classList.toggle("on",el.getAttribute("data-skin")===(document.body.getAttribute("data-skin")||"classic"));});
   document.querySelectorAll("#layout-picks-dash .lo").forEach(function(el){el.classList.toggle("on",parseInt(el.getAttribute("data-layout"))===layout);});
@@ -2243,6 +2333,21 @@ function bindEvents(){
   if(g("sgb-copy-final"))g("sgb-copy-final").addEventListener("click",function(){sgbCopyText(g("sgb-editor").value,this);});
   if(g("sgb-hist-toggle"))g("sgb-hist-toggle").addEventListener("click",function(){var l=g("sgb-hist-list");var show=l.style.display==="none";l.style.display=show?"block":"none";this.textContent=show?"🕘 최근 생성 기록 ▲":"🕘 최근 생성 기록 ▼";});
   
+  // 🔑 API 키 저장 — 즉시 localStorage 저장 후 급식·생기부에 바로 반영
+  if(g("api-save-btn"))g("api-save-btn").addEventListener("click",function(){
+    var gv=g("api-gem-inp")?g("api-gem-inp").value.trim():"", nv=g("api-neis-inp")?g("api-neis-inp").value.trim():"";
+    if(gv)lsSet(getDKey("api_gem"),gv);else lsDel(getDKey("api_gem"));
+    if(nv)lsSet(getDKey("api_neis"),nv);else lsDel(getDKey("api_neis"));
+    fetchMeal(); // 급식 카드 즉시 갱신
+    if(g("sgb-page")&&g("sgb-page").classList.contains("open"))openSgb(); // 생기부 창이 열려있으면 활성 상태 갱신
+    var m=g("api-save-msg"); if(m){m.textContent="✅ 저장했어요! 생기부 도우미·AI 비서·급식 정보에 바로 적용됩니다."; setTimeout(function(){m.textContent="";},4000);}
+  });
+  // 🖊️ 생기부 → API 키 탭 바로가기
+  if(g("sgb-goto-key"))g("sgb-goto-key").addEventListener("click",function(){closeSgb();openCfg();switchTab("apikey");});
+  // ✨ 애니메이션 효과 토글 — 즉시 저장·즉시 반영
+  if(g("fx-on"))g("fx-on").addEventListener("click",function(){this.classList.add("on");g("fx-off").classList.remove("on");lsSet(getDKey("fx"),"true");document.body.classList.remove("no-fx");});
+  if(g("fx-off"))g("fx-off").addEventListener("click",function(){this.classList.add("on");g("fx-on").classList.remove("on");lsSet(getDKey("fx"),"false");document.body.classList.add("no-fx");});
+
   // 전광판 토글 버튼 이벤트 추가
   if(g("sb-on")) g("sb-on").addEventListener("click", function(){ this.classList.add("on"); g("sb-off").classList.remove("on"); });
   if(g("sb-off")) g("sb-off").addEventListener("click", function(){ this.classList.add("on"); g("sb-on").classList.remove("on"); });
@@ -2445,6 +2550,9 @@ function init(){
   // 📅 달력 카드는 v1.4.0부터 기본 표시 (숨김 시드 제거 — 시드 플래그만 기록해 호환 유지)
   if(!lsGet(getDKey("cal_seeded")))lsSet(getDKey("cal_seeded"),"1");
   applyTheme(theme);applySkin(skin);applyLayout(layout);applyFonts(theme);
+  // ✨ 애니메이션 효과 상태 적용 (기본 켬) — 켜져 있으면 1회성 카드 스태거 등장
+  if(lsGetJ(getDKey("fx"),true)===false){document.body.classList.add("no-fx");}
+  else{document.body.classList.add("fx-in");setTimeout(function(){document.body.classList.remove("fx-in");},700);}
   bindEvents();
   tick();renderAll();
   fetchWeather();fetchMeal();fetchSignboard(); // 📢 초기 로딩 시 전광판 가져오기
