@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TeacherDesk 디자인 시안 10종</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Gaegu:wght@300;400;700&family=Noto+Serif+KR:wght@300;400;600;700;900&family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Song+Myung&family=Gowun+Dodum&family=Hi+Melody&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="https://hangeul.pstatic.net/hangeul_static/css/maru-buri.css">
+<style>
+@font-face{font-family:'GmarketSans';font-weight:500;src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');font-display:swap}
+@font-face{font-family:'GmarketSans';font-weight:700;src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff');font-display:swap}
+@font-face{font-family:'GmarketSans';font-weight:300;src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansLight.woff') format('woff');font-display:swap}
+@font-face{font-family:'DungGeunMo';src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/DungGeunMo.woff') format('woff');font-display:swap}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#e9e7e1;font-family:'Pretendard Variable',Pretendard,'Noto Sans KR',sans-serif;color:#26241f}
+/* ===== 상단 퀵네비 ===== */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;gap:6px;justify-content:center;align-items:center;padding:10px 14px;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-bottom:1px solid #d8d5cd;flex-wrap:wrap}
+.topnav .brand{font-weight:800;font-size:14px;margin-right:10px;letter-spacing:-.3px}
+.topnav a{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:999px;background:#f1efe9;border:1px solid #e0ddd4;font-size:12.5px;font-weight:600;color:#3c3a33;text-decoration:none;white-space:nowrap;transition:all .15s}
+.topnav a b{font-size:11px;color:#fff;background:#26241f;border-radius:999px;width:17px;height:17px;display:inline-flex;align-items:center;justify-content:center;font-weight:700}
+.topnav a:hover{background:#26241f;color:#fff;border-color:#26241f}
+/* ===== 인트로 ===== */
+.intro{max-width:920px;margin:0 auto;padding:96px 24px 8px;text-align:center}
+.intro h1{font-size:30px;font-weight:800;letter-spacing:-1px}
+.intro p{margin-top:10px;font-size:14.5px;color:#6d685c;line-height:1.7}
+/* ===== 시안 섹션 공통 ===== */
+.design{scroll-margin-top:96px;max-width:948px;margin:0 auto;padding:58px 24px 6px}
+.d-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:16px}
+.d-num{font-size:40px;font-weight:900;line-height:1;color:#c9c4b6;letter-spacing:-2px;font-family:'IBM Plex Mono',monospace}
+.d-head h2{font-size:22px;font-weight:800;letter-spacing:-.5px}
+.d-head p{margin-top:5px;font-size:13.5px;color:#6d685c;line-height:1.6}
+.d-tags{margin-left:auto;display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end;max-width:230px}
+.d-tags span{font-size:11px;font-weight:600;padding:4px 9px;border-radius:6px;background:#fff;border:1px solid #ddd9cf;color:#7a7466;white-space:nowrap}
+/* 1920x1080 → 0.46 축소 무대 */
+.mock-frame{width:884px;height:497px;overflow:hidden;border-radius:14px;box-shadow:0 24px 60px -18px rgba(30,26,16,.35),0 2px 8px rgba(30,26,16,.12);margin:0 auto;background:#000}
+.mock{width:1920px;height:1080px;transform:scale(.4604);transform-origin:0 0;overflow:hidden;position:relative}
+.foot{max-width:920px;margin:0 auto;padding:50px 24px 70px;text-align:center;font-size:12.5px;color:#8d8779}
+@media (max-width:930px){.mock-frame{transform-origin:top left}.design{overflow-x:auto}}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <span class="brand">TeacherDesk 시안</span>
+  <a href="#d1"><b>1</b>벤토</a>
+  <a href="#d2"><b>2</b>글래스</a>
+  <a href="#d3"><b>3</b>다이어리</a>
+  <a href="#d4"><b>4</b>매거진</a>
+  <a href="#d5"><b>5</b>관제실</a>
+  <a href="#d6"><b>6</b>라인</a>
+  <a href="#d7"><b>7</b>레트로OS</a>
+  <a href="#d8"><b>8</b>수채</a>
+  <a href="#d9"><b>9</b>신문</a>
+  <a href="#d10"><b>10</b>오늘포커스</a>
+</nav>
+
+<div class="intro">
+  <h1>TeacherDesk 새 디자인 시안 10종</h1>
+  <p>색만 바꾼 테마가 아니라 <b>레이아웃·질감·타이포그래피·정보구조</b>가 서로 다른 10가지 방향입니다.<br>
+  각 목업은 1920×1080 실물 크기를 46%로 축소한 것으로, 2026년 7월 7일(화) 11:17 · 3교시 상황의 실제 데이터를 담았습니다.</p>
+</div>
+<!-- ================================================================ 시안 1 : 벤토 그리드 -->
+<section class="design" id="d1">
+  <div class="d-head">
+    <div class="d-num">01</div>
+    <div><h2>벤토 그리드 Bento</h2><p>애플 벤토 스타일. 크기가 제각각인 둥근 타일이 빈틈없이 맞물리고, 큰 숫자 타이포와 이모지 아이콘으로 한눈에 읽힌다.</p></div>
+    <div class="d-tags"><span>Pretendard</span><span>타일 그리드</span><span>빅 넘버</span></div>
+  </div>
+  <div class="mock-frame"><div class="mock d1">
+<style>
+.d1{background:#f1efe9;padding:38px 44px 30px;display:flex;flex-direction:column;gap:16px;font-family:'Pretendard Variable',sans-serif;color:#1c1b18}
+.d1 .grid{flex:1;display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(4,1fr);gap:16px;min-height:0}
+.d1 .t{background:#fff;border-radius:28px;padding:24px 28px;overflow:hidden;position:relative;box-shadow:0 2px 12px rgba(60,55,40,.05)}
+.d1 .lbl{font-size:19px;font-weight:700;color:#8a8579;display:flex;gap:8px;align-items:center;margin-bottom:10px;letter-spacing:-.3px}
+.d1 .clock{grid-column:1/3;grid-row:1/3;background:#191813;color:#fff;display:flex;flex-direction:column;justify-content:center;padding:36px 44px}
+.d1 .clock .time{font-size:158px;font-weight:800;letter-spacing:-8px;line-height:.95;font-variant-numeric:tabular-nums}
+.d1 .clock .time small{font-size:52px;font-weight:600;color:#8f8b7d;letter-spacing:-2px;margin-left:8px}
+.d1 .clock .date{margin-top:18px;font-size:31px;font-weight:600;color:#c9c5b8}
+.d1 .clock .date b{color:#ffd166}
+.d1 .period{grid-column:3/5;grid-row:1/2;background:#ff6b35;color:#fff;display:flex;flex-direction:column;justify-content:center}
+.d1 .period .now{font-size:22px;font-weight:700;opacity:.85}
+.d1 .period .big{font-size:47px;font-weight:800;letter-spacing:-1.5px;margin:4px 0 12px}
+.d1 .period .bar{height:12px;border-radius:6px;background:rgba(255,255,255,.3)}
+.d1 .period .bar i{display:block;height:100%;width:60%;border-radius:6px;background:#fff}
+.d1 .period .left{font-size:17px;font-weight:600;margin-top:8px;opacity:.9}
+.d1 .weather{grid-column:5/6;grid-row:1/2;display:flex;flex-direction:column;justify-content:center}
+.d1 .weather .deg{font-size:62px;font-weight:800;letter-spacing:-3px}
+.d1 .weather .deg em{font-style:normal;font-size:40px}
+.d1 .weather .desc{font-size:18px;font-weight:600;color:#8a8579;margin-top:4px}
+.d1 .dday{grid-column:6/7;grid-row:1/2;background:#3d5afe;color:#fff;display:flex;flex-direction:column;justify-content:center}
+.d1 .dday .n{font-size:60px;font-weight:800;letter-spacing:-3px}
+.d1 .dday .w{font-size:18px;font-weight:600;opacity:.85;margin-top:2px}
+.d1 .tt{grid-column:3/5;grid-row:2/5;display:flex;flex-direction:column}
+.d1 .tt table{width:100%;border-collapse:separate;border-spacing:5px;flex:1;table-layout:fixed}
+.d1 .tt th{font-size:16px;font-weight:700;color:#a5a094;padding:2px 0}
+.d1 .tt th.tu{color:#ff6b35}
+.d1 .tt td{border-radius:12px;text-align:center;font-size:19px;font-weight:700;padding:11px 0;background:#f5f3ee;color:#55524a}
+.d1 .tt td.g1{background:#e3f4e4;color:#2c7a39}.d1 .tt td.g2{background:#e2edfb;color:#2760b8}.d1 .tt td.g3{background:#efe6fa;color:#7a3fc0}.d1 .tt td.et{background:#fdf1d8;color:#a8741a}
+.d1 .tt td.off{background:transparent;border:2px dashed #e4e1d8;color:#c4c0b4;font-weight:500}
+.d1 .tt td.hot{background:#ff6b35;color:#fff;box-shadow:0 4px 12px rgba(255,107,53,.4)}
+.d1 .tt td .p{display:block;font-size:12px;font-weight:600;opacity:.65;margin-top:1px}
+.d1 .lunch{grid-column:5/7;grid-row:2/4;display:flex;flex-direction:column}
+.d1 .lunch ul{list-style:none;flex:1;display:flex;flex-direction:column;justify-content:space-evenly}
+.d1 .lunch li{font-size:24px;font-weight:600;display:flex;align-items:center;gap:12px;color:#3c3a33}
+.d1 .lunch li b{color:#ff6b35}
+.d1 .lunch .kcal{position:absolute;top:22px;right:26px;background:#f1efe9;border-radius:999px;padding:6px 14px;font-size:16px;font-weight:700;color:#8a8579}
+.d1 .cal{grid-column:1/2;grid-row:3/5}
+.d1 .cal .cg{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;text-align:center;margin-top:6px}
+.d1 .cal .cg span{font-size:15.5px;font-weight:600;padding:6.5px 0;color:#55524a;border-radius:8px;position:relative}
+.d1 .cal .cg .h{color:#b9b4a7;font-size:13px;font-weight:700}
+.d1 .cal .cg .su{color:#e05252}
+.d1 .cal .cg .td{background:#191813;color:#fff;font-weight:800}
+.d1 .cal .cg .ev::after{content:'';position:absolute;bottom:1px;left:50%;transform:translateX(-50%);width:5px;height:5px;border-radius:50%;background:#ff6b35}
+.d1 .todo{grid-column:2/3;grid-row:3/5;display:flex;flex-direction:column}
+.d1 .todo ul{list-style:none;flex:1;display:flex;flex-direction:column;justify-content:space-evenly}
+.d1 .todo li{font-size:18.5px;font-weight:600;display:flex;gap:10px;align-items:flex-start;line-height:1.3;color:#3c3a33}
+.d1 .todo li i{flex:none;width:24px;height:24px;border-radius:8px;border:2.5px solid #d5d1c6;margin-top:0}
+.d1 .todo li.done{color:#b9b4a7;text-decoration:line-through}
+.d1 .todo li.done i{background:#2c7a39;border-color:#2c7a39;position:relative}
+.d1 .todo li.done i::after{content:'✓';color:#fff;font-size:15px;position:absolute;left:4px;top:-1px}
+.d1 .todo li .due{display:block;font-size:13px;color:#e05252;font-weight:700}
+.d1 .fold{grid-column:5/7;grid-row:4/5}
+.d1 .fold .fg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:2px}
+.d1 .fold .fg a{background:#f5f3ee;border-radius:14px;padding:11px 8px;text-align:center;font-size:16.5px;font-weight:700;color:#55524a;text-decoration:none}
+.d1 .dock{height:82px;background:#fff;border-radius:24px;display:flex;align-items:center;justify-content:center;gap:34px;box-shadow:0 2px 12px rgba(60,55,40,.05)}
+.d1 .dock span{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:12.5px;font-weight:600;color:#8a8579}
+.d1 .dock span i{font-style:normal;font-size:30px;line-height:1}
+</style>
+    <div class="grid">
+      <div class="t clock">
+        <div class="time">11:17<small>42</small></div>
+        <div class="date">2026년 7월 7일 <b>화요일</b></div>
+      </div>
+      <div class="t period">
+        <div class="now">🕐 지금은 3교시</div>
+        <div class="big">2-3 체육 · 운동장</div>
+        <div class="bar"><i></i></div>
+        <div class="left">18분 남음 · 다음 4교시 1-2 체육 (체육관)</div>
+      </div>
+      <div class="t weather">
+        <div class="deg">☀️ 28<em>°</em></div>
+        <div class="desc">맑음 · 미세먼지 좋음<br>최고 31° 최저 22°</div>
+      </div>
+      <div class="t dday">
+        <div class="n">D-14</div>
+        <div class="w">🏖️ 여름방학식 7/21</div>
+      </div>
+      <div class="t tt">
+        <div class="lbl">📅 주간 시간표</div>
+        <table>
+          <tr><th></th><th>월</th><th class="tu">화</th><th>수</th><th>목</th><th>금</th></tr>
+          <tr><td class="off">1</td><td class="g1">1-1</td><td class="g2">2-2</td><td class="g1">1-3</td><td class="g3">3-2</td><td class="g2">2-1</td></tr>
+          <tr><td class="off">2</td><td class="g3">3-1</td><td class="off">—</td><td class="g2">2-2</td><td class="g1">1-1</td><td class="g3">3-3</td></tr>
+          <tr><td class="off">3</td><td class="g2">2-3</td><td class="hot">2-3<span class="p">지금</span></td><td class="off">—</td><td class="g2">2-3</td><td class="g1">1-2</td></tr>
+          <tr><td class="off">4</td><td class="off">—</td><td class="g1">1-2</td><td class="g3">3-1</td><td class="off">—</td><td class="et">스클</td></tr>
+          <tr><td class="off">5</td><td class="g3">3-3</td><td class="et">창체</td><td class="g1">1-3</td><td class="g3">3-2</td><td class="off">—</td></tr>
+          <tr><td class="off">6</td><td class="et">동아리</td><td class="off">—</td><td class="et">협의</td><td class="g2">2-1</td><td class="et">창체</td></tr>
+        </table>
+      </div>
+      <div class="t lunch">
+        <div class="lbl">🍚 오늘 급식</div><div class="kcal">763 kcal</div>
+        <ul>
+          <li><b>●</b> 현미밥</li>
+          <li><b>●</b> 제육볶음</li>
+          <li><b>●</b> 미역국</li>
+          <li><b>●</b> 콩나물무침</li>
+          <li><b>●</b> 배추김치</li>
+          <li><b>●</b> 수박 🍉</li>
+        </ul>
+      </div>
+      <div class="t cal">
+        <div class="lbl">🗓️ 7월</div>
+        <div class="cg">
+          <span class="h su">일</span><span class="h">월</span><span class="h">화</span><span class="h">수</span><span class="h">목</span><span class="h">금</span><span class="h">토</span>
+          <span></span><span></span><span></span><span>1</span><span>2</span><span>3</span><span>4</span>
+          <span class="su">5</span><span>6</span><span class="td">7</span><span class="ev">8</span><span>9</span><span>10</span><span>11</span>
+          <span class="su">12</span><span>13</span><span class="ev">14</span><span>15</span><span>16</span><span>17</span><span>18</span>
+          <span class="su">19</span><span>20</span><span class="ev">21</span><span>22</span><span>23</span><span>24</span><span>25</span>
+          <span class="su">26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span></span>
+        </div>
+      </div>
+      <div class="t todo">
+        <div class="lbl">✅ 할 일</div>
+        <ul>
+          <li><i></i><span>체육대회 계획서 결재 올리기<span class="due">오늘까지</span></span></li>
+          <li><i></i><span>2학년 수행평가 성적 입력<span class="due">7/10까지</span></span></li>
+          <li><i></i><span>3반 상담일지 작성</span></li>
+          <li class="done"><i></i><span>배드민턴 네트 수리 요청</span></li>
+        </ul>
+      </div>
+      <div class="t fold">
+        <div class="lbl">📂 빠른 폴더</div>
+        <div class="fg"><a>📘 수업자료</a><a>📊 평가·성적</a><a>📄 공문·기안</a><a>🏆 체육대회</a><a>📷 사진·영상</a><a>🧑‍🏫 학급운영</a></div>
+      </div>
+    </div>
+    <div class="dock">
+      <span><i>🟢</i>나이스</span><span><i>💰</i>에듀파인</span><span><i>💬</i>쿨메신저</span><span><i>🏫</i>학교홈피</span><span><i>🎓</i>클래스룸</span><span><i>📝</i>한글</span><span><i>📗</i>엑셀</span><span><i>🌐</i>크롬</span><span><i>🧮</i>계산기</span><span><i>🗑️</i>휴지통</span>
+    </div>
+  </div></div>
+</section>
+
+<!-- ================================================================ 시안 2 : 글래스 아쿠아 -->
+<section class="design" id="d2">
+  <div class="d-head">
+    <div class="d-num">02</div>
+    <div><h2>글래스 아쿠아 Glass Aqua</h2><p>오로라 그라데이션 배경 위에 진짜 frosted glass. 얇은 흰 테두리와 상단 빛 반사로 유리의 두께감을 살렸다.</p></div>
+    <div class="d-tags"><span>Pretendard</span><span>backdrop-blur</span><span>오로라 배경</span></div>
+  </div>
+  <div class="mock-frame"><div class="mock d2">
+<style>
+.d2{background:#0a0d2e;font-family:'Pretendard Variable',sans-serif;color:#fff;padding:40px 48px 34px;display:flex;flex-direction:column;gap:20px}
+.d2 .bl{position:absolute;border-radius:50%;filter:blur(90px);opacity:.75;pointer-events:none}
+.d2 .b1{width:900px;height:900px;background:radial-gradient(circle,#6a3ff5,transparent 65%);top:-320px;left:-180px}
+.d2 .b2{width:800px;height:800px;background:radial-gradient(circle,#00c2ff,transparent 65%);top:180px;right:-160px}
+.d2 .b3{width:700px;height:700px;background:radial-gradient(circle,#25d8a5,transparent 65%);bottom:-260px;left:520px;opacity:.6}
+.d2 .b4{width:520px;height:520px;background:radial-gradient(circle,#ff6ec7,transparent 65%);bottom:-120px;left:-120px;opacity:.45}
+.d2 .g{position:relative;background:linear-gradient(150deg,rgba(255,255,255,.17),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.32);border-radius:26px;backdrop-filter:blur(22px);box-shadow:0 16px 44px rgba(3,6,30,.35),inset 0 1px 0 rgba(255,255,255,.45);padding:24px 28px;overflow:hidden}
+.d2 .g::before{content:'';position:absolute;top:0;left:0;right:0;height:46%;background:linear-gradient(180deg,rgba(255,255,255,.13),transparent);border-radius:26px 26px 0 0;pointer-events:none}
+.d2 .hl{font-size:17px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.55);text-transform:uppercase;margin-bottom:10px}
+.d2 .top{display:flex;align-items:center;gap:16px;position:relative}
+.d2 .top .logo{font-size:24px;font-weight:800;letter-spacing:-.5px}
+.d2 .top .pill{margin-left:auto;display:flex;gap:12px}
+.d2 .top .pill span{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(18px);border-radius:999px;padding:10px 22px;font-size:18px;font-weight:600}
+.d2 .main{flex:1;display:grid;grid-template-columns:520px 1fr 440px;gap:20px;position:relative;min-height:0}
+.d2 .col{display:flex;flex-direction:column;gap:20px;min-height:0}
+.d2 .clockcard{flex:1.15;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.d2 .clockcard .tm{font-size:128px;font-weight:200;letter-spacing:-4px;line-height:1;font-variant-numeric:tabular-nums;text-shadow:0 0 40px rgba(255,255,255,.35)}
+.d2 .clockcard .dt{font-size:26px;font-weight:500;color:rgba(255,255,255,.75);margin-top:12px}
+.d2 .wx{flex:.9;display:flex;align-items:center;gap:24px}
+.d2 .wx .ic{font-size:74px;filter:drop-shadow(0 6px 18px rgba(255,200,60,.45))}
+.d2 .wx .deg{font-size:58px;font-weight:300}
+.d2 .wx .sub{font-size:17px;color:rgba(255,255,255,.7);line-height:1.55}
+.d2 .ddayc{flex:1}
+.d2 .ddayc .row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.14);font-size:19px;font-weight:500}
+.d2 .ddayc .row:last-child{border:none}
+.d2 .ddayc .row b{font-size:20px;font-weight:800;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);padding:4px 14px;border-radius:999px}
+.d2 .ddayc .row.hot b{background:linear-gradient(135deg,#ff8b5f,#ff5f9e);border-color:transparent}
+.d2 .hero{display:flex;align-items:center;gap:26px;padding:26px 32px}
+.d2 .hero .ring{flex:none;width:118px;height:118px;border-radius:50%;background:conic-gradient(#5ef2c4 0 60%,rgba(255,255,255,.15) 0);display:flex;align-items:center;justify-content:center}
+.d2 .hero .ring i{width:92px;height:92px;border-radius:50%;background:rgba(10,15,50,.72);display:flex;flex-direction:column;align-items:center;justify-content:center;font-style:normal;font-size:26px;font-weight:800}
+.d2 .hero .ring i small{font-size:12px;font-weight:600;color:rgba(255,255,255,.6)}
+.d2 .hero .tx .a{font-size:19px;font-weight:600;color:#5ef2c4}
+.d2 .hero .tx .b{font-size:43px;font-weight:800;letter-spacing:-1px;margin:2px 0}
+.d2 .hero .tx .c{font-size:18px;color:rgba(255,255,255,.7)}
+.d2 .tt2{flex:1;display:flex;flex-direction:column;min-height:0}
+.d2 .tt2 table{width:100%;flex:1;border-collapse:collapse;table-layout:fixed}
+.d2 .tt2 th{font-size:15.5px;font-weight:700;color:rgba(255,255,255,.5);padding:6px 0}
+.d2 .tt2 th.tu{color:#5ef2c4}
+.d2 .tt2 td{text-align:center;font-size:18.5px;font-weight:600;padding:12px 0;border-top:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.88)}
+.d2 .tt2 td.dim{color:rgba(255,255,255,.28);font-weight:400}
+.d2 .tt2 td.now{background:rgba(94,242,196,.2);border-radius:12px;color:#5ef2c4;font-weight:800;box-shadow:inset 0 0 0 1px rgba(94,242,196,.5)}
+.d2 .tt2 td.pr{color:rgba(255,255,255,.45);font-size:15px}
+.d2 .lun{flex:.95}
+.d2 .lun p{font-size:20.5px;line-height:1.75;font-weight:500;color:rgba(255,255,255,.9)}
+.d2 .lun p b{color:#ffd97a;font-weight:700}
+.d2 .td2{flex:1.05}
+.d2 .td2 .it{display:flex;gap:12px;align-items:center;padding:10px 0;font-size:19px;font-weight:500;border-bottom:1px solid rgba(255,255,255,.12)}
+.d2 .td2 .it:last-child{border:none}
+.d2 .td2 .it i{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,.5)}
+.d2 .td2 .it.dn{color:rgba(255,255,255,.4);text-decoration:line-through}
+.d2 .td2 .it.dn i{background:#5ef2c4;border-color:#5ef2c4}
+.d2 .td2 .it em{font-style:normal;margin-left:auto;font-size:14px;color:#ff9db8;font-weight:700}
+.d2 .cal2 .cg{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;gap:1px;margin-top:4px}
+.d2 .cal2 .cg span{font-size:14.5px;padding:5.5px 0;font-weight:500;color:rgba(255,255,255,.82);border-radius:8px}
+.d2 .cal2 .cg .h{color:rgba(255,255,255,.42);font-size:12px;font-weight:700}
+.d2 .cal2 .cg .td{background:rgba(255,255,255,.9);color:#1a1f5e;font-weight:800}
+.d2 .cal2 .cg .ev{color:#5ef2c4;font-weight:700}
+.d2 .bot{display:flex;gap:20px;align-items:stretch;position:relative;height:108px}
+.d2 .fold2{flex:1;display:flex;align-items:center;gap:12px;padding:0 26px}
+.d2 .fold2 .hl{margin:0;margin-right:6px}
+.d2 .fold2 a{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);border-radius:14px;padding:12px 18px;font-size:17px;font-weight:600;color:#fff;text-decoration:none}
+.d2 .dock2{display:flex;align-items:center;gap:26px;padding:0 34px}
+.d2 .dock2 span{font-size:38px;filter:drop-shadow(0 6px 12px rgba(0,0,0,.35))}
+</style>
+    <i class="bl b1"></i><i class="bl b2"></i><i class="bl b3"></i><i class="bl b4"></i>
+    <div class="top">
+      <div class="logo">🌊 TeacherDesk</div>
+      <div class="pill"><span>7월 7일 화요일</span><span>☀️ 28° 맑음 · 미세 좋음</span></div>
+    </div>
+    <div class="main">
+      <div class="col">
+        <div class="g clockcard"><div class="tm">11:17</div><div class="dt">2026. 7. 7. 화요일 · 3교시</div></div>
+        <div class="g wx"><div class="ic">☀️</div><div><div class="deg">28°</div><div class="sub">맑음 · 체감 30° · 습도 62%<br>최고 31° / 최저 22° · 운동장 수업 OK</div></div></div>
+        <div class="g ddayc"><div class="hl">D-Day · 학사일정</div>
+          <div class="row hot"><span>🏖️ 여름방학식 (7/21)</span><b>D-14</b></div>
+          <div class="row"><span>📝 기말고사 시작 (7/8)</span><b>D-1</b></div>
+          <div class="row"><span>🏅 스포츠클럽 대회 (7/14)</span><b>D-7</b></div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="g hero">
+          <div class="ring"><i>60%<small>3교시</small></i></div>
+          <div class="tx"><div class="a">지금은 3교시 · 18분 남음</div><div class="b">2학년 3반 체육</div><div class="c">📍 운동장 · 다음 4교시 1-2 체육 (체육관)</div></div>
+        </div>
+        <div class="g tt2"><div class="hl">Weekly Timetable</div>
+          <table>
+            <tr><th></th><th>월</th><th class="tu">화</th><th>수</th><th>목</th><th>금</th></tr>
+            <tr><td class="pr">1</td><td>1-1</td><td>2-2</td><td>1-3</td><td>3-2</td><td>2-1</td></tr>
+            <tr><td class="pr">2</td><td>3-1</td><td class="dim">—</td><td>2-2</td><td>1-1</td><td>3-3</td></tr>
+            <tr><td class="pr">3</td><td>2-3</td><td class="now">2-3</td><td class="dim">—</td><td>2-3</td><td>1-2</td></tr>
+            <tr><td class="pr">4</td><td class="dim">—</td><td>1-2</td><td>3-1</td><td class="dim">—</td><td>스클</td></tr>
+            <tr><td class="pr">5</td><td>3-3</td><td>창체</td><td>1-3</td><td>3-2</td><td class="dim">—</td></tr>
+            <tr><td class="pr">6</td><td>동아리</td><td class="dim">—</td><td>협의</td><td>2-1</td><td>창체</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="col">
+        <div class="g lun"><div class="hl">오늘 급식 · 763 kcal</div>
+          <p><b>현미밥</b> · 제육볶음 · 미역국<br>콩나물무침 · 배추김치 · <b>수박 🍉</b></p>
+        </div>
+        <div class="g td2"><div class="hl">할 일 4</div>
+          <div class="it"><i></i>체육대회 계획서 결재<em>오늘</em></div>
+          <div class="it"><i></i>수행평가 성적 입력<em>7/10</em></div>
+          <div class="it"><i></i>3반 상담일지 작성</div>
+          <div class="it dn"><i></i>배드민턴 네트 수리 요청</div>
+        </div>
+        <div class="g cal2"><div class="hl">July 2026</div>
+          <div class="cg">
+            <span class="h">일</span><span class="h">월</span><span class="h">화</span><span class="h">수</span><span class="h">목</span><span class="h">금</span><span class="h">토</span>
+            <span></span><span></span><span></span><span>1</span><span>2</span><span>3</span><span>4</span>
+            <span>5</span><span>6</span><span class="td">7</span><span class="ev">8</span><span>9</span><span>10</span><span>11</span>
+            <span>12</span><span>13</span><span class="ev">14</span><span>15</span><span>16</span><span>17</span><span>18</span>
+            <span>19</span><span>20</span><span class="ev">21</span><span>22</span><span>23</span><span>24</span><span>25</span>
+            <span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bot">
+      <div class="g fold2"><span class="hl">폴더</span><a>📘 수업자료</a><a>📊 평가·성적</a><a>📄 공문·기안</a><a>🏆 체육대회</a><a>📷 사진·영상</a><a>🧑‍🏫 학급운영</a></div>
+      <div class="g dock2"><span>🟢</span><span>💰</span><span>💬</span><span>🏫</span><span>🎓</span><span>📝</span><span>📗</span><span>🌐</span></div>
+    </div>
+  </div></div>
+</section>
+<!-- ================================================================ 시안 3 : 페이퍼 다이어리 -->
+<section class="design" id="d3">
+  <div class="d-head">
+    <div class="d-num">03</div>
+    <div><h2>페이퍼 다이어리 Paper Diary</h2><p>종이 질감 위에 마스킹테이프·포스트잇·스티커·손글씨. 교무수첩을 책상에 펼쳐 놓은 듯한 선생님 감성 콜라주.</p></div>
+    <div class="d-tags"><span>Nanum Pen Script</span><span>Gaegu</span><span>콜라주</span></div>
+  </div>
+  <div class="mock-frame"><div class="mock d3">
+<style>
+.d3{background:#f6efdf;background-image:radial-gradient(#e3d9c2 1.4px,transparent 1.4px);background-size:26px 26px;font-family:'Gaegu',sans-serif;color:#4a4033}
+.d3 .hand{font-family:'Nanum Pen Script',cursive}
+.d3 .card{position:absolute;background:#fffdf6;border-radius:6px;box-shadow:0 8px 22px rgba(90,70,40,.16);padding:26px 30px}
+.d3 .tape{position:absolute;width:130px;height:36px;top:-16px;left:50%;transform:translateX(-50%) rotate(-3deg);background:rgba(244,164,180,.65);box-shadow:0 2px 5px rgba(90,70,40,.12);border-left:2px dashed rgba(255,255,255,.6);border-right:2px dashed rgba(255,255,255,.6)}
+.d3 .tape.mint{background:rgba(150,220,190,.6)}
+.d3 .tape.sky{background:rgba(150,195,240,.6)}
+.d3 .hd{position:absolute;top:42px;left:64px}
+.d3 .hd .date{font-size:96px;line-height:1;color:#3c3226}
+.d3 .hd .date b{color:#e0653f}
+.d3 .hd .wx{font-size:40px;margin-top:6px;color:#7a6c56}
+.d3 .clockc{top:60px;left:1470px;width:380px;transform:rotate(2deg);text-align:center}
+.d3 .clockc .t{font-size:92px;line-height:1.05;color:#3c3226}
+.d3 .clockc .s{font-size:30px;color:#a5967c;margin-top:2px}
+.d3 .stick{position:absolute;top:26px;left:1160px;width:250px;height:250px;border-radius:50%;background:#e0653f;color:#fff9ee;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;transform:rotate(-7deg);box-shadow:0 10px 24px rgba(180,70,30,.35);border:6px dashed rgba(255,255,255,.5)}
+.d3 .stick .a{font-size:40px;line-height:1}
+.d3 .stick .b{font-size:52px;line-height:1.1;margin-top:6px}
+.d3 .stick .c{font-size:26px;margin-top:6px;opacity:.9}
+.d3 .ttc{top:236px;left:60px;width:648px;height:566px;transform:rotate(-.6deg)}
+.d3 .ttc h3{font-size:44px;margin-bottom:8px;color:#3c3226}
+.d3 .ttc h3 small{font-size:26px;color:#b0a184;font-family:'Gaegu'}
+.d3 .ttc table{width:100%;border-collapse:collapse;table-layout:fixed}
+.d3 .ttc th{font-size:27px;font-weight:700;border-bottom:3px solid #4a4033;padding:6px 0;color:#6b5c45}
+.d3 .ttc th.tu{color:#e0653f}
+.d3 .ttc td{font-size:27px;text-align:center;padding:11.5px 0;border-bottom:2px dashed #d8ccb2}
+.d3 .ttc td.pr{color:#b0a184;font-size:23px}
+.d3 .ttc td.off{color:#cfc3a8}
+.d3 .ttc td.now{background:#ffe58a;border-radius:10px;font-weight:700;color:#8a5a00;box-shadow:0 0 0 3px #ffd34d inset}
+.d3 .ttc td.tucol{background:rgba(255,229,138,.28)}
+.d3 .calc{top:272px;left:748px;width:478px;height:530px;transform:rotate(.8deg);padding-top:44px}
+.d3 .rings{position:absolute;top:-14px;left:0;right:0;display:flex;justify-content:space-evenly}
+.d3 .rings i{width:15px;height:30px;border:5px solid #b9a98c;border-radius:9px;background:#f6efdf}
+.d3 .calc h3{font-size:42px;text-align:center;color:#3c3226}
+.d3 .calc .cg{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;margin-top:10px;row-gap:2px}
+.d3 .calc .cg span{font-size:26px;padding:6px 0;position:relative;color:#5c5140}
+.d3 .calc .cg .h{font-size:22px;color:#b0a184;border-bottom:2px solid #d8ccb2}
+.d3 .calc .cg .su{color:#d96a5a}
+.d3 .calc .cg .x{color:#c9bda1;text-decoration:line-through}
+.d3 .calc .cg .td::after{content:'';position:absolute;inset:-4px 6px;border:4px solid #e0653f;border-radius:50% 46% 52% 48%;transform:rotate(-4deg)}
+.d3 .calc .cg .ev i{position:absolute;left:50%;transform:translateX(-50%);bottom:-3px;font-size:15px;font-style:normal}
+.d3 .calc .ev-note{margin-top:8px;font-size:24px;line-height:1.5;color:#7a6c56}
+.d3 .calc .ev-note b{color:#e0653f}
+.d3 .post{position:absolute;width:272px;height:250px;padding:20px 22px;box-shadow:0 10px 18px rgba(90,70,40,.2);font-size:27px;line-height:1.35}
+.d3 .post::after{content:'';position:absolute;bottom:0;right:0;border-style:solid;border-width:0 0 34px 34px;border-color:transparent transparent rgba(0,0,0,.08) transparent}
+.d3 .post h4{font-size:30px;margin-bottom:6px;border-bottom:2px dashed rgba(0,0,0,.15);padding-bottom:4px}
+.d3 .p1{background:#fff3a3;top:260px;left:1268px;transform:rotate(-2.5deg)}
+.d3 .p2{background:#ffd5e1;top:250px;left:1580px;transform:rotate(2deg)}
+.d3 .p3{background:#d3f4d0;top:540px;left:1560px;transform:rotate(-1.5deg);height:230px}
+.d3 .p3 .dn{text-decoration:line-through;color:#8ba586}
+.d3 .lunchc{top:560px;left:1268px;width:262px;height:270px;transform:rotate(1.4deg);padding-top:34px}
+.d3 .lunchc h4{font-size:34px;color:#3c3226}
+.d3 .lunchc ul{list-style:none;font-size:25.5px;line-height:1.42;margin-top:4px}
+.d3 .lunchc ul b{color:#e0653f}
+.d3 .ribbon{position:absolute;top:842px;left:64px;background:#7fb069;color:#fffdf4;padding:14px 34px;font-size:38px;transform:rotate(-1deg);box-shadow:0 8px 18px rgba(80,110,60,.3);border-radius:4px}
+.d3 .ribbon small{font-size:26px;opacity:.85}
+.d3 .tabs{position:absolute;top:836px;left:660px;display:flex;gap:10px}
+.d3 .tabs span{background:#fffdf6;border:2px solid #d8ccb2;border-bottom:none;border-radius:14px 14px 0 0;padding:14px 22px 30px;font-size:26px;box-shadow:0 -4px 10px rgba(90,70,40,.06);color:#6b5c45}
+.d3 .tabs span:nth-child(2n){background:#fdf3d7}.d3 .tabs span:nth-child(3n){background:#fde7de}
+.d3 .dock3{position:absolute;left:0;right:0;bottom:0;height:132px;background:#fffdf6;border-top:3px dashed #d8ccb2;display:flex;align-items:center;gap:38px;padding:0 70px}
+.d3 .dock3 .ttl{font-size:34px;color:#a5967c;margin-right:8px}
+.d3 .dock3 span{display:flex;flex-direction:column;align-items:center;gap:0}
+.d3 .dock3 span i{font-style:normal;width:64px;height:64px;border-radius:50%;background:#f6efdf;border:2px solid #e3d9c2;display:flex;align-items:center;justify-content:center;font-size:33px;box-shadow:0 3px 6px rgba(90,70,40,.12)}
+.d3 .dock3 span em{font-style:normal;font-size:20px;color:#8a7c63;margin-top:2px}
+</style>
+    <div class="hd">
+      <div class="hand date">7월 7일 <b>화요일</b> ☀️</div>
+      <div class="wx">맑음 28도 · 미세먼지 좋음 — 운동장 가기 딱 좋은 날!</div>
+    </div>
+    <div class="card clockc"><i class="tape sky"></i>
+      <div class="hand t">지금 11시 17분</div>
+      <div class="s">3교시 끝나기까지 18분 ⏰</div>
+    </div>
+    <div class="stick hand"><div class="a">지금은</div><div class="b">3교시!</div><div class="c">2-3 체육 ⚽<br>운동장에서</div></div>
+    <div class="card ttc"><i class="tape"></i>
+      <h3 class="hand">이번 주 시간표 ✏️ <small>7/6 ~ 7/10</small></h3>
+      <table>
+        <tr><th></th><th>월</th><th class="tu">화</th><th>수</th><th>목</th><th>금</th></tr>
+        <tr><td class="pr">1교시</td><td>1-1</td><td class="tucol">2-2</td><td>1-3</td><td>3-2</td><td>2-1</td></tr>
+        <tr><td class="pr">2교시</td><td>3-1</td><td class="tucol off">-</td><td>2-2</td><td>1-1</td><td>3-3</td></tr>
+        <tr><td class="pr">3교시</td><td>2-3</td><td class="now">2-3 ⚽</td><td class="off">-</td><td>2-3</td><td>1-2</td></tr>
+        <tr><td class="pr">4교시</td><td class="off">-</td><td class="tucol">1-2</td><td>3-1</td><td class="off">-</td><td>스클</td></tr>
+        <tr><td class="pr">5교시</td><td>3-3</td><td class="tucol">창체</td><td>1-3</td><td>3-2</td><td class="off">-</td></tr>
+        <tr><td class="pr">6교시</td><td>동아리</td><td class="tucol off">-</td><td>협의</td><td>2-1</td><td>창체</td></tr>
+      </table>
+    </div>
+    <div class="card calc"><div class="rings"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <h3 class="hand">2026년 7월 🍉</h3>
+      <div class="cg">
+        <span class="h su">일</span><span class="h">월</span><span class="h">화</span><span class="h">수</span><span class="h">목</span><span class="h">금</span><span class="h">토</span>
+        <span></span><span></span><span></span><span class="x">1</span><span class="x">2</span><span class="x">3</span><span class="x">4</span>
+        <span class="su x">5</span><span class="x">6</span><span class="td">7</span><span class="ev">8<i>📝</i></span><span>9</span><span>10</span><span>11</span>
+        <span class="su">12</span><span>13</span><span class="ev">14<i>🏅</i></span><span>15</span><span>16</span><span>17</span><span>18</span>
+        <span class="su">19</span><span>20</span><span class="ev">21<i>🏖️</i></span><span>22</span><span>23</span><span>24</span><span>25</span>
+        <span class="su">26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span></span>
+      </div>
+      <div class="ev-note">📝 8일 기말고사 시작 · 🏅 14일 스포츠클럽 대회<br><b>🏖️ 21일 여름방학식!</b></div>
+    </div>
+    <div class="post p1"><h4 class="hand">오늘 꼭! 🔥</h4>☐ 체육대회 계획서<br>&nbsp;&nbsp;&nbsp;결재 올리기<br>☐ 3반 상담일지 쓰기</div>
+    <div class="post p2"><h4 class="hand">이번 주까지</h4>☐ 수행평가 성적 입력<br>&nbsp;&nbsp;&nbsp;(금요일 마감!)<br>☐ 방학 과제 안내문</div>
+    <div class="post p3"><h4 class="hand">끝난 일 ✔</h4><span class="dn">☑ 배드민턴 네트<br>&nbsp;&nbsp;&nbsp;수리 요청</span><br>참 잘했어요 🌸</div>
+    <div class="card lunchc"><i class="tape mint"></i>
+      <h4 class="hand">오늘 급식 🍽️</h4>
+      <ul><li>현미밥 · 미역국</li><li><b>제육볶음</b> 최고!</li><li>콩나물무침 · 김치</li><li>후식은 <b>수박</b> 🍉</li></ul>
+    </div>
+    <div class="ribbon hand">🏖️ 여름방학까지 D-14 <small>(7/21 방학식)</small></div>
+    <div class="tabs"><span>📘 수업자료</span><span>📊 평가·성적</span><span>📄 공문·기안</span><span>🏆 체육대회</span><span>📷 사진·영상</span><span>🧑‍🏫 학급운영</span></div>
+    <div class="dock3">
+      <span class="ttl hand">자주 쓰는 것 📎</span>
+      <span><i>🟢</i><em>나이스</em></span><span><i>💰</i><em>에듀파인</em></span><span><i>💬</i><em>쿨메신저</em></span><span><i>🏫</i><em>학교홈피</em></span><span><i>🎓</i><em>클래스룸</em></span><span><i>📝</i><em>한글</em></span><span><i>📗</i><em>엑셀</em></span><span><i>🌐</i><em>크롬</em></span><span><i>🗑️</i><em>휴지통</em></span>
+    </div>
+  </div></div>
+</section>
+
+<!-- ================================================================ 시안 4 : 에디토리얼 매거진 -->
+<section class="design" id="d4">
+  <div class="d-head">
+    <div class="d-num">04</div>
+    <div><h2>에디토리얼 매거진 Editorial</h2><p>세리프 대제목과 비대칭 여백, 가는 괘선. 잡지의 목차 페이지처럼 정보를 활자 중심으로 편집한 안.</p></div>
+    <div class="d-tags"><span>마루부리</span><span>Noto Serif KR</span><span>헤어라인</span></div>
+  </div>
+  <div class="mock-frame"><div class="mock d4">
+<style>
+.d4{background:#faf7f0;font-family:'MaruBuri','Noto Serif KR',serif;color:#1d1a14;padding:58px 92px 40px;display:flex;flex-direction:column}
+.d4 .caps{font-family:'Pretendard Variable',sans-serif;font-weight:700;letter-spacing:4px;text-transform:uppercase;font-size:15px;color:#8f8873}
+.d4 .mast{display:flex;align-items:baseline;gap:24px;border-bottom:1px solid #1d1a14;padding-bottom:14px}
+.d4 .mast .caps{font-size:17px;letter-spacing:6px;color:#1d1a14}
+.d4 .mast .no{margin-left:auto;font-size:17px;color:#8f8873}
+.d4 .mast .clk{font-size:34px;font-weight:600;font-variant-numeric:tabular-nums}
+.d4 .title{display:flex;align-items:flex-end;gap:40px;padding:34px 0 26px}
+.d4 .title h1{font-size:112px;font-weight:600;letter-spacing:-3px;line-height:1.04}
+.d4 .title h1 em{font-style:normal;color:#b04a2f}
+.d4 .title .side{margin-left:auto;text-align:right;font-size:19px;line-height:1.8;color:#5c5747;padding-bottom:10px}
+.d4 .title .side b{color:#1d1a14}
+.d4 .strip{display:flex;gap:0;border-top:1px solid #1d1a14;border-bottom:1px solid #d9d2bf;font-size:18.5px}
+.d4 .strip>div{flex:1;padding:13px 22px;border-right:1px solid #d9d2bf}
+.d4 .strip>div:first-child{padding-left:0}
+.d4 .strip>div:last-child{border-right:none}
+.d4 .strip .k{font-family:'Pretendard Variable',sans-serif;font-size:12.5px;font-weight:700;letter-spacing:2.5px;color:#b04a2f;display:block;margin-bottom:3px}
+.d4 .body{flex:1;display:grid;grid-template-columns:296px 1fr 360px;gap:0;min-height:0;margin-top:6px}
+.d4 .colL{padding:26px 34px 0 0;border-right:1px solid #d9d2bf}
+.d4 .colM{padding:26px 40px 0}
+.d4 .colR{padding:26px 0 0 34px;border-left:1px solid #d9d2bf}
+.d4 h5.caps{margin-bottom:14px}
+.d4 .cg{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;row-gap:3px}
+.d4 .cg span{font-size:17.5px;padding:5px 0;font-variant-numeric:tabular-nums;color:#3b372c;position:relative}
+.d4 .cg .h{font-family:'Pretendard Variable',sans-serif;font-size:12px;font-weight:700;color:#8f8873;padding-bottom:6px;border-bottom:1px solid #d9d2bf;margin-bottom:4px}
+.d4 .cg .su{color:#b04a2f}
+.d4 .cg .td{background:#1d1a14;color:#faf7f0;border-radius:50%}
+.d4 .cg .ev::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:4px;height:4px;background:#b04a2f;border-radius:50%}
+.d4 .evl{margin-top:22px;border-top:1px solid #1d1a14;padding-top:14px}
+.d4 .evl .e{display:flex;justify-content:space-between;align-items:baseline;padding:9px 0;border-bottom:1px dotted #c9c2ad;font-size:18px}
+.d4 .evl .e b{font-family:'Pretendard Variable',sans-serif;font-size:15px;font-weight:700;color:#b04a2f}
+.d4 .now .caps{color:#b04a2f}
+.d4 .now h2{font-size:56px;font-weight:600;letter-spacing:-1.5px;line-height:1.2;margin:8px 0 10px}
+.d4 .now h2 span{border-bottom:4px solid #b04a2f}
+.d4 .now p{font-size:20px;color:#5c5747;line-height:1.7}
+.d4 .now p b{color:#1d1a14}
+.d4 .toc{margin-top:26px;border-top:1px solid #1d1a14;padding-top:6px}
+.d4 .toc table{width:100%;border-collapse:collapse;table-layout:fixed}
+.d4 .toc th{font-family:'Pretendard Variable',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;color:#8f8873;padding:10px 0 8px;border-bottom:1px solid #d9d2bf;text-align:center}
+.d4 .toc th.tu{color:#b04a2f}
+.d4 .toc td{font-size:19.5px;text-align:center;padding:12.5px 0;border-bottom:1px dotted #c9c2ad;font-variant-numeric:tabular-nums;color:#3b372c}
+.d4 .toc td.pr{font-family:'Pretendard Variable',sans-serif;font-size:14px;color:#8f8873;letter-spacing:1px}
+.d4 .toc td.off{color:#c9c2ad}
+.d4 .toc td.now2{font-weight:700;color:#b04a2f;position:relative}
+.d4 .toc td.now2::before{content:'●';font-size:9px;position:absolute;left:14px;top:50%;transform:translateY(-50%)}
+.d4 .wxr{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid #1d1a14;padding-bottom:16px}
+.d4 .wxr .deg{font-size:74px;font-weight:600;letter-spacing:-2px}
+.d4 .wxr .sub{font-size:17px;color:#5c5747;line-height:1.6}
+.d4 .menu{margin-top:20px}
+.d4 .menu .m{display:flex;align-items:baseline;font-size:19.5px;padding:7.5px 0}
+.d4 .menu .m i{flex:1;border-bottom:1px dotted #c9c2ad;margin:0 10px}
+.d4 .menu .m em{font-style:normal;font-family:'Pretendard Variable',sans-serif;font-size:13.5px;color:#8f8873}
+.d4 .memo{margin-top:20px;border-top:1px solid #1d1a14;padding-top:12px}
+.d4 .memo .t{display:flex;gap:10px;font-size:18.5px;padding:7px 0;color:#3b372c}
+.d4 .memo .t.dn{color:#b3ac97;text-decoration:line-through}
+.d4 .memo .t b{font-family:'Pretendard Variable',sans-serif;font-size:14px;color:#b04a2f;margin-left:auto;white-space:nowrap}
+.d4 .foot4{border-top:1px solid #1d1a14;margin-top:20px;padding-top:16px;display:flex;align-items:center;gap:26px;font-family:'Pretendard Variable',sans-serif}
+.d4 .foot4 .caps{font-size:12px}
+.d4 .foot4 a{font-size:15.5px;font-weight:600;color:#3b372c;text-decoration:none;letter-spacing:.5px}
+.d4 .foot4 i{color:#c9c2ad;font-style:normal}
+.d4 .foot4 .fold{margin-left:auto;display:flex;gap:18px;font-size:15px;color:#5c5747}
+</style>
+    <div class="mast">
+      <span class="caps">The Teacher's Desk</span>
+      <span class="clk">11:17</span>
+      <span class="no">제128호 · 대한중학교 체육과 — 2026년 7월</span>
+    </div>
+    <div class="title">
+      <h1>칠월 칠일,<br><em>화요일.</em></h1>
+      <div class="side">Tuesday, July 7, 2026<br><b>여름방학까지 십사 일</b> — D-14<br>기말고사 하루 전 · 스포츠클럽 대회 일주 전</div>
+    </div>
+    <div class="strip">
+      <div><span class="k">WEATHER</span>맑음 28℃ · 최고 31℃ · 미세먼지 좋음</div>
+      <div><span class="k">NOW</span>3교시 진행 중 — 18분 남음</div>
+      <div><span class="k">LUNCH</span>763 kcal · 제육볶음과 수박</div>
+      <div><span class="k">TASKS</span>남은 할 일 세 가지</div>
+    </div>
+    <div class="body">
+      <div class="colL">
+        <h5 class="caps">July Calendar</h5>
+        <div class="cg">
+          <span class="h su">일</span><span class="h">월</span><span class="h">화</span><span class="h">수</span><span class="h">목</span><span class="h">금</span><span class="h">토</span>
+          <span></span><span></span><span></span><span>1</span><span>2</span><span>3</span><span>4</span>
+          <span class="su">5</span><span>6</span><span class="td">7</span><span class="ev">8</span><span>9</span><span>10</span><span>11</span>
+          <span class="su">12</span><span>13</span><span class="ev">14</span><span>15</span><span>16</span><span>17</span><span>18</span>
+          <span class="su">19</span><span>20</span><span class="ev">21</span><span>22</span><span>23</span><span>24</span><span>25</span>
+          <span class="su">26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span></span>
+        </div>
+        <div class="evl">
+          <h5 class="caps" style="margin-bottom:4px">Schedule</h5>
+          <div class="e"><span>기말고사 시작 <small>7/8</small></span><b>D-1</b></div>
+          <div class="e"><span>스포츠클럽 대회 <small>7/14</small></span><b>D-7</b></div>
+          <div class="e"><span>여름방학식 <small>7/21</small></span><b>D-14</b></div>
+        </div>
+      </div>
+      <div class="colM">
+        <div class="now">
+          <span class="caps">Now — 3교시 · 10:50–11:35</span>
+          <h2><span>2학년 3반, 운동장으로.</span></h2>
+          <p>체육 · 티볼 수행평가 2차시. 끝나면 <b>4교시 1-2 체육</b>이 체육관에서 이어진다.</p>
+        </div>
+        <div class="toc">
+          <table>
+            <tr><th></th><th>월</th><th class="tu">화</th><th>수</th><th>목</th><th>금</th></tr>
+            <tr><td class="pr">01</td><td>1-1</td><td>2-2</td><td>1-3</td><td>3-2</td><td>2-1</td></tr>
+            <tr><td class="pr">02</td><td>3-1</td><td class="off">—</td><td>2-2</td><td>1-1</td><td>3-3</td></tr>
+            <tr><td class="pr">03</td><td>2-3</td><td class="now2">2-3</td><td class="off">—</td><td>2-3</td><td>1-2</td></tr>
+            <tr><td class="pr">04</td><td class="off">—</td><td>1-2</td><td>3-1</td><td class="off">—</td><td>스클</td></tr>
+            <tr><td class="pr">05</td><td>3-3</td><td>창체</td><td>1-3</td><td>3-2</td><td class="off">—</td></tr>
+            <tr><td class="pr">06</td><td>동아리</td><td class="off">—</td><td>협의</td><td>2-1</td><td>창체</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="colR">
+        <div class="wxr"><span class="deg">28℃</span><span class="sub">맑음, 바람 남서 2m/s<br>습도 62% · 자외선 높음</span></div>
+        <div class="menu">
+          <h5 class="caps">Lunch Menu</h5>
+          <div class="m">현미밥<i></i><em>잡곡</em></div>
+          <div class="m">제육볶음<i></i><em>주찬</em></div>
+          <div class="m">미역국<i></i><em>국</em></div>
+          <div class="m">콩나물무침 · 배추김치<i></i><em>부찬</em></div>
+          <div class="m">수박<i></i><em>후식</em></div>
+        </div>
+        <div class="memo">
+          <h5 class="caps" style="margin-bottom:4px">Memo</h5>
+          <div class="t">— 체육대회 계획서 결재<b>오늘</b></div>
+          <div class="t">— 수행평가 성적 입력<b>7/10</b></div>
+          <div class="t">— 3반 상담일지 작성</div>
+          <div class="t dn">— 배드민턴 네트 수리 요청</div>
+        </div>
+      </div>
+    </div>
+    <div class="foot4">
+      <span class="caps">Quick Launch</span>
+      <a>나이스</a><i>/</i><a>에듀파인</a><i>/</i><a>쿨메신저</a><i>/</i><a>학교홈페이지</a><i>/</i><a>클래스룸</a><i>/</i><a>한글</a><i>/</i><a>엑셀</a><i>/</i><a>크롬</a>
+      <div class="fold">📁 수업자료 · 평가·성적 · 공문·기안 · 체육대회 · 사진·영상 · 학급운영</div>
+    </div>
+  </div></div>
+</section>
+<!-- ================================================================ 시안 5 : 커맨드 센터 -->
+<section class="design" id="d5">
+  <div class="d-head">
+    <div class="d-num">05</div>
+    <div><h2>커맨드 센터 Command Center</h2><p>NASA 관제실 HUD. 초대형 중앙 시계와 글로우 라인, 모노스페이스 숫자, 게이지·그래프로 하루를 계기판처럼 읽는다.</p></div>
+    <div class="d-tags"><span>IBM Plex Mono</span><span>글로우</span><span>게이지</span></div>
+  </div>
+  <div class="mock-frame"><div class="mock d5">
+<style>
+.d5{background:#04070d;background-image:linear-gradient(rgba(53,240,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(53,240,255,.045) 1px,transparent 1px);background-size:48px 48px;font-family:'IBM Plex Mono','Pretendard Variable',monospace;color:#c9f6ff;padding:32px 40px;display:flex;flex-direction:column;gap:16px}
+.d5::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.14) 0 2px,transparent 2px 5px);pointer-events:none}
+.d5 .pn{position:relative;border:1px solid rgba(53,240,255,.22);background:rgba(8,16,26,.72);padding:18px 22px}
+.d5 .pn::before{content:'';position:absolute;top:-2px;left:-2px;width:16px;height:16px;border-top:2px solid #35f0ff;border-left:2px solid #35f0ff}
+.d5 .pn::after{content:'';position:absolute;bottom:-2px;right:-2px;width:16px;height:16px;border-bottom:2px solid #35f0ff;border-right:2px solid #35f0ff}
+.d5 .cap{font-size:14px;letter-spacing:3px;color:#35f0ff;margin-bottom:10px;font-weight:600}
+.d5 .cap i{font-style:normal;color:rgba(201,246,255,.4)}
+.d5 .top5{display:flex;align-items:center;font-size:17px;letter-spacing:2px;color:rgba(201,246,255,.75);border-bottom:1px solid rgba(53,240,255,.25);padding-bottom:12px}
+.d5 .top5 b{color:#35f0ff;font-weight:700}
+.d5 .top5 .dot{width:11px;height:11px;border-radius:50%;background:#47ff9d;box-shadow:0 0 12px #47ff9d;margin:0 10px 0 4px}
+.d5 .top5 .r{margin-left:auto;display:flex;gap:26px}
+.d5 .main5{flex:1;display:grid;grid-template-columns:470px 1fr 470px;gap:16px;min-height:0}
+.d5 .col5{display:flex;flex-direction:column;gap:16px;min-height:0}
+.d5 .wx5 .big{display:flex;align-items:baseline;gap:14px}
+.d5 .wx5 .deg{font-size:66px;font-weight:700;color:#fff;text-shadow:0 0 22px rgba(53,240,255,.6)}
+.d5 .wx5 .st{font-size:16px;color:#47ff9d}
+.d5 .gau{margin-top:10px}
+.d5 .gau .g{display:flex;align-items:center;gap:10px;font-size:14.5px;margin:7px 0;color:rgba(201,246,255,.75)}
+.d5 .gau .g em{font-style:normal;width:92px;flex:none}
+.d5 .gau .g .tr{flex:1;height:8px;background:rgba(53,240,255,.12)}
+.d5 .gau .g .tr i{display:block;height:100%;background:linear-gradient(90deg,#0a6f86,#35f0ff);box-shadow:0 0 8px rgba(53,240,255,.7)}
+.d5 .gau .g b{width:52px;text-align:right;color:#fff}
+.d5 .tt5{flex:1;display:flex;flex-direction:column}
+.d5 .tt5 table{width:100%;border-collapse:collapse;flex:1;table-layout:fixed}
+.d5 .tt5 th{font-size:13px;letter-spacing:2px;color:rgba(201,246,255,.45);padding:5px 0;border-bottom:1px solid rgba(53,240,255,.25)}
+.d5 .tt5 th.tu{color:#35f0ff}
+.d5 .tt5 td{text-align:center;font-size:16.5px;padding:11px 0;border-bottom:1px dashed rgba(53,240,255,.13);color:rgba(201,246,255,.85)}
+.d5 .tt5 td.pr{color:rgba(201,246,255,.35);font-size:13px}
+.d5 .tt5 td.off{color:rgba(201,246,255,.18)}
+.d5 .tt5 td.now{color:#04070d;background:#35f0ff;font-weight:700;box-shadow:0 0 18px rgba(53,240,255,.75)}
+.d5 .hero5{flex:1.55;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.d5 .hero5 .lt{font-size:16px;letter-spacing:6px;color:rgba(201,246,255,.5)}
+.d5 .hero5 .tm{font-size:198px;font-weight:700;line-height:1;color:#fff;text-shadow:0 0 34px rgba(53,240,255,.75),0 0 90px rgba(53,240,255,.35);font-variant-numeric:tabular-nums;letter-spacing:-6px}
+.d5 .hero5 .tm small{font-size:64px;color:#35f0ff;letter-spacing:0}
+.d5 .hero5 .dt{font-size:21px;letter-spacing:4px;color:rgba(201,246,255,.7);margin-top:6px}
+.d5 .hero5 .per{margin-top:22px;width:82%;border:1px solid rgba(71,255,157,.4);background:rgba(71,255,157,.07);padding:14px 24px}
+.d5 .hero5 .per .a{font-size:15px;letter-spacing:3px;color:#47ff9d}
+.d5 .hero5 .per .b{font-size:32px;font-weight:700;color:#fff;margin:4px 0 10px}
+.d5 .hero5 .per .tr{height:10px;background:rgba(71,255,157,.15);position:relative}
+.d5 .hero5 .per .tr i{display:block;height:100%;width:60%;background:linear-gradient(90deg,#0c8a4e,#47ff9d);box-shadow:0 0 12px rgba(71,255,157,.8)}
+.d5 .hero5 .per .c{font-size:14px;color:rgba(201,246,255,.6);margin-top:8px;letter-spacing:1px}
+.d5 .cal5 .cg{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;row-gap:1px}
+.d5 .cal5 .cg span{font-size:14.5px;padding:4.5px 0;color:rgba(201,246,255,.75)}
+.d5 .cal5 .cg .h{color:rgba(53,240,255,.55);font-size:12px;letter-spacing:1px}
+.d5 .cal5 .cg .td{background:#35f0ff;color:#04070d;font-weight:700;box-shadow:0 0 12px rgba(53,240,255,.7)}
+.d5 .cal5 .cg .ev{color:#47ff9d;font-weight:700;text-decoration:underline}
+.d5 .dd5{display:flex;gap:12px}
+.d5 .dd5 .u{flex:1;border:1px solid rgba(53,240,255,.22);text-align:center;padding:12px 6px;background:rgba(53,240,255,.05)}
+.d5 .dd5 .u .n{font-size:44px;font-weight:700;color:#fff;text-shadow:0 0 16px rgba(53,240,255,.6)}
+.d5 .dd5 .u .n b{font-size:22px;color:#35f0ff}
+.d5 .dd5 .u .w{font-size:13.5px;color:rgba(201,246,255,.6);margin-top:2px}
+.d5 .dd5 .u.hot{border-color:rgba(255,176,64,.5);background:rgba(255,176,64,.07)}
+.d5 .dd5 .u.hot .n{text-shadow:0 0 16px rgba(255,176,64,.7)}.d5 .dd5 .u.hot .n b{color:#ffb040}
+.d5 .tk5{flex:1}
+.d5 .tk5 .t{display:flex;gap:12px;font-size:17px;padding:8.5px 0;border-bottom:1px dashed rgba(53,240,255,.13);color:rgba(201,246,255,.85)}
+.d5 .tk5 .t b{color:#35f0ff;font-weight:600}
+.d5 .tk5 .t em{font-style:normal;margin-left:auto;font-size:13px;color:#ffb040;letter-spacing:1px}
+.d5 .tk5 .t.dn{color:rgba(201,246,255,.3);text-decoration:line-through}
+.d5 .tk5 .t.dn b{color:#47ff9d}
+.d5 .lu5 .m{font-size:17.5px;padding:6.5px 0;color:rgba(201,246,255,.85);display:flex}
+.d5 .lu5 .m::before{content:'▸';color:#35f0ff;margin-right:12px}
+.d5 .lu5 .m em{font-style:normal;margin-left:auto;color:rgba(201,246,255,.35);font-size:13px;letter-spacing:1px}
+.d5 .bot5{height:104px;display:flex;gap:16px}
+.d5 .bot5 .pn{flex:1;display:flex;align-items:center;gap:14px;padding:0 22px}
+.d5 .bot5 .cap{margin:0;margin-right:6px}
+.d5 .bot5 .fch{border:1px solid rgba(53,240,255,.3);padding:9px 16px;font-size:15px;color:#c9f6ff;background:rgba(53,240,255,.06)}
+.d5 .bot5 .lch{border:1px solid rgba(71,255,157,.35);padding:9px 18px;font-size:15px;color:#47ff9d;background:rgba(71,255,157,.06);letter-spacing:1px}
+</style>
+    <div class="top5"><i class="dot"></i><b>TEACHERDESK</b>&nbsp;// MISSION CONTROL v3
+      <div class="r"><span>2026-07-07 TUE</span><span>WK 19 · DAY 92/102</span><span>SYS <b style="color:#47ff9d">NOMINAL</b></span></div>
+    </div>
+    <div class="main5">
+      <div class="col5">
+        <div class="pn wx5"><div class="cap">ATMOSPHERE <i>// 대기 상태</i></div>
+          <div class="big"><span class="deg">28.0°C</span><span class="st">CLEAR ☀<br>OUTDOOR : GO</span></div>
+          <div class="gau">
+            <div class="g"><em>HUMIDITY</em><span class="tr"><i style="width:62%"></i></span><b>62%</b></div>
+            <div class="g"><em>WIND SW</em><span class="tr"><i style="width:24%"></i></span><b>2m/s</b></div>
+            <div class="g"><em>UV INDEX</em><span class="tr"><i style="width:78%"></i></span><b>HIGH</b></div>
+            <div class="g"><em>PM 2.5</em><span class="tr"><i style="width:15%"></i></span><b>GOOD</b></div>
+          </div>
+        </div>
+        <div class="pn tt5"><div class="cap">TIMETABLE MATRIX <i>// 주간</i></div>
+          <table>
+            <tr><th></th><th>MON</th><th class="tu">TUE</th><th>WED</th><th>THU</th><th>FRI</th></tr>
+            <tr><td class="pr">P1</td><td>1-1</td><td>2-2</td><td>1-3</td><td>3-2</td><td>2-1</td></tr>
+            <tr><td class="pr">P2</td><td>3-1</td><td class="off">···</td><td>2-2</td><td>1-1</td><td>3-3</td></tr>
+            <tr><td class="pr">P3</td><td>2-3</td><td class="now">2-3</td><td class="off">···</td><td>2-3</td><td>1-2</td></tr>
+            <tr><td class="pr">P4</td><td class="off">···</td><td>1-2</td><td>3-1</td><td class="off">···</td><td>스클</td></tr>
+            <tr><td class="pr">P5</td><td>3-3</td><td>창체</td><td>1-3</td><td>3-2</td><td class="off">···</td></tr>
+            <tr><td class="pr">P6</td><td>동아리</td><td class="off">···</td><td>협의</td><td>2-1</td><td>창체</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="col5">
+        <div class="pn hero5">
+          <div class="lt">LOCAL TIME · KST</div>
+          <div class="tm">11:17<small>:42</small></div>
+          <div class="dt">2026.07.07 TUESDAY</div>
+          <div class="per">
+            <div class="a">▶ PERIOD 03 IN PROGRESS — T-MINUS 18:00</div>
+            <div class="b">2학년 3반 체육 @ 운동장</div>
+            <div class="tr"><i></i></div>
+            <div class="c">10:50 ─────────── 60% ─────────── 11:35 · NEXT: P4 1-2 체육 (체육관)</div>
+          </div>
+        </div>
+        <div class="pn cal5"><div class="cap">JULY 2026 <i>// 월간 궤도</i></div>
+          <div class="cg">
+            <span class="h">SU</span><span class="h">MO</span><span class="h">TU</span><span class="h">WE</span><span class="h">TH</span><span class="h">FR</span><span class="h">SA</span>
+            <span></span><span></span><span></span><span>01</span><span>02</span><span>03</span><span>04</span>
+            <span>05</span><span>06</span><span class="td">07</span><span class="ev">08</span><span>09</span><span>10</span><span>11</span>
+            <span>12</span><span>13</span><span class="ev">14</span><span>15</span><span>16</span><span>17</span><span>18</span>
+            <span>19</span><span>20</span><span class="ev">21</span><span>22</span><span>23</span><span>24</span><span>25</span>
+            <span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span></span>
+          </div>
+        </div>
+      </div>
+      <div class="col5">
+        <div class="pn"><div class="cap">COUNTDOWN <i>// D-day</i></div>
+          <div class="dd5">
+            <div class="u hot"><div class="n">01<b>d</b></div><div class="w">기말고사 7/8</div></div>
+            <div class="u"><div class="n">07<b>d</b></div><div class="w">스포츠클럽 7/14</div></div>
+            <div class="u"><div class="n">14<b>d</b></div><div class="w">여름방학 7/21</div></div>
+          </div>
+        </div>
+        <div class="pn tk5"><div class="cap">TASK QUEUE <i>// 4</i></div>
+          <div class="t"><b>[ ]</b>체육대회 계획서 결재<em>! TODAY</em></div>
+          <div class="t"><b>[ ]</b>수행평가 성적 입력<em>DUE 07/10</em></div>
+          <div class="t"><b>[ ]</b>3반 상담일지 작성</div>
+          <div class="t dn"><b>[✓]</b>배드민턴 네트 수리</div>
+        </div>
+        <div class="pn lu5"><div class="cap">MESS HALL <i>// 763 kcal</i></div>
+          <div class="m">현미밥<em>BASE</em></div>
+          <div class="m">제육볶음<em>MAIN</em></div>
+          <div class="m">미역국<em>SOUP</em></div>
+          <div class="m">콩나물무침 · 배추김치<em>SIDE</em></div>
+          <div class="m">수박<em>DESSERT</em></div>
+        </div>
+      </div>
+    </div>
+    <div class="bot5">
+      <div class="pn"><span class="cap">DIR</span><span class="fch">수업자료</span><span class="fch">평가·성적</span><span class="fch">공문·기안</span><span class="fch">체육대회</span><span class="fch">사진·영상</span><span class="fch">학급운영</span></div>
+      <div class="pn"><span class="cap">LAUNCH</span><span class="lch">NEIS</span><span class="lch">에듀파인</span><span class="lch">쿨메신저</span><span class="lch">클래스룸</span><span class="lch">한글</span><span class="lch">엑셀</span><span class="lch">CHROME</span></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ================================================================ 시안 6 : 미니멀 라인 -->
+<section class="design" id="d6">
+  <div class="d-head">
+    <div class="d-num">06</div>
+    <div><h2>미니멀 라인 Minimal Line</h2><p>채움 없는 헤어라인과 흑백 + 포인트 1색. 정보가 공기처럼 떠 있는 초경량 화면. 매일 봐도 질리지 않는 것이 목표.</p></div>
+    <div class="d-tags"><span>Noto Sans KR Thin</span><span>헤어라인</span><span>1 포인트색</span></div>
+  </div>
+  <div class="mock-frame"><div class="mock d6">
+<style>
+.d6{background:#fcfcf9;font-family:'Noto Sans KR',sans-serif;color:#161616;padding:56px 88px 36px;display:flex;flex-direction:column}
+.d6 .ac{color:#e8442e}
+.d6 .top6{display:flex;align-items:flex-end;gap:40px;padding-bottom:26px;border-bottom:1px solid #161616}
+.d6 .top6 .tm{font-size:172px;font-weight:100;line-height:.9;letter-spacing:-6px;font-variant-numeric:tabular-nums}
+.d6 .top6 .tm small{font-size:44px;font-weight:300;color:#b5b3ac;letter-spacing:0}
+.d6 .top6 .mid{font-size:20px;font-weight:300;line-height:1.75;color:#5c5b56;padding-bottom:8px}
+.d6 .top6 .mid b{font-weight:500;color:#161616}
+.d6 .top6 .wx{margin-left:auto;text-align:right;padding-bottom:8px;font-weight:300}
+.d6 .top6 .wx .d{font-size:58px;font-weight:100;letter-spacing:-2px}
+.d6 .top6 .wx .s{font-size:17px;color:#8b897f;margin-top:2px}
+.d6 .cols{flex:1;display:grid;grid-template-columns:1fr 1.35fr 1fr;min-height:0}
+.d6 .c6{padding:30px 40px 0;border-right:1px solid #e4e2d9}
+.d6 .c6:first-child{padding-left:0}
+.d6 .c6:last-child{border-right:none;padding-right:0}
+.d6 h6{font-size:13px;font-weight:500;letter-spacing:4px;color:#a3a199;margin-bottom:18px}
+.d6 h6 b{color:#e8442e;font-weight:500}
+.d6 .tt6{width:100%;border-collapse:collapse;table-layout:fixed}
+.d6 .tt6 th{font-size:13px;font-weight:400;color:#a3a199;padding:6px 0;border-bottom:1px solid #161616}
+.d6 .tt6 th.tu{color:#e8442e;font-weight:500}
+.d6 .tt6 td{text-align:center;font-size:17.5px;font-weight:300;padding:12.5px 0;border-bottom:1px solid #ecebe3}
+.d6 .tt6 td.pr{font-size:12px;color:#b5b3ac}
+.d6 .tt6 td.off{color:#d8d6cc}
+.d6 .tt6 td.now{color:#e8442e;font-weight:500;position:relative}
+.d6 .tt6 td.now::after{content:'';position:absolute;left:50%;transform:translateX(-50%);bottom:5px;width:24px;height:1.5px;background:#e8442e}
+.d6 .now6 .p{font-size:17px;font-weight:300;color:#8b897f}
+.d6 .now6 h2{font-size:56px;font-weight:200;letter-spacing:-2px;line-height:1.18;margin:6px 0 20px}
+.d6 .now6 h2 b{font-weight:500}
+.d6 .now6 .ln{position:relative;height:1px;background:#dcdad0;margin:10px 0 8px}
+.d6 .now6 .ln i{position:absolute;left:60%;top:-4.5px;width:10px;height:10px;border-radius:50%;background:#e8442e}
+.d6 .now6 .cap{display:flex;justify-content:space-between;font-size:13.5px;color:#a3a199;font-weight:300}
+.d6 .now6 .nx{margin-top:16px;font-size:17px;font-weight:300;color:#5c5b56}
+.d6 .lu6{margin-top:36px}
+.d6 .lu6 p{font-size:19px;font-weight:300;line-height:2;color:#3c3b36}
+.d6 .lu6 p b{font-weight:500}
+.d6 .lu6 p em{font-style:normal;color:#b5b3ac;font-size:14px;margin-left:10px}
+.d6 .td6 .t{display:flex;align-items:center;gap:14px;font-size:18px;font-weight:300;padding:12px 0;border-bottom:1px solid #ecebe3}
+.d6 .td6 .t i{flex:none;width:16px;height:16px;border-radius:50%;border:1.5px solid #9d9b92}
+.d6 .td6 .t em{font-style:normal;margin-left:auto;font-size:13px;color:#e8442e}
+.d6 .td6 .t.dn{color:#c4c2b8;text-decoration:line-through}
+.d6 .td6 .t.dn i{background:#161616;border-color:#161616}
+.d6 .dd6{margin-top:30px}
+.d6 .dd6 .r{display:flex;align-items:baseline;font-size:17.5px;font-weight:300;padding:10px 0;border-bottom:1px solid #ecebe3}
+.d6 .dd6 .r b{font-weight:500;font-size:26px;margin-left:auto;font-variant-numeric:tabular-nums}
+.d6 .cal6{margin-top:30px}
+.d6 .cal6 .cg{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;row-gap:0}
+.d6 .cal6 .cg span{font-size:14px;font-weight:300;padding:5px 0;color:#5c5b56;position:relative}
+.d6 .cal6 .cg .h{font-size:11px;color:#b5b3ac;padding-bottom:8px}
+.d6 .cal6 .cg .td{color:#fff}
+.d6 .cal6 .cg .td::before{content:'';position:absolute;inset:0 22%;background:#e8442e;border-radius:50%;z-index:-1}
+.d6 .cal6 .cg .ev{font-weight:500;text-decoration:underline;text-underline-offset:3px}
+.d6 .bot6{border-top:1px solid #161616;padding-top:18px;display:flex;align-items:center;gap:30px;font-size:15px;font-weight:300;color:#5c5b56}
+.d6 .bot6 .lb{font-size:12px;letter-spacing:3px;color:#a3a199}
+.d6 .bot6 span{cursor:default}
+.d6 .bot6 .sep{width:1px;height:16px;background:#dcdad0}
+.d6 .bot6 .fold{margin-left:auto;display:flex;gap:22px}
+</style>
+    <div class="top6">
+      <div class="tm">11:17<small>42</small></div>
+      <div class="mid">2026년 7월 7일<br><b>화요일</b>, 3교시</div>
+      <div class="wx"><div class="d">28°</div><div class="s">맑음 · 31° / 22° · 미세먼지 좋음</div></div>
+    </div>
+    <div class="cols">
+      <div class="c6">
+        <h6>주간 시간표 <b>· 화</b></h6>
+        <table class="tt6">
+          <tr><th></th><th>월</th><th class="tu">화</th><th>수</th><th>목</th><th>금</th></tr>
+          <tr><td class="pr">1</td><td>1-1</td><td>2-2</td><td>1-3</td><td>3-2</td><td>2-1</td></tr>
+          <tr><td class="pr">2</td><td>3-1</td><td class="off">·</td><td>2-2</td><td>1-1</td><td>3-3</td></tr>
+          <tr><td class="pr">3</td><td>2-3</td><td class="now">2-3</td><td class="off">·</td><td>2-3</td><td>1-2</td></tr>
+          <tr><td class="pr">4</td><td class="off">·</td><td>1-2</td><td>3-1</td><td class="off">·</td><td>스클</td></tr>
+          <tr><td class="pr">5</td><td>3-3</td><td>창체</td><td>1-3</td><td>3-2</td><td class="off">·</td></tr>
+          <tr><td class="pr">6</td><td>동아리</td><td class="off">·</td><td>협의</td><td>2-1</td><td>창체</td></tr>
+        </table>
+      </div>
+      <div class="c6">
+        <div class="now6">
+          <div class="p">지금 — 3교시 · 10:50 – 11:35</div>
+          <h2><b>2학년 3반 체육</b>,<br>운동장</h2>
+          <div class="ln"><i></i></div>
+          <div class="cap"><span>10:50</span><span class="ac">18분 남음</span><span>11:35</span></div>
+          <div class="nx">다음 <span class="ac">→</span> 4교시 1-2 체육, 체육관</div>
+        </div>
+        <div class="lu6">
+          <h6>오늘 급식</h6>
+          <p>현미밥 · <b>제육볶음</b> · 미역국<em>763 kcal</em><br>콩나물무침 · 배추김치 · 수박</p>
+        </div>
+      </div>
+      <div class="c6">
+        <div class="td6">
+          <h6>할 일 <b>· 3</b></h6>
+          <div class="t"><i></i>체육대회 계획서 결재<em>오늘</em></div>
+          <div class="t"><i></i>수행평가 성적 입력<em>7/10</em></div>
+          <div class="t"><i></i>3반 상담일지 작성</div>
+          <div class="t dn"><i></i>배드민턴 네트 수리 요청</div>
+        </div>
+        <div class="dd6">
+          <h6>다가오는 일</h6>
+          <div class="r">기말고사 <span style="color:#b5b3ac;margin-left:8px">7/8</span><b class="ac">D-1</b></div>
+          <div class="r">스포츠클럽 대회 <span style="color:#b5b3ac;margin-left:8px">7/14</span><b>D-7</b></div>
+          <div class="r">여름방학식 <span style="color:#b5b3ac;margin-left:8px">7/21</span><b>D-14</b></div>
+        </div>
+        <div class="cal6">
+          <h6>7월</h6>
+          <div class="cg">
+            <span class="h">일</span><span class="h">월</span><span class="h">화</span><span class="h">수</span><span class="h">목</span><span class="h">금</span><span class="h">토</span>
+            <span></span><span></span><span></span><span>1</span><span>2</span><span>3</span><span>4</span>
+            <span>5</span><span>6</span><span class="td">7</span><span class="ev">8</span><span>9</span><span>10</span><span>11</span>
+            <span>12</span><span>13</span><span class="ev">14</span><span>15</span><span>16</span><span>17</span><span>18</span>
+            <span>19</span><span>20</span><span class="ev">21</span><span>22</span><span>23</span><span>24</span><span>25</span>
+            <span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bot6">
+      <span class="lb">LAUNCH</span>
+      <span>나이스</span><span>에듀파인</span><span>쿨메신저</span><span>학교홈페이지</span><span>클래스룸</span><span>한글</span><span>엑셀</span><span>크롬</span>
+      <i class="sep"></i>
+      <div class="fold"><span class="lb" style="align-self:center">FOLDER</span><span>수업자료</span><span>평가·성적</span><span>공문·기안</span><span>체육대회</span><span>사진·영상</span><span>학급운영</span></div>
+    </div>
+  </div></div>
+</section>
+<!-- ================================================================ 시안 7 : 레트로 OS -->
+<section class="design" id="d7">
+  <div class="d-head">
+    <div class="d-num">07</div>
+    <div><h2>레트로 OS Retro OS</h2><p>윈도우95를 파스텔로 다시 칠한 데스크톱. 위젯 하나하나가 타이틀바 달린 창이고, 하단 독은 작업표시줄이 된다.</p></div>
+    <div class="d-tags"><span>DungGeunMo</span><span>창 UI</span><span>픽셀 감성</span></div>
+  </div>
+  <div class="mock-frame"><div class="mock d7">
+<style>
+.d7{background:#79c6ba;background-image:linear-gradient(rgba(255,255,255,.07) 2px,transparent 2px),linear-gradient(90deg,rgba(255,255,255,.07) 2px,transparent 2px);background-size:56px 56px;font-family:'DungGeunMo',monospace;color:#232323}
+.d7 .win{position:absolute;background:#f4f1e6;border:3px solid #232323;box-shadow:7px 7px 0 rgba(20,40,35,.35)}
+.d7 .tb{display:flex;align-items:center;height:44px;padding:0 12px;border-bottom:3px solid #232323;font-size:23px;letter-spacing:1px;gap:10px}
+.d7 .tb .ic{font-size:22px}
+.d7 .tb .bts{margin-left:auto;display:flex;gap:6px}
+.d7 .tb .bts i{width:26px;height:26px;background:#f4f1e6;border:2.5px solid #232323;box-shadow:inset -2px -2px 0 rgba(0,0,0,.2);font-style:normal;font-size:16px;display:flex;align-items:center;justify-content:center}
+.d7 .bd{padding:16px 18px}
+.d7 .tb.pk{background:#ffc9d8}.d7 .tb.bl{background:#b5d5ff}.d7 .tb.ye{background:#ffe6a1}.d7 .tb.gr{background:#c4ecc0}.d7 .tb.pu{background:#dcCbF7}.d7 .tb.or{background:#ffd2b0}
+.d7 .icons{position:absolute;top:36px;left:30px;display:flex;flex-direction:column;gap:26px;width:150px}
+.d7 .icons .i{display:flex;flex-direction:column;align-items:center;gap:4px}
+.d7 .icons .i b{font-size:52px;filter:drop-shadow(3px 3px 0 rgba(0,60,50,.3))}
+.d7 .icons .i span{font-size:19px;background:rgba(0,70,60,.65);color:#fff;padding:2px 8px}
+.d7 .wclock{top:40px;left:230px;width:430px}
+.d7 .wclock .lcd{background:#1d2b22;border:3px solid #232323;box-shadow:inset 3px 3px 0 rgba(0,0,0,.6);color:#7dffb0;text-align:center;padding:14px 0;font-size:76px;letter-spacing:4px;text-shadow:0 0 10px rgba(125,255,176,.7)}
+.d7 .wclock .dt{text-align:center;font-size:24px;margin-top:10px}
+.d7 .wnow{top:56px;left:712px;width:600px}
+.d7 .wnow .bd{display:flex;gap:18px;align-items:flex-start}
+.d7 .wnow .warn{font-size:56px}
+.d7 .wnow .msg{font-size:26px;line-height:1.5}
+.d7 .wnow .msg b{background:#ffe6a1;padding:0 6px}
+.d7 .wnow .prog{margin-top:10px;height:26px;border:3px solid #232323;background:#fff;display:flex;gap:3px;padding:3px}
+.d7 .wnow .prog i{flex:1;background:#79b8f5}
+.d7 .wnow .prog i.off{background:transparent}
+.d7 .wnow .ok{display:block;margin:14px auto 2px;width:180px;text-align:center;border:3px solid #232323;background:#e8e4d4;box-shadow:inset -3px -3px 0 rgba(0,0,0,.18),4px 4px 0 rgba(20,40,35,.25);font-size:23px;padding:8px 0;font-family:'DungGeunMo'}
+.d7 .wwx{top:40px;left:1600px;width:288px}
+.d7 .wwx .bd{text-align:center}
+.d7 .wwx .e{font-size:64px}
+.d7 .wwx .d{font-size:52px;margin-top:2px}
+.d7 .wwx .s{font-size:20px;line-height:1.5;margin-top:6px;color:#4a4a42}
+.d7 .wtt{top:312px;left:230px;width:648px}
+.d7 .wtt table{width:100%;border-collapse:collapse;table-layout:fixed}
+.d7 .wtt th{font-size:21px;border:2px solid #9c988a;background:#e8e4d4;padding:8px 0;font-weight:400}
+.d7 .wtt th.tu{background:#ffc9d8}
+.d7 .wtt td{font-size:21px;text-align:center;border:2px solid #c9c5b5;padding:11.5px 0;background:#fff}
+.d7 .wtt td.pr{background:#e8e4d4;font-size:18px}
+.d7 .wtt td.off{color:#b5b1a2}
+.d7 .wtt td.now{background:#79b8f5;color:#fff;text-shadow:1px 1px 0 #232360}
+.d7 .wcal{top:356px;left:920px;width:452px}
+.d7 .wcal .cg{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;border:2px solid #c9c5b5;background:#fff}
+.d7 .wcal .cg span{font-size:20px;padding:7.5px 0;border:1px solid #e3dfd0;position:relative}
+.d7 .wcal .cg .h{background:#e8e4d4;font-size:17px}
+.d7 .wcal .cg .su{color:#d95555}
+.d7 .wcal .cg .td{background:#232323;color:#7dffb0}
+.d7 .wcal .cg .ev{background:#ffe6a1}
+.d7 .wcal .dd{margin-top:12px;border:3px solid #232323;background:#fff;padding:10px 14px;font-size:21px;line-height:1.55}
+.d7 .wcal .dd b{color:#d95555}
+.d7 .wlun{top:330px;left:1414px;width:330px}
+.d7 .wlun ul{list-style:none;font-size:22px;line-height:1.8}
+.d7 .wlun ul b{background:#c4ecc0;padding:0 4px}
+.d7 .wlun .kc{margin-top:6px;font-size:18px;color:#7a766a;border-top:2px dashed #c9c5b5;padding-top:8px}
+.d7 .wtodo{top:712px;left:1414px;width:472px}
+.d7 .wtodo .bd{background:#fff;background-image:repeating-linear-gradient(0deg,transparent 0 40px,#dce8f5 40px 42px);font-size:22px;line-height:42px;padding:6px 18px 14px}
+.d7 .wtodo .dn{text-decoration:line-through;color:#9a968a}
+.d7 .task{position:absolute;left:0;right:0;bottom:0;height:78px;background:#e8e4d4;border-top:3px solid #232323;display:flex;align-items:center;gap:12px;padding:0 16px}
+.d7 .task .start{display:flex;align-items:center;gap:8px;border:3px solid #232323;background:#c4ecc0;box-shadow:inset -3px -3px 0 rgba(0,0,0,.15);padding:7px 18px;font-size:24px}
+.d7 .task .ql{display:flex;gap:8px;border-right:3px solid #b5b1a2;border-left:3px solid #b5b1a2;padding:0 14px;margin:0 4px}
+.d7 .task .ql i{font-style:normal;font-size:30px;width:48px;height:48px;display:flex;align-items:center;justify-content:center;border:2px solid transparent}
+.d7 .task .ql i:hover{border-color:#232323}
+.d7 .task .run{display:flex;gap:8px;flex:1}
+.d7 .task .run span{border:3px solid #232323;background:#f4f1e6;box-shadow:inset -3px -3px 0 rgba(0,0,0,.12);font-size:19px;padding:8px 14px;white-space:nowrap}
+.d7 .task .run span.act{box-shadow:inset 3px 3px 0 rgba(0,0,0,.18);background:#fff}
+.d7 .task .tray{display:flex;align-items:center;gap:12px;border:3px solid #b5b1a2;box-shadow:inset 2px 2px 0 rgba(0,0,0,.1);padding:7px 16px;font-size:22px}
+</style>
+    <div class="icons">
+      <div class="i"><b>📁</b><span>수업자료</span></div>
+      <div class="i"><b>📁</b><span>평가·성적</span></div>
+      <div class="i"><b>📁</b><span>공문·기안</span></div>
+      <div class="i"><b>🏆</b><span>체육대회</span></div>
+      <div class="i"><b>📷</b><span>사진·영상</span></div>
+      <div class="i"><b>🗑️</b><span>휴지통</span></div>
+    </div>
+    <div class="win wclock"><div class="tb bl"><span class="ic">⏰</span>시계.EXE<span class="bts"><i>_</i><i>□</i><i>×</i></span></div>
+      <div class="bd"><div class="lcd">11:17:42</div><div class="dt">2026-07-07 (화) 3교시</div></div>
+    </div>
+    <div class="win wnow"><div class="tb ye"><span class="ic">⚠️</span>지금수업.EXE<span class="bts"><i>_</i><i>□</i><i>×</i></span></div>
+      <div class="bd"><div style="flex:1">
+        <div class="msg">지금은 <b>3교시</b> 입니다!<br><b>2-3 체육 · 운동장</b> (18분 남음)<br><span style="font-size:20px;color:#7a766a">다음: 4교시 1-2 체육 · 체육관</span></div>
+        <div class="prog"><i></i><i></i><i></i><i></i><i></i><i></i><i class="off"></i><i class="off"></i><i class="off"></i><i class="off"></i></div>
+        <span class="ok">확인</span>
+      </div><div class="warn">🏃</div></div>
+    </div>
+    <div class="win wwx"><div class="tb bl"><span class="ic">🌤️</span>날씨.EXE<span class="bts"><i>_</i><i>×</i></span></div>
+      <div class="bd"><div class="e">☀️</div><div class="d">28°C</div><div class="s">맑음 / 31° · 22°<br>미세먼지: 좋음<br>운동장수업 가능!</div></div>
+    </div>
+    <div class="win wtt"><div class="tb pk"><span class="ic">📅</span>시간표.EXE — 주간보기<span class="bts"><i>_</i><i>□</i><i>×</i></span></div>
+      <div class="bd"><table>
+        <tr><th></th><th>월</th><th class="tu">화</th><th>수</th><th>목</th><th>금</th></tr>
+        <tr><td class="pr">1</td><td>1-1</td><td>2-2</td><td>1-3</td><td>3-2</td><td>2-1</td></tr>
+        <tr><td class="pr">2</td><td>3-1</td><td class="off">-</td><td>2-2</td><td>1-1</td><td>3-3</td></tr>
+        <tr><td class="pr">3</td><td>2-3</td><td class="now">2-3◀</td><td class="off">-</td><td>2-3</td><td>1-2</td></tr>
+        <tr><td class="pr">4</td><td class="off">-</td><td>1-2</td><td>3-1</td><td class="off">-</td><td>스클</td></tr>
+        <tr><td class="pr">5</td><td>3-3</td><td>창체</td><td>1-3</td><td>3-2</td><td class="off">-</td></tr>
+        <tr><td class="pr">6</td><td>동아리</td><td class="off">-</td><td>협의</td><td>2-1</td><td>창체</td></tr>
+      </table></div>
+    </div>
+    <div class="win wcal"><div class="tb pu"><span class="ic">🗓️</span>달력.EXE — 2026년 7월<span class="bts"><i>_</i><i>□</i><i>×</i></span></div>
+      <div class="bd">
+        <div class="cg">
+          <span class="h su">일</span><span class="h">월</span><span class="h">화</span><span class="h">수</span><span class="h">목</span><span class="h">금</span><span class="h">토</span>
+          <span></span><span></span><span></span><span>1</span><span>2</span><span>3</span><span>4</span>
+          <span class="su">5</span><span>6</span><span class="td">7</span><span class="ev">8</span><span>9</span><span>10</span><span>11</span>
+          <span class="su">12</span><span>13</span><span class="ev">14</span><span>15</span><span>16</span><span>17</span><span>18</span>
+          <span class="su">19</span><span>20</span><span class="ev">21</span><span>22</span><span>23</span><span>24</span><span>25</span>
+          <span class="su">26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span></span>
+        </div>
+        <div class="dd">D-DAY: 기말고사 <b>D-1</b> · 스포츠클럽 <b>D-7</b><br>★ 여름방학(7/21) <b>D-14</b> ★</div>
+      </div>
+    </div>
+    <div class="win wlun"><div class="tb gr"><span class="ic">🍚</span>급식판.EXE<span class="bts"><i>_</i><i>×</i></span></div>
+      <div class="bd"><ul>
+        <li>* 현미밥</li><li>* <b>제육볶음</b></li><li>* 미역국</li><li>* 콩나물무침</li><li>* 배추김치</li><li>* 수박</li>
+      </ul><div class="kc">열량: 763kcal</div></div>
+    </div>
+    <div class="win wtodo"><div class="tb or"><span class="ic">📝</span>할일.TXT — 메모장<span class="bts"><i>_</i><i>□</i><i>×</i></span></div>
+      <div class="bd">[ ] 체육대회 계획서 결재 (오늘!)<br>[ ] 수행평가 성적 입력 ~7/10<br>[ ] 3반 상담일지 작성<br><span class="dn">[v] 배드민턴 네트 수리 요청</span></div>
+    </div>
+    <div class="task">
+      <div class="start">🏫 시작</div>
+      <div class="ql"><i>🟢</i><i>💰</i><i>💬</i><i>🎓</i><i>📝</i><i>📗</i><i>🌐</i></div>
+      <div class="run"><span class="act">📅 시간표.EXE</span><span>🍚 급식판.EXE</span><span>📝 할일.TXT</span><span>🗓️ 달력.EXE</span></div>
+      <div class="tray">🔊 📶 11:17</div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ================================================================ 시안 8 : 수채 파스텔 -->
+<section class="design" id="d8">
+  <div class="d-head">
+    <div class="d-num">08</div>
+    <div><h2>수채 파스텔 Watercolor</h2><p>수채화 블롭이 번지는 배경과 둥근 아이콘, 부드러운 그림자. 포근하지만 유치하지 않게 톤을 눌렀다.</p></div>
+    <div class="d-tags"><span>Gowun Dodum</span><span>Hi Melody</span><span>블롭 배경</span></div>
+  </div>
+  <div class="mock-frame"><div class="mock d8">
+<style>
+.d8{background:#fffdf9;font-family:'Gowun Dodum',sans-serif;color:#5a5350;padding:42px 52px 32px;display:flex;flex-direction:column;gap:18px}
+.d8 .blob{position:absolute;border-radius:47% 53% 58% 42%/46% 51% 49% 54%;filter:blur(46px);opacity:.55;pointer-events:none}
+.d8 .w1{width:640px;height:560px;background:#ffd9e2;top:-180px;left:-140px}
+.d8 .w2{width:560px;height:520px;background:#cfe7ff;top:-140px;right:-120px}
+.d8 .w3{width:600px;height:540px;background:#d5f2df;bottom:-200px;left:560px}
+.d8 .w4{width:460px;height:430px;background:#fff2c4;bottom:-120px;right:-100px;opacity:.65}
+.d8 .hm{font-family:'Hi Melody',cursive}
+.d8 .hd8{display:flex;align-items:center;gap:22px;position:relative}
+.d8 .hd8 h1{font-size:54px;color:#4a4340;font-family:'Hi Melody'}
+.d8 .hd8 h1 b{color:#e58aa0}
+.d8 .hd8 .wx{margin-left:auto;background:rgba(255,255,255,.8);border-radius:999px;padding:14px 30px;font-size:24px;box-shadow:0 8px 24px rgba(190,160,180,.18);display:flex;gap:14px;align-items:center}
+.d8 .hd8 .wx b{font-size:32px;color:#4a4340}
+.d8 .grid8{flex:1;display:grid;grid-template-columns:440px 1fr 440px;grid-template-rows:250px 1fr;gap:18px;position:relative;min-height:0}
+.d8 .c8{background:rgba(255,255,255,.82);border-radius:30px;padding:24px 28px;box-shadow:0 10px 30px rgba(190,160,180,.16)}
+.d8 .t8{display:flex;align-items:center;gap:10px;font-size:25px;color:#4a4340;font-family:'Hi Melody';margin-bottom:10px}
+.d8 .t8 i{font-style:normal;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:23px}
+.d8 .ip{background:#ffe1e9}.d8 .ib{background:#dcedff}.d8 .ig{background:#dcf3e4}.d8 .iy{background:#fff0c2}
+.d8 .clk8{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.d8 .clk8 .t{font-size:92px;color:#4a4340;letter-spacing:-2px;font-variant-numeric:tabular-nums}
+.d8 .clk8 .d{font-size:25px;margin-top:2px}
+.d8 .clk8 .d b{color:#e58aa0}
+.d8 .now8{background:linear-gradient(135deg,rgba(220,243,228,.92),rgba(255,255,255,.85));display:flex;align-items:center;gap:26px}
+.d8 .now8 .em{flex:none;width:130px;height:130px;border-radius:50%;background:#fff;box-shadow:0 8px 22px rgba(120,180,140,.25);display:flex;align-items:center;justify-content:center;font-size:64px}
+.d8 .now8 .a{font-size:24px;color:#6aa87e}
+.d8 .now8 .b{font-size:44px;color:#3f4a42;margin:2px 0 10px;font-family:'Hi Melody'}
+.d8 .now8 .bar{width:420px;height:14px;border-radius:7px;background:#e7f2ea;overflow:hidden}
+.d8 .now8 .bar i{display:block;height:100%;width:60%;border-radius:7px;background:linear-gradient(90deg,#9fd8b2,#6aba87)}
+.d8 .now8 .c{font-size:18px;margin-top:8px;color:#7d8a80}
+.d8 .lun8 ul{list-style:none;font-size:22.5px;line-height:1.72}
+.d8 .lun8 ul b{color:#e58aa0}
+.d8 .tt8 table{width:100%;border-collapse:separate;border-spacing:4px;table-layout:fixed}
+.d8 .tt8 th{font-size:18px;color:#a89f9a;padding:4px 0;font-weight:400}
+.d8 .tt8 th.tu{color:#e58aa0;font-weight:700}
+.d8 .tt8 td{text-align:center;font-size:20px;padding:12px 0;border-radius:14px;background:#faf6f1;color:#6b625d}
+.d8 .tt8 td.g1{background:#e8f5ec}.d8 .tt8 td.g2{background:#e8f0fb}.d8 .tt8 td.g3{background:#f6ecf7}.d8 .tt8 td.et{background:#fdf3d9}
+.d8 .tt8 td.off{background:transparent;color:#d8d0c9}
+.d8 .tt8 td.now{background:#e58aa0;color:#fff;box-shadow:0 6px 14px rgba(229,138,160,.4)}
+.d8 .td8 .t{display:flex;gap:12px;align-items:center;font-size:21px;padding:9px 0}
+.d8 .td8 .t i{flex:none;width:26px;height:26px;border-radius:50%;border:2.5px solid #e3d8d2;font-style:normal}
+.d8 .td8 .t em{font-style:normal;margin-left:auto;font-size:15px;color:#e58aa0}
+.d8 .td8 .t.dn{color:#c3bab4;text-decoration:line-through}
+.d8 .td8 .t.dn i{background:#9fd8b2;border-color:#9fd8b2}
+.d8 .cal8 .cg{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;row-gap:1px;margin-top:2px}
+.d8 .cal8 .cg span{font-size:16.5px;padding:5.5px 0;color:#6b625d;position:relative}
+.d8 .cal8 .cg .h{color:#c3bab4;font-size:13.5px}
+.d8 .cal8 .cg .su{color:#e58aa0}
+.d8 .cal8 .cg .td{background:#e58aa0;color:#fff;border-radius:50%}
+.d8 .cal8 .cg .ev::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:5px;height:5px;border-radius:50%;background:#8fc3e8}
+.d8 .bot8{height:110px;display:flex;align-items:center;gap:16px;position:relative}
+.d8 .dchip{background:rgba(255,255,255,.85);border-radius:24px;box-shadow:0 8px 22px rgba(190,160,180,.15);padding:14px 24px;font-size:20px;display:flex;gap:10px;align-items:center}
+.d8 .dchip b{color:#e58aa0;font-size:24px;font-family:'Hi Melody'}
+.d8 .fold8{display:flex;gap:12px;margin-left:8px}
+.d8 .fold8 span{background:rgba(255,255,255,.85);border-radius:18px;padding:12px 18px;font-size:18.5px;box-shadow:0 6px 16px rgba(190,160,180,.13)}
+.d8 .dock8{margin-left:auto;background:rgba(255,255,255,.9);border-radius:999px;padding:12px 26px;display:flex;gap:20px;box-shadow:0 10px 26px rgba(190,160,180,.2)}
+.d8 .dock8 i{font-style:normal;font-size:33px}
+</style>
+    <i class="blob w1"></i><i class="blob w2"></i><i class="blob w3"></i><i class="blob w4"></i>
+    <div class="hd8">
+      <h1>7월 7일 화요일, <b>좋은 하루 되세요 선생님</b> 🌿</h1>
+      <div class="wx">☀️ <b>28°</b> 맑음 · 미세먼지 좋음 · 31°/22°</div>
+    </div>
+    <div class="grid8">
+      <div class="c8 clk8"><div class="t">11:17</div><div class="d">2026년 7월 7일 <b>화요일</b> · 3교시</div></div>
+      <div class="c8 now8">
+        <div class="em">⚽</div>
+        <div><div class="a">지금은 3교시 · 18분 남았어요</div><div class="b">2학년 3반 체육, 운동장</div>
+        <div class="bar"><i></i></div><div class="c">다음 수업 · 4교시 1-2 체육 (체육관)</div></div>
+      </div>
+      <div class="c8 lun8"><div class="t8"><i class="iy">🍚</i>오늘의 급식 <span style="font-size:16px;color:#c3bab4">763kcal</span></div>
+        <ul><li>현미밥 · 미역국</li><li><b>제육볶음</b> · 콩나물무침</li><li>배추김치 · 수박 🍉</li></ul>
+      </div>
+      <div class="c8 cal8"><div class="t8"><i class="ib">🗓️</i>7월 달력</div>
+        <div class="cg">
+          <span class="h su">일</span><span class="h">월</span><span class="h">화</span><span class="h">수</span><span class="h">목</span><span class="h">금</span><span class="h">토</span>
+          <span></span><span></span><span></span><span>1</span><span>2</span><span>3</span><span>4</span>
+          <span class="su">5</span><span>6</span><span class="td">7</span><span class="ev">8</span><span>9</span><span>10</span><span>11</span>
+          <span class="su">12</span><span>13</span><span class="ev">14</span><span>15</span><span>16</span><span>17</span><span>18</span>
+          <span class="su">19</span><span>20</span><span class="ev">21</span><span>22</span><span>23</span><span>24</span><span>25</span>
+          <span class="su">26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span></span>
+        </div>
+        <div style="font-size:16.5px;margin-top:8px;color:#9a908a">● 8일 기말고사 · 14일 스포츠클럽 · 21일 방학식</div>
+      </div>
+      <div class="c8 tt8"><div class="t8"><i class="ig">📅</i>이번 주 시간표</div>
+        <table>
+          <tr><th></th><th>월</th><th class="tu">화</th><th>수</th><th>목</th><th>금</th></tr>
+          <tr><td class="off">1</td><td class="g1">1-1</td><td class="g2">2-2</td><td class="g1">1-3</td><td class="g3">3-2</td><td class="g2">2-1</td></tr>
+          <tr><td class="off">2</td><td class="g3">3-1</td><td class="off">·</td><td class="g2">2-2</td><td class="g1">1-1</td><td class="g3">3-3</td></tr>
+          <tr><td class="off">3</td><td class="g2">2-3</td><td class="now">2-3</td><td class="off">·</td><td class="g2">2-3</td><td class="g1">1-2</td></tr>
+          <tr><td class="off">4</td><td class="off">·</td><td class="g1">1-2</td><td class="g3">3-1</td><td class="off">·</td><td class="et">스클</td></tr>
+          <tr><td class="off">5</td><td class="g3">3-3</td><td class="et">창체</td><td class="g1">1-3</td><td class="g3">3-2</td><td class="off">·</td></tr>
+          <tr><td class="off">6</td><td class="et">동아리</td><td class="off">·</td><td class="et">협의</td><td class="g2">2-1</td><td class="et">창체</td></tr>
+        </table>
+      </div>
+      <div class="c8 td8"><div class="t8"><i class="ip">🌸</i>오늘 할 일</div>
+        <div class="t"><i></i>체육대회 계획서 결재<em>오늘</em></div>
+        <div class="t"><i></i>수행평가 성적 입력<em>7/10</em></div>
+        <div class="t"><i></i>3반 상담일지 작성</div>
+        <div class="t dn"><i></i>배드민턴 네트 수리 요청</div>
+      </div>
+    </div>
+    <div class="bot8">
+      <div class="dchip">🏖️ 여름방학 <b>D-14</b></div>
+      <div class="dchip">📝 기말고사 <b>D-1</b></div>
+      <div class="fold8"><span>📘 수업자료</span><span>📊 평가·성적</span><span>📄 공문·기안</span><span>🏆 체육대회</span><span>📷 사진·영상</span></div>
+      <div class="dock8"><i>🟢</i><i>💰</i><i>💬</i><i>🏫</i><i>🎓</i><i>📝</i><i>📗</i><i>🌐</i></div>
+    </div>
+  </div></div>
+</section>
+<!-- ================================================================ 시안 9 : 신문 브루탈리스트 -->
+<section class="design" id="d9">
+  <div class="d-head">
+    <div class="d-num">09</div>
+    <div><h2>신문 브루탈리스트 Newspaper</h2><p>두꺼운 검정 괘선과 제호 "金쌤일보". 명조 헤드라인 + 고딕 본문, 단 구분선으로 하루를 조간신문처럼 조판했다.</p></div>
+    <div class="d-tags"><span>Song Myung</span><span>Noto Serif KR</span><span>단 조판</span></div>
+  </div>
+  <div class="mock-frame"><div class="mock d9">
+<style>
+.d9{background:#f2eee3;font-family:'Noto Sans KR',sans-serif;color:#141414;padding:40px 60px 30px;display:flex;flex-direction:column}
+.d9 .serif{font-family:'Noto Serif KR',serif}
+.d9 .mh{display:flex;align-items:stretch;gap:20px;border-top:3px solid #141414;border-bottom:6px solid #141414;padding:12px 0;position:relative}
+.d9 .mh::after{content:'';position:absolute;bottom:-11px;left:0;right:0;height:2px;background:#141414}
+.d9 .ear{border:3px solid #141414;padding:10px 16px;font-size:16.5px;line-height:1.55;width:280px}
+.d9 .ear b{display:block;font-size:14px;letter-spacing:2px;border-bottom:2px solid #141414;padding-bottom:4px;margin-bottom:6px}
+.d9 .ear .big{font-size:30px;font-weight:900}
+.d9 .paper-title{flex:1;text-align:center;align-self:center}
+.d9 .paper-title h1{font-family:'Song Myung',serif;font-size:104px;line-height:1;letter-spacing:6px}
+.d9 .paper-title .sub{font-size:16px;letter-spacing:4px;margin-top:6px;color:#3d3a33}
+.d9 .dateline{display:flex;justify-content:space-between;font-size:17px;font-weight:700;padding:10px 2px;border-bottom:2px solid #141414;margin-top:8px;letter-spacing:1px}
+.d9 .head-band{display:flex;gap:0;border-bottom:3px solid #141414}
+.d9 .head-main{flex:1;padding:22px 30px 20px 2px;border-right:2px solid #141414}
+.d9 .badge{display:inline-block;background:#b3231e;color:#f6f2e6;font-size:16px;font-weight:900;letter-spacing:4px;padding:4px 14px;margin-bottom:10px}
+.d9 .head-main h2{font-size:58px;font-weight:900;letter-spacing:-1px;line-height:1.22}
+.d9 .head-main h2 u{text-decoration:none;border-bottom:6px solid #141414}
+.d9 .head-main .lead{font-size:19.5px;line-height:1.65;margin-top:12px;color:#33302a}
+.d9 .head-main .lead b{background:#141414;color:#f2eee3;padding:1px 8px}
+.d9 .head-side{width:330px;padding:22px 2px 20px 26px;display:flex;flex-direction:column;gap:12px}
+.d9 .ad{border:4px solid #141414;text-align:center;padding:14px 10px}
+.d9 .ad .t{font-size:17px;letter-spacing:5px;border-bottom:2px solid #141414;padding-bottom:8px;margin-bottom:10px;font-weight:700}
+.d9 .ad .n{font-family:'Noto Serif KR';font-size:52px;font-weight:900;line-height:1}
+.d9 .ad .s{font-size:15px;margin-top:6px;color:#3d3a33}
+.d9 .ad.mini{display:flex;align-items:center;gap:12px;padding:10px 14px;text-align:left}
+.d9 .ad.mini .n2{font-size:26px;font-weight:900;font-family:'Noto Serif KR'}
+.d9 .ad.mini .s2{font-size:14.5px;color:#3d3a33}
+.d9 .cols9{flex:1;display:grid;grid-template-columns:300px 1fr 330px;min-height:0}
+.d9 .c9{padding:18px 24px 0;border-right:2px solid #141414}
+.d9 .c9:first-child{padding-left:2px}
+.d9 .c9:last-child{border-right:none;padding-right:2px}
+.d9 .sec{font-family:'Noto Serif KR';font-size:23px;font-weight:900;border-top:6px solid #141414;border-bottom:1px solid #141414;padding:7px 2px;margin-bottom:12px;letter-spacing:2px;display:flex;justify-content:space-between;align-items:center}
+.d9 .sec small{font-size:13px;font-family:'Noto Sans KR';font-weight:700;color:#6b675c;letter-spacing:1px}
+.d9 .task9{font-size:18px;line-height:1.5}
+.d9 .task9 .t{display:flex;gap:10px;padding:9px 0;border-bottom:1px dotted #8f8a7c}
+.d9 .task9 .t b{font-family:'Noto Serif KR';flex:none}
+.d9 .task9 .t em{font-style:normal;font-size:13.5px;font-weight:900;color:#b3231e;margin-left:auto;white-space:nowrap}
+.d9 .task9 .dn{color:#a29d8e;text-decoration:line-through}
+.d9 .wxbox{margin-top:16px;border:3px solid #141414;padding:12px 16px}
+.d9 .wxbox .t{font-size:14px;letter-spacing:3px;font-weight:900;border-bottom:1px solid #141414;padding-bottom:6px;margin-bottom:8px}
+.d9 .wxbox .r{display:flex;justify-content:space-between;font-size:16.5px;padding:4px 0}
+.d9 .wxbox .r b{font-family:'Noto Serif KR';font-weight:900}
+.d9 .tt9{width:100%;border-collapse:collapse;table-layout:fixed;border:3px solid #141414}
+.d9 .tt9 th{font-size:17px;font-weight:900;border:1.5px solid #141414;padding:9px 0;background:#141414;color:#f2eee3;letter-spacing:3px}
+.d9 .tt9 th.tu{background:#b3231e}
+.d9 .tt9 td{font-size:19px;text-align:center;border:1.5px solid #141414;padding:12px 0;font-weight:500}
+.d9 .tt9 td.pr{font-family:'Noto Serif KR';font-weight:900;background:#e7e2d2;font-size:16px}
+.d9 .tt9 td.off{color:#b5b0a0}
+.d9 .tt9 td.now{background:#141414;color:#fff;font-weight:900}
+.d9 .cap9{font-size:14px;color:#6b675c;margin-top:8px;line-height:1.5}
+.d9 .cap9 b{color:#141414}
+.d9 .menu9{border:3px double #141414;outline:1px solid #141414;outline-offset:3px;padding:14px 18px;margin-bottom:16px}
+.d9 .menu9 .t{text-align:center;font-family:'Noto Serif KR';font-size:21px;font-weight:900;letter-spacing:6px;border-bottom:2px solid #141414;padding-bottom:8px;margin-bottom:10px}
+.d9 .menu9 .m{display:flex;font-size:17.5px;padding:4.5px 0}
+.d9 .menu9 .m i{flex:1;border-bottom:1px dotted #8f8a7c;margin:0 8px;font-style:normal}
+.d9 .menu9 .m em{font-style:normal;font-size:13px;color:#6b675c;font-weight:700}
+.d9 .cal9 .cg{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;border:2px solid #141414}
+.d9 .cal9 .cg span{font-size:15.5px;padding:5px 0;border:.5px solid #cfc9b8;font-variant-numeric:tabular-nums}
+.d9 .cal9 .cg .h{background:#141414;color:#f2eee3;font-size:13px;font-weight:700}
+.d9 .cal9 .cg .su{color:#b3231e}
+.d9 .cal9 .cg .td{background:#b3231e;color:#fff;font-weight:900}
+.d9 .cal9 .cg .ev{font-weight:900;text-decoration:underline}
+.d9 .foot9{border-top:6px solid #141414;margin-top:14px;background:#141414;color:#f2eee3;display:flex;align-items:center;gap:22px;padding:14px 20px;font-size:16.5px;font-weight:700}
+.d9 .foot9 .lb{background:#f2eee3;color:#141414;padding:3px 12px;font-size:13px;letter-spacing:3px;font-weight:900}
+.d9 .foot9 i{color:#6b675c;font-style:normal}
+.d9 .foot9 .fold{margin-left:auto;font-size:14.5px;font-weight:500;color:#cfc9b8}
+</style>
+    <div class="mh">
+      <div class="ear"><b>오늘의 날씨</b><span class="big">☀ 28℃</span><br>맑음 · 최고 31℃ 최저 22℃<br>미세먼지 「좋음」</div>
+      <div class="paper-title"><h1>金쌤일보</h1><div class="sub">대한중학교 체육과 · 매일 아침 책상 위에서 발행</div></div>
+      <div class="ear"><b>제1287호</b>2026년 7월 7일 화요일<br>단기 4359년 · 1학기 92일차<br><span class="big">現在 11時 17分</span></div>
+    </div>
+    <div class="dateline"><span>조간 · 데스크판</span><span>오늘 수업 4件 · 할 일 3件 · 급식 763kcal</span><span>발행인 金선생</span></div>
+    <div class="head-band">
+      <div class="head-main">
+        <span class="badge">지금 3교시</span>
+        <h2 class="serif"><u>2학년 3반 체육</u>, 운동장으로 —<br>티볼 수행평가 2차시 진행</h2>
+        <div class="lead">10시 50분 시작된 3교시는 <b>18분</b> 뒤 종료된다. 종이 울리면 곧바로 4교시 1학년 2반 체육이 체육관에서 이어질 예정. 자외선 높음 — 학생 모자 지참 지도 요망.</div>
+      </div>
+      <div class="head-side">
+        <div class="ad"><div class="t">긴급 고지</div><div class="n">D-14</div><div class="s">여름방학식 · 7월 21일(화)</div></div>
+        <div class="ad mini"><span class="n2">D-1</span><span class="s2">기말고사 시작<br>7월 8일(수)</span></div>
+        <div class="ad mini"><span class="n2">D-7</span><span class="s2">교내 스포츠클럽 대회<br>7월 14일(화)</span></div>
+      </div>
+    </div>
+    <div class="cols9">
+      <div class="c9">
+        <div class="sec">오늘의 업무<small>社說</small></div>
+        <div class="task9">
+          <div class="t"><b>一.</b>체육대회 계획서 결재 상신<em>금일 中</em></div>
+          <div class="t"><b>二.</b>2학년 수행평가 성적 입력<em>7/10 限</em></div>
+          <div class="t"><b>三.</b>3반 상담일지 작성</div>
+          <div class="t dn"><b>完.</b>배드민턴 네트 수리 요청</div>
+        </div>
+        <div class="wxbox">
+          <div class="t">기상 상보</div>
+          <div class="r"><span>습도</span><b>62%</b></div>
+          <div class="r"><span>바람</span><b>남서 2m/s</b></div>
+          <div class="r"><span>자외선</span><b>높음</b></div>
+          <div class="r"><span>운동장 수업</span><b>可</b></div>
+        </div>
+      </div>
+      <div class="c9">
+        <div class="sec">금주 수업 편성표<small>7월 6일 ~ 7월 10일</small></div>
+        <table class="tt9">
+          <tr><th style="background:#f2eee3;color:#141414">敎時</th><th>月</th><th class="tu">火</th><th>水</th><th>木</th><th>金</th></tr>
+          <tr><td class="pr">一</td><td>1-1</td><td>2-2</td><td>1-3</td><td>3-2</td><td>2-1</td></tr>
+          <tr><td class="pr">二</td><td>3-1</td><td class="off">休</td><td>2-2</td><td>1-1</td><td>3-3</td></tr>
+          <tr><td class="pr">三</td><td>2-3</td><td class="now">2-3 ◀</td><td class="off">休</td><td>2-3</td><td>1-2</td></tr>
+          <tr><td class="pr">四</td><td class="off">休</td><td>1-2</td><td>3-1</td><td class="off">休</td><td>스클</td></tr>
+          <tr><td class="pr">五</td><td>3-3</td><td>창체</td><td>1-3</td><td>3-2</td><td class="off">休</td></tr>
+          <tr><td class="pr">六</td><td>동아리</td><td class="off">休</td><td>협의</td><td>2-1</td><td>창체</td></tr>
+        </table>
+        <div class="cap9">▲ 검정 칸은 현재 진행 중인 수업. 화요일은 <b>2-2, 2-3, 1-2, 창체</b> 4개 수업 편성. 금요일 4교시는 스포츠클럽 리그전.</div>
+      </div>
+      <div class="c9">
+        <div class="menu9">
+          <div class="t">오늘의 식단</div>
+          <div class="m">현미밥<i></i><em>주식</em></div>
+          <div class="m">제육볶음<i></i><em>주찬</em></div>
+          <div class="m">미역국<i></i><em>국</em></div>
+          <div class="m">콩나물무침·배추김치<i></i><em>부찬</em></div>
+          <div class="m">수박<i></i><em>후식</em></div>
+        </div>
+        <div class="sec" style="border-top-width:3px">칠월 월력</div>
+        <div class="cal9"><div class="cg">
+          <span class="h su">日</span><span class="h">月</span><span class="h">火</span><span class="h">水</span><span class="h">木</span><span class="h">金</span><span class="h">土</span>
+          <span></span><span></span><span></span><span>1</span><span>2</span><span>3</span><span>4</span>
+          <span class="su">5</span><span>6</span><span class="td">7</span><span class="ev">8</span><span>9</span><span>10</span><span>11</span>
+          <span class="su">12</span><span>13</span><span class="ev">14</span><span>15</span><span>16</span><span>17</span><span>18</span>
+          <span class="su">19</span><span>20</span><span class="ev">21</span><span>22</span><span>23</span><span>24</span><span>25</span>
+          <span class="su">26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span></span>
+        </div></div>
+        <div class="cap9">밑줄 일자: <b>8일</b> 기말고사 · <b>14일</b> 스포츠클럽 대회 · <b>21일</b> 여름방학식</div>
+      </div>
+    </div>
+    <div class="foot9">
+      <span class="lb">바로가기</span>
+      <span>나이스</span><i>|</i><span>에듀파인</span><i>|</i><span>쿨메신저</span><i>|</i><span>학교홈페이지</span><i>|</i><span>클래스룸</span><i>|</i><span>한글</span><i>|</i><span>엑셀</span><i>|</i><span>크롬</span>
+      <span class="fold">서고: 수업자료 · 평가성적 · 공문기안 · 체육대회 · 사진영상 · 학급운영</span>
+    </div>
+  </div></div>
+</section>
+
+<!-- ================================================================ 시안 10 : 오늘 포커스 -->
+<section class="design" id="d10">
+  <div class="d-head">
+    <div class="d-num">10</div>
+    <div><h2>오늘 포커스 Today Focus</h2><p>정보구조를 뒤집은 안. 화면 중앙에 "지금/다음 수업"만 거대하게, 좌우엔 오늘 것만, 나머지는 하단 얇은 스트립으로 밀었다.</p></div>
+    <div class="d-tags"><span>Gmarket Sans</span><span>히어로 중심</span><span>정보구조 개편</span></div>
+  </div>
+  <div class="mock-frame"><div class="mock d10">
+<style>
+.d10{background:radial-gradient(1400px 900px at 50% 8%,#1b3a33,#0d1f1b 70%);font-family:'GmarketSans','Pretendard Variable',sans-serif;color:#eef3ef;padding:34px 56px 24px;display:flex;flex-direction:column;gap:14px}
+.d10 .am{color:#ffb454}
+.d10 .top10{display:flex;align-items:center;gap:18px;font-size:21px;font-weight:500;color:rgba(238,243,239,.75)}
+.d10 .top10 .clk{font-size:30px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums}
+.d10 .top10 .sep{width:1px;height:22px;background:rgba(255,255,255,.2)}
+.d10 .top10 .r{margin-left:auto;display:flex;gap:18px;align-items:center}
+.d10 .main10{flex:1;display:grid;grid-template-columns:400px 1fr 400px;gap:30px;min-height:0}
+.d10 .rail-t{font-size:15px;font-weight:700;letter-spacing:3px;color:rgba(238,243,239,.45);margin-bottom:16px}
+.d10 .flow{display:flex;flex-direction:column;gap:0;position:relative;padding-left:26px}
+.d10 .flow::before{content:'';position:absolute;left:7px;top:14px;bottom:14px;width:2px;background:rgba(255,255,255,.14)}
+.d10 .fp{position:relative;padding:12px 0 12px 12px}
+.d10 .fp::before{content:'';position:absolute;left:-25px;top:20px;width:12px;height:12px;border-radius:50%;background:#0d1f1b;border:2px solid rgba(255,255,255,.35)}
+.d10 .fp .a{font-size:14px;color:rgba(238,243,239,.45);font-weight:500}
+.d10 .fp .b{font-size:23px;font-weight:500;margin-top:3px}
+.d10 .fp.done{opacity:.42}
+.d10 .fp.done::before{background:rgba(255,255,255,.5);border-color:transparent}
+.d10 .fp.cur{background:rgba(255,180,84,.1);border-radius:16px;margin-left:-12px;padding-left:24px;box-shadow:inset 0 0 0 1px rgba(255,180,84,.35)}
+.d10 .fp.cur::before{left:-13px;background:#ffb454;border-color:#ffb454;box-shadow:0 0 14px rgba(255,180,84,.8)}
+.d10 .fp.cur .a{color:#ffb454}
+.d10 .fp.cur .b{font-weight:700;font-size:25px}
+.d10 .hero10{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.d10 .hero10 .k{font-size:22px;font-weight:500;letter-spacing:6px;color:#ffb454}
+.d10 .hero10 .p{font-size:150px;font-weight:700;line-height:1;letter-spacing:-4px;margin:12px 0 4px;text-shadow:0 18px 60px rgba(0,0,0,.45)}
+.d10 .hero10 .p small{font-size:60px;font-weight:500;color:rgba(238,243,239,.85)}
+.d10 .hero10 .cls{font-size:44px;font-weight:700;margin-top:6px}
+.d10 .hero10 .loc{font-size:22px;color:rgba(238,243,239,.65);margin-top:10px;font-weight:500}
+.d10 .hero10 .bar{width:72%;height:10px;border-radius:5px;background:rgba(255,255,255,.12);margin-top:26px;position:relative}
+.d10 .hero10 .bar i{display:block;height:100%;width:60%;border-radius:5px;background:linear-gradient(90deg,#e8912d,#ffb454);box-shadow:0 0 18px rgba(255,180,84,.55)}
+.d10 .hero10 .bar em{position:absolute;right:0;top:-30px;font-style:normal;font-size:16px;color:#ffb454;font-weight:700}
+.d10 .hero10 .bar b{position:absolute;left:0;top:-30px;font-size:15px;color:rgba(238,243,239,.45);font-weight:500}
+.d10 .hero10 .next{margin-top:30px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:16px 34px;font-size:21px;font-weight:500;display:flex;gap:16px;align-items:center}
+.d10 .hero10 .next b{color:#ffb454}
+.d10 .box10{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:20px 24px;margin-bottom:16px}
+.d10 .box10 .h{font-size:15px;font-weight:700;letter-spacing:3px;color:rgba(238,243,239,.45);margin-bottom:12px}
+.d10 .t10{display:flex;gap:12px;align-items:center;font-size:20px;font-weight:500;padding:9px 0}
+.d10 .t10 i{flex:none;width:22px;height:22px;border-radius:7px;border:2px solid rgba(255,255,255,.35)}
+.d10 .t10 em{font-style:normal;margin-left:auto;font-size:14px;color:#ffb454}
+.d10 .t10.dn{opacity:.4;text-decoration:line-through}
+.d10 .t10.dn i{background:#ffb454;border-color:#ffb454}
+.d10 .lu10{font-size:20px;line-height:1.8;font-weight:500;color:rgba(238,243,239,.88)}
+.d10 .lu10 b{color:#ffb454;font-weight:700}
+.d10 .strip{height:126px;display:flex;align-items:center;gap:22px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:22px;padding:0 28px}
+.d10 .strip .dch{display:flex;flex-direction:column;gap:2px;border-right:1px solid rgba(255,255,255,.12);padding-right:22px}
+.d10 .strip .dch b{font-size:26px;font-weight:700;color:#ffb454}
+.d10 .strip .dch span{font-size:14.5px;color:rgba(238,243,239,.6);font-weight:500}
+.d10 .strip .cal10{display:flex;flex-direction:column;gap:3px;border-right:1px solid rgba(255,255,255,.12);padding-right:22px}
+.d10 .strip .cal10 .m{font-size:13px;font-weight:700;letter-spacing:2px;color:rgba(238,243,239,.45)}
+.d10 .strip .cal10 .cg{display:grid;grid-template-columns:repeat(16,1fr);gap:2px}
+.d10 .strip .cal10 .cg span{width:24px;font-size:11.5px;text-align:center;padding:2.5px 0;color:rgba(238,243,239,.6);border-radius:5px;font-family:'Pretendard Variable'}
+.d10 .strip .cal10 .cg .td{background:#ffb454;color:#0d1f1b;font-weight:700}
+.d10 .strip .cal10 .cg .ev{color:#ffb454;font-weight:700}
+.d10 .strip .fold{display:flex;gap:9px;flex-wrap:wrap;max-width:330px}
+.d10 .strip .fold span{font-size:14.5px;font-weight:500;background:rgba(255,255,255,.08);border-radius:9px;padding:7px 12px;color:rgba(238,243,239,.8);font-family:'Pretendard Variable'}
+.d10 .strip .dock{margin-left:auto;display:flex;gap:18px;align-items:center;border-left:1px solid rgba(255,255,255,.12);padding-left:24px}
+.d10 .strip .dock i{font-style:normal;font-size:32px;opacity:.9}
+</style>
+    <div class="top10">
+      <span class="clk">11:17:42</span><i class="sep"></i><span>2026. 7. 7 화요일</span>
+      <div class="r"><span>☀️ 28° 맑음</span><i class="sep"></i><span>미세먼지 좋음</span><i class="sep"></i><span>최고 31° / 최저 22°</span></div>
+    </div>
+    <div class="main10">
+      <div>
+        <div class="rail-t">오늘의 흐름 — 화요일</div>
+        <div class="flow">
+          <div class="fp done"><div class="a">09:00 – 09:45 · 완료</div><div class="b">1교시 · 2-2 체육</div></div>
+          <div class="fp done"><div class="a">09:55 – 10:40 · 완료</div><div class="b">2교시 · 공강</div></div>
+          <div class="fp cur"><div class="a">10:50 – 11:35 · 진행 중</div><div class="b">3교시 · 2-3 체육 ⚽</div></div>
+          <div class="fp"><div class="a">11:45 – 12:30</div><div class="b">4교시 · 1-2 체육</div></div>
+          <div class="fp"><div class="a">12:30 – 13:30</div><div class="b">점심 · 급식지도</div></div>
+          <div class="fp"><div class="a">13:40 – 14:25</div><div class="b">5교시 · 창체</div></div>
+        </div>
+      </div>
+      <div class="hero10">
+        <div class="k">N O W · 3교시</div>
+        <div class="p">2-3 <small>체육</small></div>
+        <div class="loc">📍 운동장 · 티볼 수행평가 2차시 · 10:50 – 11:35</div>
+        <div class="bar"><b>10:50</b><em>18분 남음</em><i></i></div>
+        <div class="next"><span>다음 수업</span><b>4교시 · 1-2 체육</b><span>체육관 · 11:45 시작</span></div>
+      </div>
+      <div>
+        <div class="box10"><div class="h">오늘 할 일</div>
+          <div class="t10"><i></i>체육대회 계획서 결재<em>오늘</em></div>
+          <div class="t10"><i></i>수행평가 성적 입력<em>7/10</em></div>
+          <div class="t10"><i></i>3반 상담일지 작성</div>
+          <div class="t10 dn"><i></i>배드민턴 네트 수리</div>
+        </div>
+        <div class="box10"><div class="h">오늘 급식 · 763kcal</div>
+          <div class="lu10">현미밥 · <b>제육볶음</b> · 미역국<br>콩나물무침 · 김치 · <b>수박</b> 🍉</div>
+        </div>
+      </div>
+    </div>
+    <div class="strip">
+      <div class="dch"><b>D-1</b><span>기말고사 7/8</span></div>
+      <div class="dch"><b>D-7</b><span>스포츠클럽 7/14</span></div>
+      <div class="dch"><b>D-14</b><span>여름방학 7/21</span></div>
+      <div class="cal10"><span class="m">JULY</span>
+        <div class="cg">
+          <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span class="td">7</span><span class="ev">8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span class="ev">14</span><span>15</span><span>16</span>
+          <span>17</span><span>18</span><span>19</span><span>20</span><span class="ev">21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span></span>
+        </div>
+      </div>
+      <div class="fold"><span>📘 수업자료</span><span>📊 평가·성적</span><span>📄 공문·기안</span><span>🏆 체육대회</span><span>📷 사진·영상</span><span>🧑‍🏫 학급운영</span></div>
+      <div class="dock"><i>🟢</i><i>💰</i><i>💬</i><i>🏫</i><i>🎓</i><i>📝</i><i>📗</i><i>🌐</i></div>
+    </div>
+  </div></div>
+</section>
+
+<div class="foot">TeacherDesk 디자인 시안 10종 · 데이터는 2026년 7월 7일(화) 11:17 기준 더미 · 각 목업은 1920×1080 실물을 46%로 축소한 것</div>
+</body>
+</html>

@@ -18,6 +18,7 @@ let quitting = false;
 let pendingLS = null; // 가져오기(복원) 시 주입할 localStorage
 let updater = null; // electron-updater 인스턴스
 let updateReadyVersion = null; // 다운로드 완료된 새 버전
+let pendingRegen = null; // 원클릭 템플릿 업그레이드용 데이터
 
 const dashPath = () => path.join(app.getPath('userData'), 'dashboard.html');
 const bakPath = () => path.join(app.getPath('userData'), 'dashboard.backup.html');
@@ -181,6 +182,14 @@ function loadSetup() {
   win.setSkipTaskbar(false);
   win.loadFile(path.join(__dirname, 'setup.html'));
   win.webContents.once('did-finish-load', () => {
+    // 원클릭 업그레이드: 저장된 데이터로 즉시 재생성
+    if (pendingRegen) {
+      const data = pendingRegen; pendingRegen = null;
+      win.webContents.executeJavaScript(
+        'window.__TD_REGEN__ && window.__TD_REGEN__(' + JSON.stringify(JSON.stringify(data)) + ')'
+      ).catch(() => {});
+      return;
+    }
     // 기존 대시보드가 있으면 "돌아가기" 버튼 표시
     if (fs.existsSync(dashPath())) {
       win.webContents.executeJavaScript(`(function(){
@@ -263,6 +272,48 @@ async function importBackup() {
   loadDashboard();
 }
 
+// ─────────────── 원클릭 대시보드 업그레이드 ───────────────
+// 생성 시 대시보드 안에 심어둔 사용자 데이터(dash-data)를 꺼내
+// 최신 템플릿(setup.html)으로 데이터 유지 재생성한다.
+function extractDashData() {
+  try {
+    const html = fs.readFileSync(dashPath(), 'utf8');
+    const m = html.match(/<script id="dash-data" type="application\/json">([\s\S]*?)<\/script>/);
+    if (!m) return null;
+    return JSON.parse(m[1]);
+  } catch (e) { return null; }
+}
+
+function upgradeDashboard(silent) {
+  const data = extractDashData();
+  if (!data) {
+    if (!silent) {
+      dialog.showMessageBox(win, {
+        type: 'info', buttons: ['설정 마법사 열기', '취소'], defaultId: 0, cancelId: 1,
+        message: '이 대시보드는 구버전이에요.',
+        detail: '한 번만 설정 마법사를 다시 진행해주세요.\n이번에 생성한 대시보드부터는 새 기능이 나올 때마다 클릭 한 번으로 업그레이드됩니다. (할일·즐겨찾기 등 바탕화면에서 입력한 내용은 유지돼요)'
+      }).then(r => { if (r.response === 0) loadSetup(); });
+    }
+    return;
+  }
+  pendingRegen = data;
+  loadSetup();
+}
+
+function maybeOfferUpgrade() {
+  const data = extractDashData();
+  if (!data || !data.templateVersion) return;
+  if (data.templateVersion === app.getVersion()) return;
+  const cfg = loadConfig();
+  if (cfg.lastUpgradeOffer === app.getVersion()) return; // 버전당 1회만 제안
+  saveConfig({ lastUpgradeOffer: app.getVersion() });
+  dialog.showMessageBox(win, {
+    type: 'question', buttons: ['지금 적용', '나중에 (트레이 메뉴에서 가능)'], defaultId: 0, cancelId: 1,
+    message: '새 디자인·기능이 준비됐어요! (v' + app.getVersion() + ')',
+    detail: '시간표·학사일정 등 모든 데이터를 유지한 채 대시보드에 새 기능을 적용합니다. 몇 초면 끝나요.'
+  }).then(r => { if (r.response === 0) upgradeDashboard(); });
+}
+
 // ─────────────── 자동 업데이트 (GitHub Releases) ───────────────
 function initAutoUpdate() {
   if (!app.isPackaged || TEST_MODE) return;
@@ -319,6 +370,11 @@ function refreshTrayMenu() {
     },
     { label: '🖥️ 표시할 모니터', visible: displays.length > 1, submenu: displayItems },
     { type: 'separator' },
+    {
+      label: '✨ 최신 디자인·기능 적용 (대시보드 업그레이드)',
+      enabled: bottomMode,
+      click: () => upgradeDashboard()
+    },
     { label: '💾 설정 내보내기 (백업 파일 저장)', click: () => exportBackup() },
     { label: '📂 설정 가져오기 (백업 복원)', click: () => importBackup() },
     { type: 'separator' },
@@ -377,6 +433,7 @@ app.whenReady().then(() => {
 
   if (fs.existsSync(dashPath())) {
     loadDashboard();
+    setTimeout(() => maybeOfferUpgrade(), 5000); // 새 버전 설치 후 첫 실행 시 업그레이드 제안
   } else {
     loadSetup();
   }
