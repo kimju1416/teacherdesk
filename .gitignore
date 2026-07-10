@@ -3,3 +3,4 @@ dist/
 smoke*.log
 smoke*.pid
 *.tdbk
+tools/synchk-tmp/
