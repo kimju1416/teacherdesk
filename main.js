@@ -42,13 +42,45 @@ if (!app.requestSingleInstanceLock()) {
   });
 }
 
-// ─────────────── 창 맨 뒤 고정 (SetWindowPos HWND_BOTTOM) ───────────────
+// ─────────────── 창 제어 도우미 (맨 뒤 고정 + 벽지 모드) ───────────────
+// 벽지 모드: 바탕화면 아이콘을 그리는 데스크톱 계층(WorkerW/Progman)에
+// 우리 창을 자식으로 붙여 아이콘 "뒤"에 렌더링 (Lively와 동일 원리)
 const PS_SCRIPT = `
-Add-Type -Namespace W -Name U -MemberDefinition '[DllImport("user32.dll")] public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);'
-while ($line = [Console]::In.ReadLine()) {
-  if ($line -match '^[0-9]+$') {
-    [W.U]::SetWindowPos([IntPtr][long]$line, [IntPtr]1, 0, 0, 0, 0, 0x0013) | Out-Null
+Add-Type -TypeDefinition @"
+using System;
+using System.Runtime.InteropServices;
+public class TDWin {
+  [DllImport("user32.dll")] public static extern bool SetWindowPos(IntPtr h, IntPtr a, int x, int y, int cx, int cy, uint f);
+  [DllImport("user32.dll")] public static extern IntPtr FindWindow(string c, string w);
+  [DllImport("user32.dll")] public static extern IntPtr FindWindowEx(IntPtr p, IntPtr a, string c, string w);
+  [DllImport("user32.dll")] public static extern IntPtr SendMessageTimeout(IntPtr h, uint m, IntPtr wp, IntPtr lp, uint fl, uint t, out IntPtr r);
+  [DllImport("user32.dll")] public static extern IntPtr SetParent(IntPtr c, IntPtr p);
+  public delegate bool EnumProc(IntPtr h, IntPtr l);
+  [DllImport("user32.dll")] public static extern bool EnumWindows(EnumProc cb, IntPtr l);
+  public static IntPtr FindWorkerW() {
+    IntPtr progman = FindWindow("Progman", null);
+    IntPtr r;
+    SendMessageTimeout(progman, 0x052C, (IntPtr)0xD, (IntPtr)0x1, 0, 1000, out r);
+    IntPtr workerw = IntPtr.Zero;
+    EnumWindows(delegate(IntPtr top, IntPtr p) {
+      IntPtr shell = FindWindowEx(top, IntPtr.Zero, "SHELLDLL_DefView", null);
+      if (shell != IntPtr.Zero) { workerw = FindWindowEx(IntPtr.Zero, top, "WorkerW", null); }
+      return true;
+    }, IntPtr.Zero);
+    if (workerw == IntPtr.Zero) { workerw = FindWindowEx(progman, IntPtr.Zero, "WorkerW", null); }
+    if (workerw == IntPtr.Zero) { workerw = progman; }
+    return workerw;
   }
+}
+"@
+while ($line = [Console]::In.ReadLine()) {
+  $parts = $line.Split(' ')
+  if ($parts.Length -lt 2) { continue }
+  $cmd = $parts[0]
+  $h = [IntPtr][long]$parts[1]
+  if ($cmd -eq 'bottom') { [TDWin]::SetWindowPos($h, [IntPtr]1, 0, 0, 0, 0, 0x0013) | Out-Null }
+  elseif ($cmd -eq 'wall') { $w = [TDWin]::FindWorkerW(); [TDWin]::SetParent($h, $w) | Out-Null }
+  elseif ($cmd -eq 'detach') { [TDWin]::SetParent($h, [IntPtr]::Zero) | Out-Null; [TDWin]::SetWindowPos($h, [IntPtr]1, 0, 0, 0, 0, 0x0013) | Out-Null }
 }
 `;
 
@@ -63,12 +95,61 @@ function startPsHelper() {
   } catch (e) { psHelper = null; }
 }
 
-function sendToBottom() {
-  if (!win || !bottomMode || frontMode) return;
+function sendCmd(cmd) {
   if (!psHelper) startPsHelper();
   if (psHelper && hwndStr) {
-    try { psHelper.stdin.write(hwndStr + '\n'); } catch (e) { /* ignore */ }
+    try { psHelper.stdin.write(cmd + ' ' + hwndStr + '\n'); } catch (e) { /* ignore */ }
   }
+}
+
+// 배치 모드: 'widget'(기본, 투명 배경+아이콘 통과) | 'wallpaper'(아이콘 뒤) | 'above'(아이콘 위)
+function getMode() {
+  const m = loadConfig().mode;
+  return (m === 'wallpaper' || m === 'above') ? m : 'widget';
+}
+function isWallpaperMode() { return getMode() === 'wallpaper'; }
+
+let attached = false; // 현재 WorkerW에 붙어있는지
+function attachWallpaper() {
+  if (!win || win.isDestroyed()) return;
+  sendCmd('wall');
+  attached = true;
+  // Add-Type 첫 컴파일 지연 대비 재시도
+  setTimeout(() => { if (attached && !frontMode) sendCmd('wall'); }, 2500);
+}
+function detachWallpaper() {
+  if (!attached) return;
+  sendCmd('detach');
+  attached = false;
+}
+
+function sendToBottom() {
+  if (!win || !bottomMode || frontMode) return;
+  if (isWallpaperMode()) {
+    if (!attached) attachWallpaper();
+    return;
+  }
+  sendCmd('bottom');
+}
+
+// 모드 적용 (대시보드 상태에서만 의미 있음)
+function applyMode() {
+  if (!win || win.isDestroyed() || !bottomMode || frontMode) return;
+  const mode = getMode();
+  if (mode === 'wallpaper') {
+    win.setIgnoreMouseEvents(false);
+    attachWallpaper();
+  } else if (mode === 'widget') {
+    detachWallpaper();
+    // 빈 영역은 마우스 통과(아이콘 클릭 가능), 카드 위에서는 렌더러가 해제
+    win.setIgnoreMouseEvents(true, { forward: true });
+    sendCmd('bottom');
+  } else {
+    detachWallpaper();
+    win.setIgnoreMouseEvents(false);
+    sendCmd('bottom');
+  }
+  refreshTrayMenu();
 }
 
 // ─────────────── 모니터 선택 ───────────────
@@ -98,9 +179,10 @@ function createWindow() {
     movable: false,
     skipTaskbar: false,
     show: false,
-    backgroundColor: '#0c0e14',
+    transparent: true,
+    backgroundColor: '#00000000',
     icon: path.join(__dirname, 'assets', 'icon.png'),
-    webPreferences: { contextIsolation: true, sandbox: true, preload: path.join(__dirname, 'preload.js') }
+    webPreferences: { contextIsolation: true, sandbox: true, preload: path.join(__dirname, 'preload.js'), backgroundThrottling: false }
   });
 
   const buf = win.getNativeWindowHandle();
@@ -114,9 +196,10 @@ function createWindow() {
   screen.on('display-removed', deferFit);
 
   win.once('ready-to-show', () => { win.show(); sendToBottom(); });
-  win.on('focus', () => sendToBottom());
-  // Win+D(바탕화면 보기)로 최소화돼도 자동 복원 → 항상 열려 있는 대시보드
+  win.on('focus', () => { if (!isWallpaperMode()) sendToBottom(); });
+  // Win+D(바탕화면 보기)로 최소화돼도 자동 복원 (벽지 모드에선 데스크톱의 일부라 불필요)
   win.on('minimize', () => {
+    if (attached) return;
     setTimeout(() => { if (win && !win.isDestroyed()) { win.restore(); sendToBottom(); } }, 250);
   });
   win.on('close', (e) => {
@@ -174,7 +257,7 @@ function loadDashboard() {
         '(function(d){try{localStorage.clear();Object.keys(d).forEach(function(k){localStorage.setItem(k,d[k]);});}catch(e){}location.reload();})(' + JSON.stringify(data) + ')'
       ).catch(() => {});
     }
-    sendToBottom();
+    applyMode();
   });
   refreshTrayMenu();
 }
@@ -183,6 +266,8 @@ function loadSetup() {
   if (!win) return;
   bottomMode = false; // 설정 중에는 일반 창처럼 동작
   frontMode = false;
+  detachWallpaper(); // 벽지 모드에서 빠져나와야 마법사 조작 가능
+  win.setIgnoreMouseEvents(false); // 마법사는 항상 클릭 가능
   win.setAlwaysOnTop(false);
   win.setSkipTaskbar(false);
   win.loadFile(path.join(__dirname, 'setup.html'));
@@ -217,12 +302,13 @@ function toggleFront() {
   if (!win || !bottomMode) return;
   frontMode = !frontMode;
   if (frontMode) {
+    detachWallpaper(); // 아이콘 뒤에서 꺼내 조작 가능하게
     win.setAlwaysOnTop(true, 'normal');
     win.show();
     win.focus();
   } else {
     win.setAlwaysOnTop(false);
-    sendToBottom();
+    applyMode(); // 벽지 모드면 다시 아이콘 뒤로
   }
   refreshTrayMenu();
 }
@@ -295,6 +381,13 @@ function registerFolderIpc() {
   ipcMain.handle('td-path-exists', (e, p) => {
     try { return typeof p === 'string' && fs.existsSync(p); } catch (err) { return false; }
   });
+  // 위젯 모드 마우스 통과 제어 (렌더러가 카드 위/빈 영역 여부를 알려줌)
+  ipcMain.on('td-set-ignore', (e, flag) => {
+    if (!win || win.isDestroyed()) return;
+    if (getMode() !== 'widget' || !bottomMode) return;
+    win.setIgnoreMouseEvents(!!flag, { forward: true });
+  });
+  ipcMain.handle('td-get-mode', () => getMode());
 }
 
 // ─────────────── 원클릭 대시보드 업그레이드 ───────────────
@@ -325,10 +418,12 @@ function upgradeDashboard(silent) {
   loadSetup();
 }
 
+const LATEST_TEMPLATE_VERSION = '1.8.0'; // 템플릿(setup.html) 변경 시에만 올림
+
 function maybeOfferUpgrade() {
   const data = extractDashData();
   if (!data || !data.templateVersion) return;
-  if (data.templateVersion === app.getVersion()) return;
+  if (data.templateVersion === LATEST_TEMPLATE_VERSION) return;
   const cfg = loadConfig();
   if (cfg.lastUpgradeOffer === app.getVersion()) return; // 버전당 1회만 제안
   saveConfig({ lastUpgradeOffer: app.getVersion() });
@@ -394,6 +489,22 @@ function refreshTrayMenu() {
       click: () => toggleFront()
     },
     { label: '🖥️ 표시할 모니터', visible: displays.length > 1, submenu: displayItems },
+    {
+      label: '🖼️ 배치 방식', submenu: [
+        {
+          label: '🧩 위젯 모드 — 카드만 떠 있음, 아이콘 보임+클릭 가능 (추천)', type: 'radio', checked: getMode() === 'widget',
+          click: () => { saveConfig({ mode: 'widget' }); applyMode(); if (bottomMode) win.reload(); }
+        },
+        {
+          label: '🖼️ 벽지 모드 — 아이콘 뒤에 통째로 (조작은 Ctrl+Alt+D)', type: 'radio', checked: getMode() === 'wallpaper',
+          click: () => { saveConfig({ mode: 'wallpaper' }); applyMode(); if (bottomMode) win.reload(); }
+        },
+        {
+          label: '🔲 일반 모드 — 아이콘 위, 전체 배경 표시', type: 'radio', checked: getMode() === 'above',
+          click: () => { saveConfig({ mode: 'above' }); applyMode(); if (bottomMode) win.reload(); }
+        }
+      ]
+    },
     { type: 'separator' },
     {
       label: '✨ 최신 디자인·기능 적용 (대시보드 업그레이드)',
@@ -468,7 +579,8 @@ app.whenReady().then(() => {
 app.on('before-quit', () => {
   quitting = true;
   globalShortcut.unregisterAll();
-  if (psHelper) { try { psHelper.kill(); } catch (e) { /* ignore */ } }
+  detachWallpaper(); // 데스크톱 계층에서 분리 후 종료
+  if (psHelper) { setTimeout(() => { try { psHelper.kill(); } catch (e) { /* ignore */ } }, 300); }
 });
 
 app.on('window-all-closed', () => {

@@ -12,5 +12,9 @@ contextBridge.exposeInMainWorld('tdesk', {
   // 실제 파일 아이콘 (dataURL)
   getFileIcon: (p) => ipcRenderer.invoke('td-file-icon', p),
   // 경로 존재 여부
-  pathExists: (p) => ipcRenderer.invoke('td-path-exists', p)
+  pathExists: (p) => ipcRenderer.invoke('td-path-exists', p),
+  // 위젯 모드: 빈 영역에서 마우스가 바탕화면으로 통과하게
+  setIgnoreMouse: (flag) => ipcRenderer.send('td-set-ignore', !!flag),
+  // 현재 배치 모드 ('widget' | 'wallpaper' | 'above')
+  getMode: () => ipcRenderer.invoke('td-get-mode')
 });

@@ -270,7 +270,7 @@ body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellips
 
 <script>
 var GEMINI_MODEL = "gemini-2.5-flash";
-var TEMPLATE_VERSION = "1.7.0"; // 🔁 dash-data 임베드·템플릿 버전 (템플릿 내부 TEMPLATE_VERSION과 doGen에서 자동 동기화)
+var TEMPLATE_VERSION = "1.8.0"; // 🔁 dash-data 임베드·템플릿 버전 (템플릿 내부 TEMPLATE_VERSION과 doGen에서 자동 동기화)
 var S = { off:"",sch:"",neis:"",gem:"", ttB64:null,ttMime:"",ttData:null, evB64:null,evMime:"",evData:null, rosterB64:null,rosterMime:"",rosterData:null, extB64:null,extMime:"",extData:null, theme:1,layout:1,skin:"classic",html:"", schoolLat:null,schoolLon:null,schoolName:"" };
 function g(id){return document.getElementById(id);}
 function toggleGuide(t){var b=t.nextElementSibling,a=t.querySelector(".guide-arrow"),o=b.classList.contains("open");b.classList.toggle("open",!o);a.style.transform=o?"":"rotate(180deg)";}
@@ -748,6 +748,32 @@ body[data-skin="water"]:not(.no-fx) .greet-sun{display:inline-block;animation:su
   body[data-skin="water"]:not(.no-fx) .greet-sun{animation:none}
   body:not(.no-fx):not(.editing) .dashboard .card:hover{transform:none}
 }
+
+/* ---------- 🧩 위젯 모드 (v1.8.0) — body.td-widget: 창 투명 + 카드만 떠 있음 ---------- */
+/* 배경 완전 투명 — 스킨별 전면 배경(aqua·water 블롭, focus radial, bento 밝은 배경)까지 전부 제거 */
+body.td-widget{background:transparent!important}
+body.td-widget #app-container{background:transparent}
+body.td-widget .bg-deco{display:none}
+/* 카드 가독성 — 어떤 배경화면 위에서도 잘 보이게 그림자 강화 + 불투명도 살짝 ↑ (반투명 카드는 backdrop-filter 유지) */
+body.td-widget .dashboard .card{box-shadow:0 12px 36px rgba(0,0,0,.42),0 2px 8px rgba(0,0,0,.28)}
+body.td-widget[data-skin="classic"] .dashboard .card{background-image:linear-gradient(var(--card),var(--card))} /* 같은 반투명색 2겹 스택 → 알파만 살짝 상승 */
+body.td-widget[data-skin="water"] .dashboard .card{background-color:rgba(255,255,255,.93)}
+body.td-widget[data-skin="aqua"] .dashboard .card{background-color:rgba(10,13,46,.55)} /* 유리 그라데이션 밑에 어두운 받침층 */
+body.td-widget[data-skin="focus"] .dashboard .card{background-color:rgba(13,31,27,.8);backdrop-filter:blur(10px)} /* .055 흰색으론 벽지 위에서 안 읽힘 */
+/* 📁 빠른 폴더 카드 — 카드 배경을 비우고 점선 존만 남김 → 존 위에 진짜 바탕화면 아이콘을 배치할 수 있다 */
+body.td-widget .dashboard .folder-card{background:transparent!important;background-image:none!important;border-color:transparent!important;box-shadow:none!important;backdrop-filter:none!important}
+body.td-widget .folder-card>.clbl{align-self:flex-start;background:rgba(15,18,30,.55);color:#fff;padding:5px 12px;border-radius:999px;backdrop-filter:blur(6px);margin-bottom:10px}
+body.td-widget .folder-box{background:rgba(127,127,127,.08);border-color:rgba(127,127,127,.55)}
+body.td-widget .folder-box .folder-title{display:inline-flex;align-items:center;gap:4px;align-self:flex-start;background:rgba(15,18,30,.55);color:#fff;font-size:12px;padding:4px 10px;border-radius:999px;backdrop-filter:blur(6px)}
+body.td-widget .folder-box .fb-hint,body.td-widget .folder-box .fb-note{color:rgba(255,255,255,.9);text-shadow:0 1px 4px rgba(0,0,0,.65)}
+/* 런처 아이템이 등록된 박스는 기존 카드처럼 보이게 (런처 기능 유지) */
+body.td-widget .folder-box.fb-has{background:var(--card);border-style:solid;border-color:var(--cb);box-shadow:0 10px 28px rgba(0,0,0,.38);backdrop-filter:blur(12px)}
+body.td-widget .folder-box.fb-has .folder-title{display:block;align-self:auto;background:none;color:var(--ac);font-size:14px;padding:0;border-radius:0;backdrop-filter:none}
+/* 카드 밖으로 나가는 텍스트(수채 인사말)는 배경 칩 처리로 가독성 확보 */
+body.td-widget .skin-greet{background:rgba(255,255,255,.72);border-radius:999px;padding:4px 26px;right:auto;max-width:72%;backdrop-filter:blur(8px);box-shadow:0 6px 20px rgba(0,0,0,.18)}
+/* 🧩 위젯 모드 첫 실행 안내 토스트 (pointer-events:none — 마우스 통과 판정에 안 걸리게) */
+#td-widget-toast{position:fixed;left:50%;bottom:46px;transform:translateX(-50%) translateY(16px);background:rgba(15,18,30,.88);color:#fff;font-size:14px;font-weight:600;font-family:'Noto Sans KR',sans-serif;padding:13px 24px;border-radius:100px;border:1px solid rgba(255,255,255,.22);box-shadow:0 10px 34px rgba(0,0,0,.45);backdrop-filter:blur(10px);z-index:100002;opacity:0;transition:opacity .4s ease,transform .4s ease;pointer-events:none;max-width:86%;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#td-widget-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
 </head>
 <body data-theme="/*TN*/1" data-layout="/*LN*/1" data-skin="/*SKN*/classic">
@@ -1066,6 +1092,7 @@ body[data-skin="water"]:not(.no-fx) .greet-sun{display:inline-block;animation:su
 (function(){
   window.customPrompt = function(msg, onOk) {
     var ov = document.createElement('div');
+    ov.className = 'td-modal'; // 🧩 위젯 모드: 모달 열림 감지용 (열려 있는 동안 화면 전체 인터랙티브)
     ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:999999;display:flex;align-items:center;justify-content:center;';
     var box = document.createElement('div');
     box.style.cssText = 'background:#1a1d2a;color:#f1f5f9;border:1px solid rgba(139,92,246,0.35);border-radius:16px;padding:28px 32px;max-width:380px;width:90%;text-align:center;font-family:"Noto Sans KR",sans-serif;box-shadow:0 20px 60px rgba(0,0,0,0.6);';
@@ -1082,6 +1109,7 @@ body[data-skin="water"]:not(.no-fx) .greet-sun{display:inline-block;animation:su
   };
   window.customConfirm = function(msg, onOk, onCancel) {
     var ov = document.createElement('div');
+    ov.className = 'td-modal'; // 🧩 위젯 모드: 모달 열림 감지용
     ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:999999;display:flex;align-items:center;justify-content:center;';
     var box = document.createElement('div');
     box.style.cssText = 'background:#1a1d2a;color:#f1f5f9;border:1px solid rgba(139,92,246,0.35);border-radius:16px;padding:28px 32px;max-width:360px;width:90%;text-align:center;font-family:"Noto Sans KR",sans-serif;box-shadow:0 20px 60px rgba(0,0,0,0.6);';
@@ -1784,6 +1812,7 @@ function fbEmo(name){var s=String(name||""),d=s.lastIndexOf(".");return (d>0&&s.
 function fxOff(){if(document.body.classList.contains("no-fx"))return true;try{return !!(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches);}catch(e){return false;}}
 function tdNotice(msg){
   var ov=document.createElement("div");
+  ov.className="td-modal"; // 🧩 위젯 모드: 모달 열림 감지용
   ov.style.cssText="position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:999999;display:flex;align-items:center;justify-content:center;";
   var box=document.createElement("div");
   box.style.cssText="background:#1a1d2a;color:#f1f5f9;border:1px solid rgba(139,92,246,0.35);border-radius:16px;padding:26px 30px;max-width:420px;width:90%;text-align:center;font-family:'Noto Sans KR',sans-serif;box-shadow:0 20px 60px rgba(0,0,0,0.6);";
@@ -1800,7 +1829,7 @@ function renderFolders(){
   folders.filter(function(f){return f.name&&f.name.trim();}).forEach(function(f,bi){
     var sz=sm[f.size||"M"], items=map[String(bi)]||[];
     var box=document.createElement("div");
-    box.className="folder-box"+(TD?" fb-live":""); box.setAttribute("data-fidx",String(bi));
+    box.className="folder-box"+(TD?" fb-live":"")+((TD&&items.length)?" fb-has":""); box.setAttribute("data-fidx",String(bi)); // 🧩 fb-has: 위젯 모드에서 '등록된 박스는 기존처럼' 구분용
     box.style.width=sz.w; box.style.minHeight=sz.h;
     var h="<div class='folder-title'>📁 "+escH(f.name)+((TD&&items.length)?"<span class='fb-badge'>"+items.length+"</span>":"")+"</div>";
     if(TD){
@@ -2777,6 +2806,71 @@ function bindEvents(){
   document.addEventListener('drop', function(e){ e.preventDefault(); });
 }
 
+// 🧩 v1.8.0 위젯 모드 — 창은 투명하고 카드만 떠 있음. 빈 영역은 마우스가 바탕화면으로 통과(아이콘 클릭 가능).
+//    앱은 위젯 모드에서 기본 통과(true)로 시작하고 mousemove는 forward로 계속 들어오므로,
+//    렌더러가 커서 아래가 인터랙티브한지 판단해 tdesk.setIgnoreMouse를 토글한다 (상태 변화 시에만 IPC).
+var wmLastFlag=null, wmLastEvt=null, wmMoveTimer=null, wmFileDrag=false, wmDragDepth=0;
+function wmSetIgnore(flag){
+  if(flag===wmLastFlag)return; // 중복 호출 방지 캐시 — 상태가 바뀔 때만 호출
+  var TD=TDA(); if(!TD||typeof TD.setIgnoreMouse!=="function")return;
+  wmLastFlag=flag;
+  try{TD.setIgnoreMouse(flag);}catch(e){}
+}
+function wmIsInteractive(t){
+  if(document.body.classList.contains("editing"))return true; // 편집모드 중엔 화면 전체 인터랙티브
+  if(fanState)return true; // 📁 팬아웃이 펼쳐진 동안엔 전체 (바깥 클릭으로 수납하는 기존 UX 유지)
+  if(document.querySelector(".cfg-page.open,.tt-page.open,.popup-mega.show,.cal-popup.show,.td-modal"))return true; // 오버레이·모달 열림 → 화면 전체
+  if(t&&t.nodeType===3)t=t.parentNode;
+  if(!t||!t.closest)return false;
+  var fc=t.closest(".folder-card");
+  if(fc){ // 📁 폴더 카드: 투명해진 존 내부는 통과(존 위 진짜 아이콘 클릭!), 등록된 박스·제목 칩만 인터랙티브
+    var box=t.closest(".folder-box");
+    if(box){ if(box.classList.contains("fb-has"))return true; return !!t.closest(".folder-title"); }
+    return !!t.closest(".clbl");
+  }
+  if(t.closest(".card"))return true; // 카드 내부 전체
+  return !!t.closest(".top-btns,#signboard-wrap,#edit-toolbar,#folder-fan"); // 상단 버튼·독·전광판·편집툴바·팬아웃
+}
+function wmEval(){
+  if(wmFileDrag){wmSetIgnore(false);return;} // 파일 드래그 중엔 드롭을 받아야 하므로 false 고정
+  if(!wmLastEvt)return;
+  wmSetIgnore(!wmIsInteractive(wmLastEvt.target));
+}
+function startWidgetTracking(){
+  document.addEventListener("mousemove",function(e){
+    wmLastEvt=e;
+    if(wmMoveTimer!==null)return; // ~30ms 스로틀 (trailing)
+    wmMoveTimer=setTimeout(function(){wmMoveTimer=null;wmEval();},30);
+  },true);
+  document.addEventListener("mouseleave",function(){ // 창 밖으로 나가면 통과 복귀
+    if(!wmFileDrag&&!document.body.classList.contains("editing"))wmSetIgnore(true);
+  });
+  // 📁 파일 드래그 진입 → 드롭 받게 즉시 인터랙티브 / 나가면 통과 복귀 / 드롭·종료 후엔 mousemove가 원래 로직으로 재판정
+  document.addEventListener("dragenter",function(){wmDragDepth++;wmFileDrag=true;wmSetIgnore(false);},true);
+  document.addEventListener("dragleave",function(){wmDragDepth=Math.max(0,wmDragDepth-1);if(wmDragDepth===0){wmFileDrag=false;wmSetIgnore(true);}},true);
+  document.addEventListener("drop",function(){wmDragDepth=0;wmFileDrag=false;},true);
+  document.addEventListener("dragend",function(){wmDragDepth=0;wmFileDrag=false;},true);
+}
+function showWidgetTipOnce(){ // 위젯 모드 첫 실행 1회 안내 토스트 (5초 후 사라짐)
+  if(lsGet(getDKey("widget_tip_seen")))return;
+  lsSet(getDKey("widget_tip_seen"),"1");
+  var t=document.createElement("div"); t.id="td-widget-toast";
+  t.textContent="🧩 위젯 모드 — 빈 곳은 바탕화면 그대로, 카드는 바로 클릭! 배치 방식은 트레이 아이콘에서 바꿀 수 있어요";
+  document.body.appendChild(t);
+  setTimeout(function(){t.classList.add("show");},60);
+  setTimeout(function(){t.classList.remove("show");setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);},450);},5000);
+}
+function initWidgetMode(){
+  var TD=TDA(); if(!TD||typeof TD.getMode!=="function")return; // 브라우저/구버전 앱 폴백: 기존 모습 그대로
+  try{
+    TD.getMode().then(function(m){
+      if(m!=="widget")return; // wallpaper/above는 기존 그대로
+      document.body.classList.add("td-widget");
+      startWidgetTracking();
+      showWidgetTipOnce();
+    }).catch(function(){});
+  }catch(e){}
+}
 function renderAll(){renderTT();renderEvents();renderDday();renderMemo();renderFolders();renderTodos();renderPopups();renderDock();renderCal();renderCalCard();}
 function init(){
   // 📅 달력 카드는 v1.4.0부터 기본 표시 (숨김 시드 제거 — 시드 플래그만 기록해 호환 유지)
@@ -2786,6 +2880,7 @@ function init(){
   if(lsGetJ(getDKey("fx"),true)===false){document.body.classList.add("no-fx");}
   else{document.body.classList.add("fx-in");setTimeout(function(){document.body.classList.remove("fx-in");},700);}
   bindEvents();
+  initWidgetMode(); // 🧩 v1.8.0 위젯 모드 감지 → body.td-widget + 마우스 통과 추적 시작
   tick();renderAll();
   fetchWeather();fetchMeal();fetchSignboard(); // 📢 초기 로딩 시 전광판 가져오기
   

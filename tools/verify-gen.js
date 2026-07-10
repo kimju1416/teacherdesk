@@ -90,7 +90,7 @@ console.log('generated dashboard size:', capturedBlob.length);
 // 생성물 검사
 const checks = {
   'dash-data 임베드': /<script id="dash-data" type="application\/json">/.test(capturedBlob),
-  'templateVersion 1.7.0': capturedBlob.includes('"templateVersion":"1.7.0"') || capturedBlob.includes('TEMPLATE_VERSION = "1.7.0"'),
+  'templateVersion 1.8.0': capturedBlob.includes('"templateVersion":"1.8.0"') && capturedBlob.includes('TEMPLATE_VERSION = "1.8.0"'),
   '🔑 API 키 탭': capturedBlob.includes('data-tab="apikey"') && capturedBlob.includes('api-gem-inp') && capturedBlob.includes('api-neis-inp'),
   '🔑 키 헬퍼 일원화': capturedBlob.includes('function getNeisKey()') && capturedBlob.includes('api_gem'),
   '생기부 few-shot 예시': capturedBlob.includes('스크린 플레이') && capturedBlob.includes('그대로 베끼지 말 것'),
@@ -117,7 +117,14 @@ const checks = {
   '📁 열기(openPath)·경로검사(pathExists)': capturedBlob.includes('openPath') && capturedBlob.includes('pathExists') && capturedBlob.includes('경로를 찾을 수 없어요'),
   '📁 아이콘 캐시(getFileIcon)': capturedBlob.includes('getFileIcon'),
   '📁 제거 버튼·설정 목록': capturedBlob.includes('fan-x') && capturedBlob.includes('folder-items-list'),
-  '📁 fx·reduced-motion 존중(fxOff)': capturedBlob.includes('function fxOff()') && capturedBlob.includes('body.no-fx .fan-item')
+  '📁 fx·reduced-motion 존중(fxOff)': capturedBlob.includes('function fxOff()') && capturedBlob.includes('body.no-fx .fan-item'),
+  '🧩 위젯모드 감지(initWidgetMode·getMode)': capturedBlob.includes('function initWidgetMode()') && capturedBlob.includes('TD.getMode()') && capturedBlob.includes('td-widget'),
+  '🧩 위젯모드 투명 CSS(body.td-widget)': capturedBlob.includes('body.td-widget{background:transparent!important}') && capturedBlob.includes('body.td-widget .bg-deco{display:none}'),
+  '🧩 마우스 통과 토글(setIgnoreMouse·중복방지)': capturedBlob.includes('TD.setIgnoreMouse(flag)') && capturedBlob.includes('flag===wmLastFlag'),
+  '🧩 폴더 존 통과·등록박스 유지(fb-has)': capturedBlob.includes('fb-has') && capturedBlob.includes('body.td-widget .folder-box.fb-has'),
+  '🧩 파일 드래그 시 드롭 수신(dragenter→false)': capturedBlob.includes('wmFileDrag=true;wmSetIgnore(false)'),
+  '🧩 위젯 안내 토스트 1회(widget_tip_seen)': capturedBlob.includes('widget_tip_seen') && capturedBlob.includes('td-widget-toast'),
+  '🧩 모달 열림 전체 인터랙티브(td-modal)': capturedBlob.includes('.td-modal') && capturedBlob.includes('.cfg-page.open,.tt-page.open,.popup-mega.show,.cal-popup.show,.td-modal')
 };
 let fail = 0;
 for (const [k, v] of Object.entries(checks)) { console.log((v ? '✅' : '❌'), k); if (!v) fail++; }
