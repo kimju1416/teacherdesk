@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Tray, Menu, screen, shell, dialog, nativeImage, globalShortcut } = require('electron');
+const { app, BrowserWindow, Tray, Menu, screen, shell, dialog, nativeImage, globalShortcut, ipcMain } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const { spawn } = require('child_process');
@@ -100,7 +100,7 @@ function createWindow() {
     show: false,
     backgroundColor: '#0c0e14',
     icon: path.join(__dirname, 'assets', 'icon.png'),
-    webPreferences: { contextIsolation: true, sandbox: true }
+    webPreferences: { contextIsolation: true, sandbox: true, preload: path.join(__dirname, 'preload.js') }
   });
 
   const buf = win.getNativeWindowHandle();
@@ -129,7 +129,12 @@ function createWindow() {
     return { action: 'deny' };
   });
   win.webContents.on('will-navigate', (e, url) => {
-    if (/^https?:/i.test(url)) { e.preventDefault(); shell.openExternal(url); }
+    if (/^https?:/i.test(url)) { e.preventDefault(); shell.openExternal(url); return; }
+    // 파일 드롭 등으로 다른 로컬 파일로 이동하는 것 차단 (우리 파일만 허용)
+    if (/^file:/i.test(url)) {
+      const ok = url.includes('dashboard.html') || url.includes('setup.html');
+      if (!ok) e.preventDefault();
+    }
   });
 
   // 설정 화면의 "기존 대시보드로 돌아가기" 버튼 신호
@@ -270,6 +275,26 @@ async function importBackup() {
   try { fs.copyFileSync(dashPath(), bakPath()); } catch (e) { /* ignore */ }
   pendingLS = payload.localStorage || {};
   loadDashboard();
+}
+
+// ─────────────── 폴더 런처 IPC (진짜 폴더 열기·아이콘) ───────────────
+function registerFolderIpc() {
+  ipcMain.handle('td-open-path', async (e, p) => {
+    if (typeof p !== 'string' || !p.trim()) return 'invalid';
+    // 로컬 경로만 허용 (URL 등 차단)
+    if (/^[a-z]+:\/\//i.test(p) && !/^file:\/\//i.test(p)) return 'blocked';
+    return shell.openPath(p); // 성공 시 '' 반환
+  });
+  ipcMain.handle('td-file-icon', async (e, p) => {
+    if (typeof p !== 'string' || !p.trim()) return null;
+    try {
+      const icon = await app.getFileIcon(p, { size: 'large' });
+      return icon.toDataURL();
+    } catch (err) { return null; }
+  });
+  ipcMain.handle('td-path-exists', (e, p) => {
+    try { return typeof p === 'string' && fs.existsSync(p); } catch (err) { return false; }
+  });
 }
 
 // ─────────────── 원클릭 대시보드 업그레이드 ───────────────
@@ -417,6 +442,7 @@ app.whenReady().then(() => {
     try { fs.copyFileSync(bakPath(), dashPath()); } catch (e) { /* ignore */ }
   }
 
+  registerFolderIpc();
   startPsHelper();
   createWindow();
   createTray();

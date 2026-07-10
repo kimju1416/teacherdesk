@@ -90,7 +90,7 @@ console.log('generated dashboard size:', capturedBlob.length);
 // 생성물 검사
 const checks = {
   'dash-data 임베드': /<script id="dash-data" type="application\/json">/.test(capturedBlob),
-  'templateVersion 1.6.0': capturedBlob.includes('"templateVersion":"1.6.0"') || capturedBlob.includes('TEMPLATE_VERSION = "1.6.0"'),
+  'templateVersion 1.7.0': capturedBlob.includes('"templateVersion":"1.7.0"') || capturedBlob.includes('TEMPLATE_VERSION = "1.7.0"'),
   '🔑 API 키 탭': capturedBlob.includes('data-tab="apikey"') && capturedBlob.includes('api-gem-inp') && capturedBlob.includes('api-neis-inp'),
   '🔑 키 헬퍼 일원화': capturedBlob.includes('function getNeisKey()') && capturedBlob.includes('api_gem'),
   '생기부 few-shot 예시': capturedBlob.includes('스크린 플레이') && capturedBlob.includes('그대로 베끼지 말 것'),
@@ -108,7 +108,16 @@ const checks = {
   '편집모드(edit-btn)': capturedBlob.includes('edit-btn') || capturedBlob.includes('enterEditMode'),
   '떨림수정(transition:none)': capturedBlob.includes('transition:none!important'),
   '플레이스홀더 잔존 없음(TVER)': !capturedBlob.includes('/*TVER*/'),
-  '플레이스홀더 잔존 없음(SKN)': !capturedBlob.includes('/*SKN*/')
+  '플레이스홀더 잔존 없음(SKN)': !capturedBlob.includes('/*SKN*/'),
+  '📁 폴더런처 저장키(folder_items)': capturedBlob.includes('getDKey("folder_items")'),
+  '📁 tdesk 감지·폴백 안내': capturedBlob.includes('window.tdesk') && capturedBlob.includes('TeacherDesk 앱에서는 실제 폴더를 담을 수 있어요'),
+  '📁 드롭 등록(getPathForFile·중복방지)': capturedBlob.includes('getPathForFile') && capturedBlob.includes('handleFolderDrop'),
+  '📁 창 전체 드롭 기본동작 차단': /document\.addEventListener\('drop', function\(e\)\{ e\.preventDefault\(\); \}\);/.test(capturedBlob),
+  '📁 팬아웃 오버레이·스태거': capturedBlob.includes('folder-fan') && capturedBlob.includes('fan-item') && capturedBlob.includes('i*0.03'),
+  '📁 열기(openPath)·경로검사(pathExists)': capturedBlob.includes('openPath') && capturedBlob.includes('pathExists') && capturedBlob.includes('경로를 찾을 수 없어요'),
+  '📁 아이콘 캐시(getFileIcon)': capturedBlob.includes('getFileIcon'),
+  '📁 제거 버튼·설정 목록': capturedBlob.includes('fan-x') && capturedBlob.includes('folder-items-list'),
+  '📁 fx·reduced-motion 존중(fxOff)': capturedBlob.includes('function fxOff()') && capturedBlob.includes('body.no-fx .fan-item')
 };
 let fail = 0;
 for (const [k, v] of Object.entries(checks)) { console.log((v ? '✅' : '❌'), k); if (!v) fail++; }

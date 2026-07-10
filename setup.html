@@ -270,7 +270,7 @@ body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellips
 
 <script>
 var GEMINI_MODEL = "gemini-2.5-flash";
-var TEMPLATE_VERSION = "1.6.0"; // 🔁 dash-data 임베드·템플릿 버전 (템플릿 내부 TEMPLATE_VERSION과 doGen에서 자동 동기화)
+var TEMPLATE_VERSION = "1.7.0"; // 🔁 dash-data 임베드·템플릿 버전 (템플릿 내부 TEMPLATE_VERSION과 doGen에서 자동 동기화)
 var S = { off:"",sch:"",neis:"",gem:"", ttB64:null,ttMime:"",ttData:null, evB64:null,evMime:"",evData:null, rosterB64:null,rosterMime:"",rosterData:null, extB64:null,extMime:"",extData:null, theme:1,layout:1,skin:"classic",html:"", schoolLat:null,schoolLon:null,schoolName:"" };
 function g(id){return document.getElementById(id);}
 function toggleGuide(t){var b=t.nextElementSibling,a=t.querySelector(".guide-arrow"),o=b.classList.contains("open");b.classList.toggle("open",!o);a.style.transform=o?"":"rotate(180deg)";}
@@ -467,6 +467,40 @@ body{margin:0;padding:0;overflow:hidden;width:100vw;height:100vh;background:var(
 .folder-card{display:flex;flex-direction:column;overflow:hidden} .folder-hint-text{font-size:13px;color:var(--ac);font-weight:600;margin-bottom:16px;background:var(--cb);padding:8px 12px;border-radius:8px;text-align:center}
 .folder-zone{display:flex;gap:12px;flex-wrap:wrap;align-content:flex-start;overflow-y:auto;flex:1} .folder-box{border:2px dashed var(--cb);border-radius:var(--br);display:flex;flex-direction:column;gap:6px;padding:16px;transition:var(--tr);background:rgba(255,255,255,0.02)}
 .folder-box:hover{border-color:var(--ac);background:rgba(255,255,255,0.1);box-shadow:0 0 20px var(--cb);transform:translateY(-2px)} .folder-title{font-size:14px;font-weight:700;color:var(--ac);letter-spacing:1px} .folder-hint{font-size:12px;color:var(--tx3);opacity:.8}
+
+/* 📁 v1.7.0 빠른 폴더 런처 — 드롭 등록·아이콘 스택·팬아웃 오버레이 */
+.folder-box{position:relative} .folder-box.fb-live{cursor:pointer}
+.folder-box.fb-dragover{border-color:var(--ac);border-style:solid;background:rgba(255,255,255,0.12);box-shadow:0 0 26px var(--ac);transform:scale(1.03)}
+.folder-box.fb-gulp{transform:scale(0.94)}
+.fb-badge{display:inline-block;margin-left:8px;min-width:20px;text-align:center;background:var(--ac);color:#fff;font-size:11px;font-weight:700;border-radius:10px;padding:1px 7px;vertical-align:middle;letter-spacing:0}
+.fb-hint{font-size:12px;color:var(--tx3);opacity:.75;margin-top:auto;padding-top:8px}
+.fb-note{font-size:11px;color:var(--tx3);opacity:.7;line-height:1.5;margin-top:auto;padding-top:8px}
+.fb-stack{display:flex;align-items:center;margin-top:auto;padding-top:8px}
+.fb-mini{width:30px;height:30px;border-radius:8px;background:var(--bg2);border:1px solid var(--cb);box-shadow:0 2px 6px rgba(0,0,0,.25);object-fit:contain;flex-shrink:0}
+.fb-mini-emo{display:flex;align-items:center;justify-content:center;font-size:16px;line-height:1}
+.fb-mini+.fb-mini{margin-left:-10px}
+.fb-more{font-size:11px;font-weight:700;color:var(--tx2);margin-left:6px}
+.fb-ghost{position:absolute;z-index:99991;font-size:26px;line-height:1;pointer-events:none;opacity:.95;transition:transform .38s cubic-bezier(.5,0,.75,.4),opacity .38s ease}
+#folder-fan{position:absolute;inset:0;z-index:99990;pointer-events:none}
+.fan-item{position:absolute;pointer-events:auto;display:flex;flex-direction:column;align-items:center;gap:5px;padding:9px 6px 7px;border-radius:12px;background:var(--card);border:1px solid var(--cb);box-shadow:0 8px 24px rgba(0,0,0,.35);backdrop-filter:blur(12px);cursor:pointer;transition:transform .3s cubic-bezier(.2,.8,.3,1.12),opacity .3s ease}
+.fan-item:hover{border-color:var(--ac)}
+.fan-item.missing{opacity:.55;filter:grayscale(.85)}
+.fan-ico{position:relative;width:40px;height:40px;display:flex;align-items:center;justify-content:center}
+.fan-ico img{width:36px;height:36px;object-fit:contain}
+.fan-emo{font-size:30px;line-height:1}
+.fan-warn{position:absolute;right:-9px;top:-7px;font-size:13px}
+.fan-nm{font-size:11px;color:var(--tx);max-width:100%;text-align:center;line-height:1.35;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;word-break:break-all}
+.fan-x{position:absolute;top:-8px;left:-8px;width:20px;height:20px;border-radius:50%;border:none;background:#ef4444;color:#fff;font-size:11px;font-weight:700;cursor:pointer;display:none;align-items:center;justify-content:center;line-height:1;padding:0}
+.fan-item:hover .fan-x{display:flex}
+body.no-fx .fan-item,body.no-fx .fb-ghost{transition:none!important}
+@media (prefers-reduced-motion:reduce){.fan-item,.fb-ghost{transition:none!important}}
+/* 설정창 — 박스별 등록 목록 */
+.fi-grp{margin-bottom:12px} .fi-hd{font-size:12px;font-weight:700;color:var(--ac);margin-bottom:6px}
+.fi-empty{font-size:11px;color:var(--tx3);opacity:.7;padding:2px 0 4px}
+.fi-row{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:6px 10px;margin-bottom:6px}
+.fi-row img,.fi-row .fi-emo{width:20px;height:20px;object-fit:contain;flex-shrink:0;font-size:15px;line-height:20px;text-align:center}
+.fi-row b{font-size:12px;color:var(--tx);font-weight:600;flex-shrink:0;max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fi-row i{font-size:11px;color:var(--tx3);font-style:normal;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
 /* 🌟 Dock Styles (상단 고정 전용으로 슬림화) */
 .dock-wrap { display:flex; gap:12px; z-index:99998; transition:all 0.3s; }
@@ -976,7 +1010,7 @@ body[data-skin="water"]:not(.no-fx) .greet-sun{display:inline-block;animation:su
       </div>
       <div class="msec" id="tab-colors"><div class="mf"><label>과목별 배경색 지정</label><div class="sc-grid" id="sc-grid"></div></div></div>
       <div class="msec" id="tab-events"><div class="mf"><label>학사일정 관리</label><div class="dyn-rows" id="event-rows" style="min-height:190px;"></div><div style="display:flex;justify-content:center;align-items:center;gap:15px;margin-top:10px;"><button class="ev-page-btn" id="ev-pg-prev">◀ 이전</button><span id="ev-page-lbl" style="font-size:12px;color:var(--tx2);font-weight:bold;">1 / 1</span><button class="ev-page-btn" id="ev-pg-next">다음 ▶</button></div><button class="btn-add" id="add-event-btn">+ 학사일정 추가</button></div></div>
-      <div class="msec" id="tab-folder"><div class="mf"><label>빠른 폴더 영역 설정</label><div class="dyn-rows" id="folder-rows"></div><button class="btn-add" id="add-folder-btn">+ 바탕화면 폴더 영역 추가</button></div></div>
+      <div class="msec" id="tab-folder"><div class="mf"><label>빠른 폴더 영역 설정</label><div class="dyn-rows" id="folder-rows"></div><button class="btn-add" id="add-folder-btn">+ 바탕화면 폴더 영역 추가</button></div><div class="mf" id="folder-items-sec" style="display:none"><label>📦 박스에 담긴 항목</label><div id="folder-items-list"></div><div style="font-size:11px;color:var(--tx3);margin-top:6px;line-height:1.6;">바탕화면의 폴더 박스에 파일·폴더를 끌어다 놓으면 등록되고, 박스를 클릭하면 펼쳐져요. 여기서 개별 삭제할 수 있습니다.</div></div></div>
       <div class="msec" id="tab-memo"><div class="mf"><label>바탕화면 메모</label><textarea id="m-memo" rows="6" placeholder="메모를 자유롭게 적어두세요."></textarea></div></div>
       <div class="msec" id="tab-dday"><div class="mf"><label>D-Day 관리</label><div class="dyn-rows" id="dday-rows" style="min-height:190px;"></div><div style="display:flex;justify-content:center;align-items:center;gap:15px;margin-top:10px;"><button class="ev-page-btn" id="dd-pg-prev">◀ 이전</button><span id="dd-page-lbl" style="font-size:12px;color:var(--tx2);font-weight:bold;">1 / 1</span><button class="ev-page-btn" id="dd-pg-next">다음 ▶</button></div><button class="btn-add" id="add-dday-btn">+ D-Day 추가</button></div></div>
       <div class="msec" id="tab-roster">
@@ -1741,9 +1775,202 @@ function renderDday(){
   zone.innerHTML=items.map(function(i){if(!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(i.date))return "<div class='dday-chip'><div class='dday-num' style='font-size:18px;letter-spacing:0;'>"+i.date+"</div><div class='dday-lbl'>"+i.label+"</div></div>";var p=i.date.split("-"),d=new Date(parseInt(p[0]),parseInt(p[1])-1,parseInt(p[2]));d.setHours(0,0,0,0);var diff=Math.round((d-n)/864e5),num=diff===0?"D-DAY":diff>0?"D-"+diff:"D+"+Math.abs(diff);return "<div class='dday-chip'><div class='dday-num'>"+num+"</div><div class='dday-lbl'>"+i.label+"</div></div>";}).join("");
 }
 function renderMemo(){g("memo-text").textContent=lsGet("memo")||"바탕화면에 메모를 띄울 수 있습니다.\\n설정(우측 상단 톱니바퀴)에서 내용을 입력하세요.";}
+// 📁 v1.7.0 빠른 폴더 런처 — 탐색기에서 드롭해 담고, 클릭하면 팬아웃으로 펼쳐 여는 진짜 런처
+//    (window.tdesk가 없는 브라우저/Lively 환경에서는 기존 장식 박스 + 안내 문구로 폴백)
+function TDA(){return (typeof window!=="undefined"&&window.tdesk&&window.tdesk.isApp)?window.tdesk:null;}
+function getFolderItems(){var m=lsGetJ(getDKey("folder_items"),{});return (m&&typeof m==="object"&&Object.prototype.toString.call(m)!=="[object Array]")?m:{};}
+function setFolderItems(m){lsSet(getDKey("folder_items"),JSON.stringify(m));}
+function fbEmo(name){var s=String(name||""),d=s.lastIndexOf(".");return (d>0&&s.length-d<=6)?"📄":"📁";}
+function fxOff(){if(document.body.classList.contains("no-fx"))return true;try{return !!(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches);}catch(e){return false;}}
+function tdNotice(msg){
+  var ov=document.createElement("div");
+  ov.style.cssText="position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:999999;display:flex;align-items:center;justify-content:center;";
+  var box=document.createElement("div");
+  box.style.cssText="background:#1a1d2a;color:#f1f5f9;border:1px solid rgba(139,92,246,0.35);border-radius:16px;padding:26px 30px;max-width:420px;width:90%;text-align:center;font-family:'Noto Sans KR',sans-serif;box-shadow:0 20px 60px rgba(0,0,0,0.6);";
+  box.innerHTML="<div style='font-size:14px;line-height:1.7;white-space:pre-line;word-break:break-all;margin-bottom:18px;'>"+String(msg).replace(/</g,"&lt;")+"</div><button class='tdn-ok' style='padding:10px 28px;background:linear-gradient(135deg,#8b5cf6,#6d28d9);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:Noto Sans KR,sans-serif;'>확인</button>";
+  box.querySelector(".tdn-ok").onclick=function(){document.body.removeChild(ov);};
+  ov.onclick=function(e){if(e.target===ov)document.body.removeChild(ov);};
+  ov.appendChild(box); document.body.appendChild(ov);
+}
 function renderFolders(){
   var folders=lsGetJ(getDKey("folders"),[{name:"긴급 (여기에 아이콘 배치)",size:"XL"},{name:"진행중 업무",size:"L"},{name:"나중에 볼 파일",size:"M"}]);var zone=g("folder-zone");if(!zone)return;
-  var sm={S:{w:"140px",h:"100px"},M:{w:"200px",h:"140px"},L:{w:"280px",h:"180px"},XL:{w:"100%",h:"220px"}}; zone.innerHTML=folders.filter(function(f){return f.name&&f.name.trim();}).map(function(f){var sz=sm[f.size||"M"];return "<div class='folder-box' style='width:"+sz.w+";min-height:"+sz.h+"'><div class='folder-title'>📁 "+f.name+"</div></div>";}).join("");
+  var sm={S:{w:"140px",h:"100px"},M:{w:"200px",h:"140px"},L:{w:"280px",h:"180px"},XL:{w:"100%",h:"220px"}};
+  var TD=TDA(), map=getFolderItems();
+  zone.innerHTML="";
+  folders.filter(function(f){return f.name&&f.name.trim();}).forEach(function(f,bi){
+    var sz=sm[f.size||"M"], items=map[String(bi)]||[];
+    var box=document.createElement("div");
+    box.className="folder-box"+(TD?" fb-live":""); box.setAttribute("data-fidx",String(bi));
+    box.style.width=sz.w; box.style.minHeight=sz.h;
+    var h="<div class='folder-title'>📁 "+escH(f.name)+((TD&&items.length)?"<span class='fb-badge'>"+items.length+"</span>":"")+"</div>";
+    if(TD){
+      if(items.length){
+        h+="<div class='fb-stack'>"+items.slice(0,4).map(function(it){return it.icon?"<img class='fb-mini' src='"+it.icon+"' alt=''>":"<span class='fb-mini fb-mini-emo'>"+fbEmo(it.name)+"</span>";}).join("")+(items.length>4?"<span class='fb-more'>+"+(items.length-4)+"</span>":"")+"</div>";
+      }else{
+        h+="<div class='fb-hint'>여기에 폴더를 끌어다 놓으세요</div>";
+      }
+    }else{
+      h+="<div class='fb-note'>💡 TeacherDesk 앱에서는 실제 폴더를 담을 수 있어요</div>";
+    }
+    box.innerHTML=h;
+    if(TD)bindFolderBox(box,bi);
+    zone.appendChild(box);
+  });
+}
+function bindFolderBox(box,bi){
+  box.addEventListener("dragover",function(e){e.preventDefault();e.stopPropagation();box.classList.add("fb-dragover");});
+  box.addEventListener("dragleave",function(e){if(e.relatedTarget&&box.contains(e.relatedTarget))return;box.classList.remove("fb-dragover");});
+  box.addEventListener("drop",function(e){e.preventDefault();e.stopPropagation();box.classList.remove("fb-dragover");handleFolderDrop(e,bi,box);});
+  box.addEventListener("click",function(e){
+    if(document.body.classList.contains("editing"))return; // 편집모드에서는 팬아웃 금지
+    e.stopPropagation();
+    toggleFan(bi,box);
+  });
+}
+function handleFolderDrop(e,bi,box){
+  var TD=TDA(); if(!TD)return;
+  var files=e.dataTransfer&&e.dataTransfer.files; if(!files||!files.length)return;
+  var map=getFolderItems(), key=String(bi), arr=map[key]||[], added=[];
+  for(var i=0;i<files.length;i++){
+    var p=""; try{p=TD.getPathForFile(files[i])||"";}catch(err){p="";}
+    if(!p)continue;
+    var dup=false; for(var j=0;j<arr.length;j++){if(arr[j].path===p){dup=true;break;}}
+    if(dup)continue; // 같은 경로 중복 등록 방지
+    var nm=files[i].name||String(p).split("\\\\").pop()||p;
+    var it={name:nm,path:p,icon:null};
+    arr.push(it); added.push(it);
+  }
+  if(!added.length)return;
+  map[key]=arr; setFolderItems(map);
+  playAbsorb(e,box); // 🫧 쏙 들어가는 애니메이션
+  renderFolders(); renderFolderItemsCfg();
+  // 실제 파일 아이콘은 비동기로 받아와 캐시(저장) 후 다시 그림
+  added.forEach(function(it){
+    try{
+      TD.getFileIcon(it.path).then(function(ic){
+        if(!ic)return;
+        var m2=getFolderItems(), a2=m2[key]||[];
+        for(var k=0;k<a2.length;k++){if(a2[k].path===it.path)a2[k].icon=ic;}
+        m2[key]=a2; setFolderItems(m2); renderFolders(); renderFolderItemsCfg();
+      }).catch(function(){});
+    }catch(err2){}
+  });
+}
+function playAbsorb(e,box){
+  box.classList.add("fb-gulp"); setTimeout(function(){box.classList.remove("fb-gulp");},220);
+  if(fxOff())return;
+  var app=g("app-container"); if(!app)return;
+  var zoom=getZoom(), ar=app.getBoundingClientRect(), br=box.getBoundingClientRect();
+  var x=(e.clientX-ar.left)/zoom, y=(e.clientY-ar.top)/zoom;
+  var cx=(br.left-ar.left+br.width/2)/zoom, cy=(br.top-ar.top+br.height/2)/zoom;
+  var gh=document.createElement("div"); gh.className="fb-ghost"; gh.textContent="📄";
+  gh.style.left=x+"px"; gh.style.top=y+"px";
+  app.appendChild(gh);
+  void gh.offsetWidth; // 강제 리플로우 후 목표 상태로 전환 (rAF는 숨김 탭에서 안 돌아 사용 금지)
+  gh.style.transform="translate("+(cx-x)+"px,"+(cy-y)+"px) scale(0.1)"; gh.style.opacity="0";
+  setTimeout(function(){if(gh.parentNode)gh.parentNode.removeChild(gh);},480);
+}
+// 🌸 팬아웃(펼치기) — 카드 overflow에 안 잘리게 app-container 직속 오버레이 레이어에 렌더
+var fanState=null;
+function toggleFan(bi,box){
+  if(fanState&&fanState.bi===bi){closeFan();return;}
+  if(fanState)closeFan(true);
+  openFan(bi,box);
+}
+function openFan(bi,box){
+  var TD=TDA(); if(!TD)return;
+  var items=getFolderItems()[String(bi)]||[]; if(!items.length)return;
+  var app=g("app-container"); if(!app)return;
+  var zoom=getZoom(), ar=app.getBoundingClientRect(), br=box.getBoundingClientRect();
+  var bx=(br.left-ar.left)/zoom, by=(br.top-ar.top)/zoom, bw=br.width/zoom, bh=br.height/zoom;
+  var cx=bx+bw/2, cy=by+bh/2;
+  var ov=document.createElement("div"); ov.id="folder-fan";
+  ov.addEventListener("click",function(e){e.stopPropagation();});
+  var GW=118, GH=104, n=items.length;
+  var cols=(n===1)?1:Math.max(2,Math.min(4,Math.ceil(Math.sqrt(n))));
+  var rows=Math.ceil(n/cols), stH=getStageH();
+  var sx=bx+bw+18; // 기본: 박스 오른쪽으로 펼침
+  if(sx+cols*GW>1910)sx=bx-18-cols*GW; // 안 되면 왼쪽
+  if(sx<10)sx=Math.max(10,Math.min(1910-cols*GW,cx-cols*GW/2)); // 그래도 안 되면 중앙 클램프
+  var sy=Math.max(10,Math.min(by,stH-14-rows*GH));
+  var anim=!fxOff();
+  items.forEach(function(it,i){
+    var x=sx+(i%cols)*GW, y=sy+Math.floor(i/cols)*GH;
+    var el=document.createElement("div"); el.className="fan-item";
+    el.style.left=x+"px"; el.style.top=y+"px"; el.style.width=(GW-14)+"px";
+    var ico=it.icon?"<img src='"+it.icon+"' alt=''>":"<span class='fan-emo'>"+fbEmo(it.name)+"</span>";
+    el.innerHTML="<button class='fan-x' title='목록에서 제거'>✕</button><div class='fan-ico'>"+ico+"<span class='fan-warn' style='display:none'>⚠️</span></div><div class='fan-nm'>"+escH(it.name)+"</div>";
+    var back="translate("+Math.round(cx-x-(GW-14)/2)+"px,"+Math.round(cy-y-40)+"px) scale(0.15)";
+    el.setAttribute("data-back",back);
+    if(anim){el.style.transitionDelay=(i*0.03)+"s"; el.style.transform=back; el.style.opacity="0";}
+    el.addEventListener("click",function(e2){e2.stopPropagation();openFanItem(it,el);});
+    el.querySelector(".fan-x").addEventListener("click",function(e2){e2.stopPropagation();removeFanItem(bi,it.path);});
+    try{TD.pathExists(it.path).then(function(ok){if(!ok){el.classList.add("missing");el.querySelector(".fan-warn").style.display="";}}).catch(function(){});}catch(err){}
+    ov.appendChild(el);
+  });
+  app.appendChild(ov);
+  fanState={bi:bi,ov:ov};
+  if(anim){
+    void ov.offsetWidth; // 강제 리플로우 — 초기(수납) 상태를 확정한 뒤 목표 상태로 전환 (rAF는 숨김 탭에서 안 돌아 사용 금지)
+    ov.querySelectorAll(".fan-item").forEach(function(el){el.style.transform="";el.style.opacity="";});
+  }
+}
+function closeFan(instant){
+  if(!fanState)return;
+  var ov=fanState.ov; fanState=null;
+  if(instant===true||fxOff()){if(ov.parentNode)ov.parentNode.removeChild(ov);return;}
+  var els=ov.querySelectorAll(".fan-item");
+  for(var i=0;i<els.length;i++){
+    var el=els[i];
+    el.style.transitionDelay=((els.length-1-i)*0.02)+"s";
+    el.style.transform=el.getAttribute("data-back")||"scale(0.15)";
+    el.style.opacity="0"; el.style.pointerEvents="none";
+  }
+  setTimeout(function(){if(ov.parentNode)ov.parentNode.removeChild(ov);},430);
+}
+function openFanItem(it,el){
+  var TD=TDA(); if(!TD)return;
+  try{
+    TD.openPath(it.path).then(function(res){
+      if(res){ // '' 이외 = 실패 (이동/삭제 등)
+        el.classList.add("missing"); var w=el.querySelector(".fan-warn"); if(w)w.style.display="";
+        tdNotice("경로를 찾을 수 없어요 — 이동/삭제됐을 수 있습니다.\\n\\n"+it.path);
+      }
+    }).catch(function(){tdNotice("열기에 실패했어요. 잠시 후 다시 시도해주세요.");});
+  }catch(err){tdNotice("열기에 실패했어요. 잠시 후 다시 시도해주세요.");}
+}
+function removeFanItem(bi,path){
+  var map=getFolderItems(), key=String(bi);
+  map[key]=(map[key]||[]).filter(function(x){return x.path!==path;});
+  setFolderItems(map); renderFolders(); renderFolderItemsCfg();
+  if(fanState&&fanState.bi===bi){
+    closeFan(true);
+    if(map[key].length){var box=document.querySelector(".folder-box[data-fidx='"+key+"']");if(box)openFan(bi,box);}
+  }
+}
+// ⚙️ 설정창 — 박스별 등록 목록 (개별 삭제)
+function renderFolderItemsCfg(){
+  var sec=g("folder-items-sec"), listEl=g("folder-items-list"); if(!sec||!listEl)return;
+  if(!TDA()){sec.style.display="none";return;}
+  sec.style.display="";
+  var folders=lsGetJ(getDKey("folders"),[{name:"긴급 (여기에 아이콘 배치)",size:"XL"},{name:"진행중 업무",size:"L"},{name:"나중에 볼 파일",size:"M"}]).filter(function(f){return f.name&&f.name.trim();});
+  var map=getFolderItems();
+  listEl.innerHTML="";
+  folders.forEach(function(f,bi){
+    var arr=map[String(bi)]||[];
+    var wrap=document.createElement("div"); wrap.className="fi-grp";
+    var hd=document.createElement("div"); hd.className="fi-hd"; hd.textContent="📁 "+f.name+" ("+arr.length+")"; wrap.appendChild(hd);
+    if(!arr.length){var em=document.createElement("div"); em.className="fi-empty"; em.textContent="비어 있음 — 바탕화면 박스에 끌어다 놓으면 등록돼요"; wrap.appendChild(em);}
+    arr.forEach(function(it){
+      var row=document.createElement("div"); row.className="fi-row";
+      row.innerHTML=(it.icon?"<img src='"+it.icon+"' alt=''>":"<span class='fi-emo'>"+fbEmo(it.name)+"</span>")+"<b></b><i></i><button class='del-btn'>✕</button>";
+      row.querySelector("b").textContent=it.name;
+      row.querySelector("i").textContent=it.path; row.querySelector("i").title=it.path;
+      row.querySelector(".del-btn").addEventListener("click",function(){removeFanItem(bi,it.path);});
+      wrap.appendChild(row);
+    });
+    listEl.appendChild(wrap);
+  });
 }
 
 function renderDock() {
@@ -1877,6 +2104,7 @@ function enterEditMode(){
   if(editMode)return;
   if((document.body.getAttribute("data-skin")||"classic")==="focus"){alert("🎯 '오늘 포커스' 스킨은 자체 고정 배치를 사용해서 직접 편집을 지원하지 않아요.\\n설정(⚙️) → 디자인에서 다른 스킨으로 바꾼 뒤 편집해주세요.");return;}
   editMode=true;
+  if(fanState)closeFan(true); // 📁 펼쳐진 폴더 팬아웃은 편집 진입 시 즉시 닫기
   document.body.classList.add("editing"); // ⚡ 카드 transition 차단 + 텍스트 선택 방지 (드래그 떨림 방지 핵심)
   var dash=document.querySelector(".dashboard"), zoom=getZoom(), dr=dash.getBoundingClientRect();
   // 1) 표시 중인 카드들의 현재 위치·크기를 zoom 환산(1920x1080 기준)으로 먼저 모두 캡처
@@ -2140,7 +2368,7 @@ function openCfg(){
   cfgEvts=lsGetJ(getDKey("events"),DEFAULT_EVENTS);evPage=1;cfgDdays=lsGetJ(getDKey("ddays"),[]);ddPage=1;
   var w=lsGetJ("weatherLoc",null);
   if(w&&w.lat){tempWLoc=w;g("w-loc-q").value=w.name;g("w-loc-sel").textContent="현재 고정된 위치: "+w.name;}else{tempWLoc=null;g("w-loc-q").value="";g("w-loc-sel").textContent="현재 고정된 위치: 없음 (자동 모드)";}g("w-loc-res").innerHTML=""; 
-  renderPeriodRows();renderScGrid();renderDdayRowsPaging();renderFolderRows();renderEventRowsPaging();renderFontGrids();renderDockRows();renderWidgetTab();renderCalCfgTab();
+  renderPeriodRows();renderScGrid();renderDdayRowsPaging();renderFolderRows();renderFolderItemsCfg();renderEventRowsPaging();renderFontGrids();renderDockRows();renderWidgetTab();renderCalCfgTab();
   // 🍱 급식 끼니 체크박스 상태 로딩
   var mts=getMealTypes();
   ["1","2","3"].forEach(function(c){var el=g("meal-t-"+c);if(el)el.checked=mts.indexOf(c)>-1;});
@@ -2156,8 +2384,8 @@ function renderEventRowsPaging(){var mP=Math.ceil(cfgEvts.length/evLimit)||1;if(
 function addEventRow(l,dt,idx){var r=document.createElement("div");r.className="dyn-row ev-row";r.innerHTML="<input type='text' placeholder='일정명' value='"+(l||"")+"'><input type='text' placeholder='YYYY-MM-DD' value='"+(dt||"")+"'><button class='del-btn'>✕</button>";var inps=r.querySelectorAll("input");inps[0].addEventListener("input",function(){cfgEvts[idx].title=this.value;});inps[1].addEventListener("input",function(){cfgEvts[idx].date=this.value;});r.querySelector(".del-btn").addEventListener("click",function(){cfgEvts.splice(idx,1);renderEventRowsPaging();});g("event-rows").appendChild(r);}
 function renderDdayRowsPaging(){var mP=Math.ceil(cfgDdays.length/ddLimit)||1;if(ddPage>mP)ddPage=mP;if(ddPage<1)ddPage=1;var st=(ddPage-1)*ddLimit,en=st+ddLimit,sl=cfgDdays.slice(st,en);g("dday-rows").innerHTML="";sl.forEach(function(i,idx){addDdayRow(i.label,i.date,st+idx);});g("dd-page-lbl").textContent=ddPage+" / "+mP;}
 function addDdayRow(l,dt,idx){var r=document.createElement("div");r.className="dyn-row dd-row";r.innerHTML="<input type='text' placeholder='D-Day 이름' value='"+(l||"")+"'><input type='text' placeholder='YYYY-MM-DD' value='"+(dt||"")+"'><button class='del-btn'>✕</button>";var inps=r.querySelectorAll("input");inps[0].addEventListener("input",function(){cfgDdays[idx].label=this.value;});inps[1].addEventListener("input",function(){cfgDdays[idx].date=this.value;});r.querySelector(".del-btn").addEventListener("click",function(){cfgDdays.splice(idx,1);renderDdayRowsPaging();});g("dday-rows").appendChild(r);}
-function renderFolderRows(){var fs=lsGetJ(getDKey("folders"),[{name:"긴급 (여기에 아이콘 배치)",size:"XL"},{name:"진행중 업무",size:"L"},{name:"나중에 볼 파일",size:"M"}]);g("folder-rows").innerHTML="";fs.forEach(function(f){addFolderRow(f.name,f.size);});}
-function addFolderRow(n,sz){var r=document.createElement("div");r.className="dyn-row fr-row";var sH=["S","M","L","XL"].map(function(s){return "<button class='sz-btn"+(s===(sz||"M")?" on":"")+"' data-sz='"+s+"'>"+s+"</button>";}).join("");r.innerHTML="<input type='text' class='fr-nm' placeholder='폴더명' value='"+(n||"")+"'><div class='sz-toggle'>"+sH+"</div><button class='del-btn'>✕</button>";r.querySelectorAll(".sz-btn").forEach(function(btn){btn.addEventListener("click",function(){r.querySelectorAll(".sz-btn").forEach(function(b){b.classList.remove("on");});btn.classList.add("on");});});r.querySelector(".del-btn").addEventListener("click",function(){r.remove();});g("folder-rows").appendChild(r);}
+function renderFolderRows(){var fs=lsGetJ(getDKey("folders"),[{name:"긴급 (여기에 아이콘 배치)",size:"XL"},{name:"진행중 업무",size:"L"},{name:"나중에 볼 파일",size:"M"}]);g("folder-rows").innerHTML="";fs.forEach(function(f,i){addFolderRow(f.name,f.size,i);});}
+function addFolderRow(n,sz,oidx){var r=document.createElement("div");r.className="dyn-row fr-row";if(typeof oidx==="number")r.setAttribute("data-oidx",String(oidx));var sH=["S","M","L","XL"].map(function(s){return "<button class='sz-btn"+(s===(sz||"M")?" on":"")+"' data-sz='"+s+"'>"+s+"</button>";}).join("");r.innerHTML="<input type='text' class='fr-nm' placeholder='폴더명' value='"+(n||"")+"'><div class='sz-toggle'>"+sH+"</div><button class='del-btn'>✕</button>";r.querySelectorAll(".sz-btn").forEach(function(btn){btn.addEventListener("click",function(){r.querySelectorAll(".sz-btn").forEach(function(b){b.classList.remove("on");});btn.classList.add("on");});});r.querySelector(".del-btn").addEventListener("click",function(){r.remove();});g("folder-rows").appendChild(r);}
 function renderFontGrids(){var s=lsGetJ("customFonts",null),d=THEME_FONTS[theme]||THEME_FONTS[1];buildFontGrid(g("font-head-grid"),(s&&s.head)||d.head,function(f){document.documentElement.style.setProperty("--fh","'"+f+"'");});buildFontGrid(g("font-body-grid"),(s&&s.body)||d.body,function(f){document.documentElement.style.setProperty("--fb","'"+f+"'");});}
 function buildFontGrid(c,cur,onP){if(!c)return;c.innerHTML="";FONTS.forEach(function(f){var b=document.createElement("button");b.className="font-btn"+(f.name===cur?" on":"");b.setAttribute("data-font",f.name);b.innerHTML="<div class='font-preview' style='font-family:\\\""+f.name+"\\\",sans-serif'>"+f.preview+"</div><div class='font-name'>"+f.label+"</div>";b.addEventListener("click",function(){c.querySelectorAll(".font-btn").forEach(function(x){x.classList.remove("on");});b.classList.add("on");onP(f.name);});c.appendChild(b);});}
 
@@ -2275,7 +2503,7 @@ function saveCfg(){
   var ps=[];document.querySelectorAll(".pr-row").forEach(function(r){var l=r.querySelector(".pr-lbl").value.trim(),s=r.querySelector(".pr-st").value.trim(),e=r.querySelector(".pr-en").value.trim();if(l)ps.push({label:l,start:s,end:e});}); if(ps.length)lsSet(getDKey("periods"),JSON.stringify(ps));
   var cs={};document.querySelectorAll(".sc-row").forEach(function(r){var l=r.querySelector("label").textContent,b=r.querySelector(".sc-color-btn.on");var c=b?b.getAttribute("data-color"):"#B0C4DE";if(l&&c)cs[l]=c;}); lsSet(getDKey("subj_colors"),JSON.stringify(cs));
   lsSet(getDKey("events"),JSON.stringify(cfgEvts.filter(function(i){return i.title.trim()&&i.date.trim();}))); lsSet(getDKey("ddays"),JSON.stringify(cfgDdays.filter(function(i){return i.label.trim()&&i.date.trim();})));
-  var fs=[];document.querySelectorAll(".fr-row").forEach(function(r){var n=r.querySelector(".fr-nm").value.trim(),b=r.querySelector(".sz-btn.on");if(n)fs.push({name:n,size:b?b.getAttribute("data-sz"):"M"});}); lsSet(getDKey("folders"),JSON.stringify(fs));
+  var fs=[],fiOld=getFolderItems(),fiNew={};document.querySelectorAll(".fr-row").forEach(function(r){var n=r.querySelector(".fr-nm").value.trim(),b=r.querySelector(".sz-btn.on");if(n){var oi=r.getAttribute("data-oidx");if(oi!==null&&fiOld[oi]&&fiOld[oi].length)fiNew[String(fs.length)]=fiOld[oi];fs.push({name:n,size:b?b.getAttribute("data-sz"):"M"});}}); lsSet(getDKey("folders"),JSON.stringify(fs)); setFolderItems(fiNew); // 📁 박스 순서·삭제에 맞춰 등록 항목 인덱스 리매핑
   
   var dk=[]; document.querySelectorAll(".dock-row").forEach(function(r){ var e=r.querySelector(".dk-emo").value.trim(), n=r.querySelector(".dk-nm").value.trim(), u=r.querySelector(".dk-url").value.trim(); if(n && u) dk.push({emo:e, name:n, url:u}); });
   lsSet(getDKey("dockItems"), JSON.stringify(dk));
@@ -2542,7 +2770,11 @@ function bindEvents(){
     document.querySelectorAll('.cal-popup.show, .popup-mega.show').forEach(function(p) {
       p.classList.remove('show');
     });
+    if(fanState)closeFan(); // 📁 바깥 클릭 시 폴더 팬아웃 역방향 수납
   });
+  // 📁 창 전체의 기본 파일 열기(드롭 시 브라우저/웹뷰가 파일을 열어버리는 것) 차단 — 필수
+  document.addEventListener('dragover', function(e){ e.preventDefault(); });
+  document.addEventListener('drop', function(e){ e.preventDefault(); });
 }
 
 function renderAll(){renderTT();renderEvents();renderDday();renderMemo();renderFolders();renderTodos();renderPopups();renderDock();renderCal();renderCalCard();}
